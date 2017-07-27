@@ -38,6 +38,8 @@ SRC_FILES_EXC := \
 # Paths to test header files (.h).
 # In the code paths relative to this path should be provided.
 TEST_INC_DIRS := \
+../utils \
+../../../src \
 ../../../external/Unity/src \
 ../../../external/Unity/extras/fixture/src \
 
@@ -45,11 +47,13 @@ TEST_INC_DIRS := \
 # In these paths source files are searched recursively in the subfolders.
 TEST_SRC_DIRS := \
 ./ \
+../../../src/ \
 ../../../external/Unity/src/ \
 ../../../external/Unity/extras/fixture/src/ \
 
 # Additional test source files to be compiled.
 TEST_SRC_FILES := \
+../utils/utlib_checks.c \
 
 # Test source paths to be excluded from build.
 TEST_SRC_DIRS_EXC := \

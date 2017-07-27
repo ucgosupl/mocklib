@@ -21,4 +21,12 @@ TEST_GROUP_RUNNER(mocks)
     RUN_TEST_CASE(mocks, mode_basic_more_args_no_ret);
     RUN_TEST_CASE(mocks, mode_basic_one_arg_ret);
     RUN_TEST_CASE(mocks, mode_basic_more_args_ret);
+
+    RUN_TEST_CASE(mocks, mode_trace_no_ret_no_args_unexpected);
+    RUN_TEST_CASE(mocks, mode_trace_no_ret_no_args_expect_single_call);
+    RUN_TEST_CASE(mocks, mode_trace_no_ret_no_args_expect_many_calls);
+
+    RUN_TEST_CASE(mocks, mode_trace_no_args_ret_unexpected);
+    RUN_TEST_CASE(mocks, mode_trace_no_args_ret_expect_single_call);
+    RUN_TEST_CASE(mocks, mode_trace_no_args_ret_expect_many_calls);
 }
