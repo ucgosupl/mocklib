@@ -22,26 +22,46 @@
 
 struct dep_module1_dep_no_args_no_ret_params
 {
-    mock_mode_t mode;
+    mocklib_mode_t mode;
     int32_t call_cnt;
 };
 
+/* No internal expdata for function with no arguments and no return value. */
+
 struct dep_module1_dep_no_args_ret_params
 {
-    mock_mode_t mode;
+    mocklib_mode_t mode;
     int32_t call_cnt;
 
     int32_t ret;
 };
 
+struct dep_module1_dep_no_args_ret_expdata_internal
+{
+    int32_t ret;
+};
+
 struct dep_module1_dep_one_arg_no_ret_params
 {
+    mocklib_mode_t mode;
     int32_t call_cnt;
+};
+
+struct dep_module1_dep_one_arg_no_ret_expdata_internal
+{
+    uint16_t arg1;
 };
 
 struct dep_module1_dep_more_args_no_ret_params
 {
+    mocklib_mode_t mode;
     int32_t call_cnt;
+};
+
+struct dep_module1_dep_more_args_no_ret_expdata_internal
+{
+    int32_t arg1;
+    uint8_t arg2;
 };
 
 struct dep_module1_dep_one_arg_ret_params
@@ -76,7 +96,7 @@ void dep_module1_mock_init(void)
     memset(&dep_module1_dep_more_args_ret_params, 0, sizeof(struct dep_module1_dep_more_args_ret_params));
 }
 
-void dep_module1_mock_dep_no_args_no_ret_config(mock_mode_t mode)
+void dep_module1_mock_dep_no_args_no_ret_config(mocklib_mode_t mode)
 {
     dep_module1_dep_no_args_no_ret_params.mode = mode;
 }
@@ -84,6 +104,8 @@ void dep_module1_mock_dep_no_args_no_ret_config(mock_mode_t mode)
 void dep_module1_mock_dep_no_args_no_ret_expect(void)
 {
     mocklib_expdata_t expdata;
+
+    /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
     /* Set funtype */
@@ -103,7 +125,7 @@ void dep_no_args_no_ret(void)
 
     dep_module1_dep_no_args_no_ret_params.call_cnt++;
 
-    if (MOCK_MODE_TRACE == dep_module1_dep_no_args_no_ret_params.mode)
+    if (MOCKLIB_MODE_TRACE == dep_module1_dep_no_args_no_ret_params.mode)
     {
         expdata = mocklib_exp_get();
         if (NULL == expdata)
@@ -113,21 +135,18 @@ void dep_no_args_no_ret(void)
     }
 }
 
-void dep_module1_mock_dep_no_args_ret_config(mock_mode_t mode, int32_t ret)
+void dep_module1_mock_dep_no_args_ret_config(mocklib_mode_t mode, int32_t ret)
 {
     dep_module1_dep_no_args_ret_params.mode = mode;
     dep_module1_dep_no_args_ret_params.ret = ret;
 }
 
-struct dep_module1_dep_no_args_ret_expdata_internal
-{
-    int32_t ret;
-};
-
 void dep_module1_mock_dep_no_args_ret_expect(int32_t ret)
 {
     mocklib_expdata_t expdata;
     struct dep_module1_dep_no_args_ret_expdata_internal *internal;
+
+    /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
     /* Set funtype */
@@ -154,11 +173,11 @@ int32_t dep_no_args_ret(void)
 
     dep_module1_dep_no_args_ret_params.call_cnt++;
 
-    if (MOCK_MODE_BASIC == dep_module1_dep_no_args_ret_params.mode)
+    if (MOCKLIB_MODE_BASIC == dep_module1_dep_no_args_ret_params.mode)
     {
         retval = dep_module1_dep_no_args_ret_params.ret;
     }
-    else if (MOCK_MODE_TRACE == dep_module1_dep_no_args_ret_params.mode)
+    else if (MOCKLIB_MODE_TRACE == dep_module1_dep_no_args_ret_params.mode)
     {
         expdata = mocklib_exp_get();
         if (NULL == expdata)
@@ -179,13 +198,31 @@ int32_t dep_no_args_ret(void)
         //error
     }
 
-    /* Log call order */
     return retval;
 }
 
-void dep_module1_mock_dep_one_arg_no_ret_config(mock_mode_t mode)
+void dep_module1_mock_dep_one_arg_no_ret_config(mocklib_mode_t mode)
 {
+    dep_module1_dep_one_arg_no_ret_params.mode = mode;
+}
 
+void dep_module1_mock_dep_one_arg_no_ret_expect(uint16_t arg1)
+{
+    mocklib_expdata_t expdata;
+    struct dep_module1_dep_one_arg_no_ret_expdata_internal *internal;
+
+    /* Only in mode trace */
+
+    expdata = mocklib_expdata_create();
+    /* Set funtype */
+
+    /* Set expected function call parameters */
+    internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_one_arg_no_ret_expdata_internal));
+    internal->arg1 = arg1;
+    mocklib_expdata_internal_set(expdata, internal);
+
+    //todo: null check - is it necessary since null is checked in function under test?
+    mocklib_exp_set(expdata);
 }
 
 int32_t dep_module1_mock_dep_one_arg_no_ret_cnt_get(void)
@@ -195,14 +232,52 @@ int32_t dep_module1_mock_dep_one_arg_no_ret_cnt_get(void)
 
 void dep_one_arg_no_ret(uint16_t arg1)
 {
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_one_arg_no_ret_expdata_internal *internal;
+
     dep_module1_dep_one_arg_no_ret_params.call_cnt++;
-    /* Log call order */
-    /* Save arg1 */
+
+    if (MOCKLIB_MODE_TRACE == dep_module1_dep_one_arg_no_ret_params.mode)
+    {
+        expdata = mocklib_exp_get();
+        if (NULL == expdata)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        internal = mocklib_expdata_internal_get(expdata);
+        if (NULL == internal)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
+    }
 }
 
-void dep_module1_mock_dep_more_args_no_ret_config(mock_mode_t mode)
+void dep_module1_mock_dep_more_args_no_ret_config(mocklib_mode_t mode)
 {
+    dep_module1_dep_more_args_no_ret_params.mode = mode;
+}
 
+void dep_module1_mock_dep_more_args_no_ret_expect(int32_t arg1, uint8_t arg2)
+{
+    mocklib_expdata_t expdata;
+    struct dep_module1_dep_more_args_no_ret_expdata_internal *internal;
+
+    /* Only in mode trace */
+
+    expdata = mocklib_expdata_create();
+    /* Set funtype */
+
+    /* Set expected function call parameters */
+    internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_more_args_no_ret_expdata_internal));
+    internal->arg1 = arg1;
+    internal->arg2 = arg2;
+    mocklib_expdata_internal_set(expdata, internal);
+
+    //todo: null check - is it necessary since null is checked in function under test?
+    mocklib_exp_set(expdata);
 }
 
 int32_t dep_module1_mock_dep_more_args_no_ret_cnt_get(void)
@@ -212,13 +287,31 @@ int32_t dep_module1_mock_dep_more_args_no_ret_cnt_get(void)
 
 void dep_more_args_no_ret(int32_t arg1, uint8_t arg2)
 {
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_more_args_no_ret_expdata_internal *internal;
+
     dep_module1_dep_more_args_no_ret_params.call_cnt++;
-    /* Log call order */
-    /* Save arg1 */
-    /* Save arg2 */
+
+    if (MOCKLIB_MODE_TRACE == dep_module1_dep_more_args_no_ret_params.mode)
+    {
+        expdata = mocklib_exp_get();
+        if (NULL == expdata)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        internal = mocklib_expdata_internal_get(expdata);
+        if (NULL == internal)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
+        UTLIB_ASSERT_EQUAL(internal->arg2, arg2);
+    }
 }
 
-void dep_module1_mock_dep_one_arg_ret_config(mock_mode_t mode, uint32_t ret)
+void dep_module1_mock_dep_one_arg_ret_config(mocklib_mode_t mode, uint32_t ret)
 {
     dep_module1_dep_one_arg_ret_params.ret = ret;
 }
@@ -232,11 +325,11 @@ uint32_t dep_one_arg_ret(uint32_t arg1)
 {
     dep_module1_dep_one_arg_ret_params.call_cnt++;
     /* Log call order */
-    /* Save arg1 */
+    /* Check arg1 */
     return dep_module1_dep_one_arg_ret_params.ret;
 }
 
-void dep_module1_mock_dep_more_args_ret_config(mock_mode_t mode, int8_t ret)
+void dep_module1_mock_dep_more_args_ret_config(mocklib_mode_t mode, int8_t ret)
 {
     dep_module1_dep_more_args_ret_params.ret = ret;
 }
@@ -250,7 +343,7 @@ int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
 {
     dep_module1_dep_more_args_ret_params.call_cnt++;
     /* Log call order */
-    /* Save arg1 */
-    /* Save arg2 */
+    /* Check arg1 */
+    /* Check arg2 */
     return dep_module1_dep_more_args_ret_params.ret;
 }

@@ -9,6 +9,24 @@
 #ifndef _MOCKLIB_H_
 #define _MOCKLIB_H_
 
+enum
+{
+    /*
+     * Call count is updated
+     * No argument check
+     * Always the same value returned
+     */
+    MOCKLIB_MODE_BASIC,
+
+    /*
+     * Call count is updated
+     * Arguments checked for every call
+     * Other value returned for every call
+     */
+    MOCKLIB_MODE_TRACE,
+};
+
+typedef int32_t mocklib_mode_t;
 typedef int32_t mocklib_funtype_t;
 typedef struct expfun_record * mocklib_expdata_t;
 

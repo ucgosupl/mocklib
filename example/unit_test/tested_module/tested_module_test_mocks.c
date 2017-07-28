@@ -25,6 +25,7 @@ TEST_SETUP(mocks)
     dep_module1_mock_init();
 
     utlib_test_fail_msg_init(NULL);
+    utlib_assert_equal_init(0);
 }
 
 TEST_TEAR_DOWN(mocks)
@@ -34,7 +35,7 @@ TEST_TEAR_DOWN(mocks)
 
 TEST(mocks, mode_basic_no_args_no_ret)
 {
-    dep_module1_mock_dep_no_args_no_ret_config(MOCK_MODE_BASIC);
+    dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_BASIC);
 
     dep_no_args_no_ret();
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_no_args_no_ret_cnt_get());
@@ -48,13 +49,13 @@ TEST(mocks, mode_basic_no_args_ret)
     int32_t retval;
 
     retval = 5;
-    dep_module1_mock_dep_no_args_ret_config(MOCK_MODE_BASIC, retval);
+    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_BASIC, retval);
 
     TEST_ASSERT_EQUAL(retval, dep_no_args_ret());
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_no_args_ret_cnt_get());
 
     retval = 15;
-    dep_module1_mock_dep_no_args_ret_config(MOCK_MODE_BASIC, retval);
+    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_BASIC, retval);
 
     TEST_ASSERT_EQUAL(retval, dep_no_args_ret());
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_no_args_ret_cnt_get());
@@ -65,7 +66,7 @@ TEST(mocks, mode_basic_one_arg_no_ret)
     uint16_t arg1;
 
     arg1 = 20;
-    dep_module1_mock_dep_one_arg_no_ret_config(MOCK_MODE_BASIC);
+    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_BASIC);
 
     dep_one_arg_no_ret(arg1);
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
@@ -81,7 +82,7 @@ TEST(mocks, mode_basic_more_args_no_ret)
 
     arg1 = 10;
     arg2 = 15;
-    dep_module1_mock_dep_more_args_no_ret_config(MOCK_MODE_BASIC);
+    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_BASIC);
 
     dep_more_args_no_ret(arg1, arg2);
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_more_args_no_ret_cnt_get());
@@ -97,13 +98,13 @@ TEST(mocks, mode_basic_one_arg_ret)
 
     retval = 5;
     arg1 = 10;
-    dep_module1_mock_dep_one_arg_ret_config(MOCK_MODE_BASIC, retval);
+    dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_BASIC, retval);
 
     TEST_ASSERT_EQUAL(retval, dep_one_arg_ret(arg1));
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_one_arg_ret_cnt_get());
 
     retval = 15;
-    dep_module1_mock_dep_one_arg_ret_config(MOCK_MODE_BASIC, retval);
+    dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_BASIC, retval);
 
     TEST_ASSERT_EQUAL(retval, dep_one_arg_ret(arg1));
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_one_arg_ret_cnt_get());
@@ -118,13 +119,13 @@ TEST(mocks, mode_basic_more_args_ret)
     retval = 5;
     arg1 = 1;
     arg2 = 2;
-    dep_module1_mock_dep_more_args_ret_config(MOCK_MODE_BASIC, retval);
+    dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_BASIC, retval);
 
     TEST_ASSERT_EQUAL(retval, dep_more_args_ret(arg1, arg2));
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_more_args_ret_cnt_get());
 
     retval = 15;
-    dep_module1_mock_dep_more_args_ret_config(MOCK_MODE_BASIC, retval);
+    dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_BASIC, retval);
 
     TEST_ASSERT_EQUAL(retval, dep_more_args_ret(arg1, arg2));
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_more_args_ret_cnt_get());
@@ -132,7 +133,7 @@ TEST(mocks, mode_basic_more_args_ret)
 
 TEST(mocks, mode_trace_no_ret_no_args_unexpected)
 {
-    dep_module1_mock_dep_no_args_no_ret_config(MOCK_MODE_TRACE);
+    dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     utlib_test_fail_msg_init("Unexpected call to function");
 
     dep_no_args_no_ret();
@@ -143,7 +144,7 @@ TEST(mocks, mode_trace_no_ret_no_args_unexpected)
 TEST(mocks, mode_trace_no_ret_no_args_expect_single_call)
 {
     /* Config mock to expect single call */
-    dep_module1_mock_dep_no_args_no_ret_config(MOCK_MODE_TRACE);
+    dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     dep_module1_mock_dep_no_args_no_ret_expect();
 
     dep_no_args_no_ret();
@@ -166,7 +167,7 @@ TEST(mocks, mode_trace_no_ret_no_args_expect_many_calls)
 
     /* Config mock to expect call_cnt calls */
     call_cnt = 3;
-    dep_module1_mock_dep_no_args_no_ret_config(MOCK_MODE_TRACE);
+    dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     for (i = 0; i < call_cnt; i++)
     {
         dep_module1_mock_dep_no_args_no_ret_expect();
@@ -194,7 +195,7 @@ TEST(mocks, mode_trace_no_args_ret_unexpected)
     int32_t ret;
 
     ret = 15;
-    dep_module1_mock_dep_no_args_ret_config(MOCK_MODE_TRACE, ret);
+    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_TRACE, ret);
     utlib_test_fail_msg_init("Unexpected call to function");
 
     dep_no_args_ret();
@@ -208,7 +209,7 @@ TEST(mocks, mode_trace_no_args_ret_expect_single_call)
 
     /* Config mock to expect single call */
     ret = 15;
-    dep_module1_mock_dep_no_args_ret_config(MOCK_MODE_TRACE, 0);
+    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_TRACE, 0);
     dep_module1_mock_dep_no_args_ret_expect(ret);
 
     /* Confirm that function returns expected value */
@@ -229,7 +230,7 @@ TEST(mocks, mode_trace_no_args_ret_expect_many_calls)
 
     /* Config mock to expect call_cnt calls */
     call_cnt = 3;
-    dep_module1_mock_dep_no_args_ret_config(MOCK_MODE_TRACE, 0);
+    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_TRACE, 0);
     for (i = 0; i < call_cnt; i++)
     {
         dep_module1_mock_dep_no_args_ret_expect(i);
@@ -245,6 +246,198 @@ TEST(mocks, mode_trace_no_args_ret_expect_many_calls)
     utlib_test_fail_msg_init("Unexpected call to function");
 
     dep_no_args_ret();
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_one_arg_no_ret_unexpected)
+{
+    uint16_t arg1;
+
+    arg1 = 5;
+    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_TRACE);
+    utlib_test_fail_msg_init("Unexpected call to function");
+
+    dep_one_arg_no_ret(arg1);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_one_arg_no_ret_expect_single_call)
+{
+    uint16_t arg1;
+
+    /* Config mock to expect single call */
+    arg1 = 5;
+    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_TRACE);
+    dep_module1_mock_dep_one_arg_no_ret_expect(arg1);
+
+    dep_one_arg_no_ret(arg1);
+
+    /* Confirm that function was called */
+    TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
+
+    /* Expect mock to call test fail on next call */
+    utlib_test_fail_msg_init("Unexpected call to function");
+
+    dep_one_arg_no_ret(arg1);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_one_arg_no_ret_expect_many_calls)
+{
+    uint16_t arg1;
+    int32_t call_cnt;
+    int32_t i;
+
+    /* Config mock to expect call_cnt calls */
+    arg1 = 5;
+    call_cnt = 3;
+    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_TRACE);
+    for (i = 0; i < call_cnt; i++)
+    {
+        dep_module1_mock_dep_one_arg_no_ret_expect(arg1 * (i + 1));
+    }
+
+    /* Call function expected number of times */
+    for (i = 0; i < call_cnt; i++)
+    {
+        dep_one_arg_no_ret(arg1 * (i + 1));
+    }
+
+    /* Confirm that function was called */
+    TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
+
+    /* Expect mock to call test fail on next call */
+    utlib_test_fail_msg_init("Unexpected call to function");
+
+    dep_one_arg_no_ret(arg1);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_one_arg_no_ret_wrong_arg1)
+{
+    uint16_t arg1;
+
+    arg1 = 5;
+    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_TRACE);
+    dep_module1_mock_dep_one_arg_no_ret_expect(arg1);
+
+    /* Expect assert equal to fail on first call */
+    utlib_assert_equal_init(1);
+
+    dep_one_arg_no_ret(arg1 + 5);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_more_args_no_ret_unexpected)
+{
+    int32_t arg1;
+    uint8_t arg2;
+
+    arg1 = 5;
+    arg2 = 10;
+    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_TRACE);
+    utlib_test_fail_msg_init("Unexpected call to function");
+
+    dep_more_args_no_ret(arg1, arg2);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_more_args_no_ret_expect_single_call)
+{
+    int32_t arg1;
+    uint8_t arg2;
+
+    /* Config mock to expect single call */
+    arg1 = 5;
+    arg2 = 10;
+    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_TRACE);
+    dep_module1_mock_dep_more_args_no_ret_expect(arg1, arg2);
+
+    dep_more_args_no_ret(arg1, arg2);
+
+    /* Confirm that function was called */
+    TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_more_args_no_ret_cnt_get());
+
+    /* Expect mock to call test fail on next call */
+    utlib_test_fail_msg_init("Unexpected call to function");
+
+    dep_more_args_no_ret(arg1, arg2);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_more_args_no_ret_expect_many_calls)
+{
+    int32_t arg1;
+    uint8_t arg2;
+    int32_t call_cnt;
+    int32_t i;
+
+    /* Config mock to expect call_cnt calls */
+    arg1 = 5;
+    arg2 = 10;
+    call_cnt = 3;
+    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_TRACE);
+    for (i = 0; i < call_cnt; i++)
+    {
+        dep_module1_mock_dep_more_args_no_ret_expect(arg1 * (i + 1), arg2 * (i + 1));
+    }
+
+    /* Call function expected number of times */
+    for (i = 0; i < call_cnt; i++)
+    {
+        dep_more_args_no_ret(arg1 * (i + 1), arg2 * (i + 1));
+    }
+
+    /* Confirm that function was called */
+    TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_more_args_no_ret_cnt_get());
+
+    /* Expect mock to call test fail on next call */
+    utlib_test_fail_msg_init("Unexpected call to function");
+
+    dep_more_args_no_ret(arg1, arg2);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_more_args_no_ret_wrong_arg1)
+{
+    int32_t arg1;
+    uint8_t arg2;
+
+    arg1 = 5;
+    arg2 = 10;
+    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_TRACE);
+    dep_module1_mock_dep_more_args_no_ret_expect(arg1, arg2);
+
+    /* Expect assert equal to fail on first call */
+    utlib_assert_equal_init(1);
+
+    dep_more_args_no_ret(arg1 + 5, arg2);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_trace_more_args_no_ret_wrong_arg2)
+{
+    int32_t arg1;
+    uint8_t arg2;
+
+    arg1 = 5;
+    arg2 = 10;
+    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_TRACE);
+    dep_module1_mock_dep_more_args_no_ret_expect(arg1, arg2);
+
+    /* Expect assert equal to fail on second call - first call for correct arg1 */
+    utlib_assert_equal_init(2);
+
+    dep_more_args_no_ret(arg1, arg2 + 5);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }

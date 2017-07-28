@@ -10,6 +10,7 @@
 #define _UTLIB_DEFINES_H_
 
 #include "utlib_checks.h"
-#define UTLIB_TEST_FAIL_MSG(msg)    utlib_test_fail_msg_check(msg)
+#define UTLIB_TEST_FAIL_MSG(msg)                utlib_test_fail_msg_check(msg)
+#define UTLIB_ASSERT_EQUAL(actual, expected)    utlib_assert_equal(actual, expected)
 
 #endif /* _UTLIB_DEFINES_H_ */
