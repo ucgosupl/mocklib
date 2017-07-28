@@ -134,7 +134,7 @@ TEST(mocks, mode_basic_more_args_ret)
 TEST(mocks, mode_trace_no_ret_no_args_unexpected)
 {
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_no_ret();
 
@@ -153,7 +153,7 @@ TEST(mocks, mode_trace_no_ret_no_args_expect_single_call)
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_no_args_no_ret_cnt_get());
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_no_ret();
 
@@ -183,7 +183,7 @@ TEST(mocks, mode_trace_no_ret_no_args_expect_many_calls)
     TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_no_args_no_ret_cnt_get());
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_no_ret();
 
@@ -196,7 +196,7 @@ TEST(mocks, mode_trace_no_args_ret_unexpected)
 
     ret = 13;
     dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_TRACE, ret);
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_ret();
 
@@ -216,7 +216,7 @@ TEST(mocks, mode_trace_no_args_ret_expect_single_call)
     TEST_ASSERT_EQUAL(ret, dep_no_args_ret());
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_ret();
 
@@ -245,7 +245,7 @@ TEST(mocks, mode_trace_no_args_ret_expect_many_calls)
     }
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_ret();
 
@@ -258,7 +258,7 @@ TEST(mocks, mode_trace_one_arg_no_ret_unexpected)
 
     arg1 = 16;
     dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_TRACE);
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_no_ret(arg1);
 
@@ -280,7 +280,7 @@ TEST(mocks, mode_trace_one_arg_no_ret_expect_single_call)
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_no_ret(arg1);
 
@@ -312,7 +312,7 @@ TEST(mocks, mode_trace_one_arg_no_ret_expect_many_calls)
     TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_no_ret(arg1);
 
@@ -343,7 +343,7 @@ TEST(mocks, mode_trace_more_args_no_ret_unexpected)
     arg1 = 20;
     arg2 = 21;
     dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_TRACE);
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_no_ret(arg1, arg2);
 
@@ -367,7 +367,7 @@ TEST(mocks, mode_trace_more_args_no_ret_expect_single_call)
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_more_args_no_ret_cnt_get());
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_no_ret(arg1, arg2);
 
@@ -401,7 +401,7 @@ TEST(mocks, mode_trace_more_args_no_ret_expect_many_calls)
     TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_more_args_no_ret_cnt_get());
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_no_ret(arg1, arg2);
 
@@ -450,7 +450,7 @@ TEST(mocks, mode_trace_one_arg_ret_unexpected)
 
     arg1 = 30;
     dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_TRACE, 0);
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_ret(arg1);
 
@@ -472,7 +472,7 @@ TEST(mocks, mode_trace_one_arg_ret_expect_single_call)
     TEST_ASSERT_EQUAL(ret, dep_one_arg_ret(arg1));
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_ret(arg1);
 
@@ -503,7 +503,7 @@ TEST(mocks, mode_trace_one_arg_ret_expect_many_calls)
     }
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_ret(arg1);
 
@@ -536,7 +536,7 @@ TEST(mocks, mode_trace_more_args_ret_unexpected)
     arg1 = 37;
     arg2 = 38;
     dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_TRACE, 0);
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_ret(arg1, arg2);
 
@@ -560,7 +560,7 @@ TEST(mocks, mode_trace_more_args_ret_expect_single_call)
     TEST_ASSERT_EQUAL(ret, dep_more_args_ret(arg1, arg2));
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_ret(arg1, arg2);
 
@@ -593,7 +593,7 @@ TEST(mocks, mode_trace_more_args_ret_expect_many_calls)
     }
 
     /* Expect mock to call test fail on next call */
-    utlib_test_fail_msg_init("Unexpected call to function");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_ret(arg1, arg2);
 
