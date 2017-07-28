@@ -66,14 +66,31 @@ struct dep_module1_dep_more_args_no_ret_expdata_internal
 
 struct dep_module1_dep_one_arg_ret_params
 {
+    mocklib_mode_t mode;
     int32_t call_cnt;
+
+    uint32_t ret;
+};
+
+struct dep_module1_dep_one_arg_ret_expdata_internal
+{
+    uint32_t arg1;
 
     uint32_t ret;
 };
 
 struct dep_module1_dep_more_args_ret_params
 {
+    mocklib_mode_t mode;
     int32_t call_cnt;
+
+    int8_t ret;
+};
+
+struct dep_module1_dep_more_args_ret_expdata_internal
+{
+    int8_t arg1;
+    int16_t arg2;
 
     int8_t ret;
 };
@@ -103,7 +120,7 @@ void dep_module1_mock_dep_no_args_no_ret_config(mocklib_mode_t mode)
 
 void dep_module1_mock_dep_no_args_no_ret_expect(void)
 {
-    mocklib_expdata_t expdata;
+    mocklib_expdata_t expdata = NULL;
 
     /* Only in mode trace */
 
@@ -143,8 +160,8 @@ void dep_module1_mock_dep_no_args_ret_config(mocklib_mode_t mode, int32_t ret)
 
 void dep_module1_mock_dep_no_args_ret_expect(int32_t ret)
 {
-    mocklib_expdata_t expdata;
-    struct dep_module1_dep_no_args_ret_expdata_internal *internal;
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_no_args_ret_expdata_internal *internal = NULL;
 
     /* Only in mode trace */
 
@@ -168,8 +185,8 @@ int32_t dep_module1_mock_dep_no_args_ret_cnt_get(void)
 int32_t dep_no_args_ret(void)
 {
     int32_t retval;
-    mocklib_expdata_t expdata;
-    struct dep_module1_dep_no_args_ret_expdata_internal *internal;
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_no_args_ret_expdata_internal *internal = NULL;
 
     dep_module1_dep_no_args_ret_params.call_cnt++;
 
@@ -208,8 +225,8 @@ void dep_module1_mock_dep_one_arg_no_ret_config(mocklib_mode_t mode)
 
 void dep_module1_mock_dep_one_arg_no_ret_expect(uint16_t arg1)
 {
-    mocklib_expdata_t expdata;
-    struct dep_module1_dep_one_arg_no_ret_expdata_internal *internal;
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_one_arg_no_ret_expdata_internal *internal = NULL;
 
     /* Only in mode trace */
 
@@ -233,7 +250,7 @@ int32_t dep_module1_mock_dep_one_arg_no_ret_cnt_get(void)
 void dep_one_arg_no_ret(uint16_t arg1)
 {
     mocklib_expdata_t expdata = NULL;
-    struct dep_module1_dep_one_arg_no_ret_expdata_internal *internal;
+    struct dep_module1_dep_one_arg_no_ret_expdata_internal *internal = NULL;
 
     dep_module1_dep_one_arg_no_ret_params.call_cnt++;
 
@@ -262,8 +279,8 @@ void dep_module1_mock_dep_more_args_no_ret_config(mocklib_mode_t mode)
 
 void dep_module1_mock_dep_more_args_no_ret_expect(int32_t arg1, uint8_t arg2)
 {
-    mocklib_expdata_t expdata;
-    struct dep_module1_dep_more_args_no_ret_expdata_internal *internal;
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_more_args_no_ret_expdata_internal *internal = NULL;
 
     /* Only in mode trace */
 
@@ -288,7 +305,7 @@ int32_t dep_module1_mock_dep_more_args_no_ret_cnt_get(void)
 void dep_more_args_no_ret(int32_t arg1, uint8_t arg2)
 {
     mocklib_expdata_t expdata = NULL;
-    struct dep_module1_dep_more_args_no_ret_expdata_internal *internal;
+    struct dep_module1_dep_more_args_no_ret_expdata_internal *internal = NULL;
 
     dep_module1_dep_more_args_no_ret_params.call_cnt++;
 
@@ -313,7 +330,28 @@ void dep_more_args_no_ret(int32_t arg1, uint8_t arg2)
 
 void dep_module1_mock_dep_one_arg_ret_config(mocklib_mode_t mode, uint32_t ret)
 {
+    dep_module1_dep_one_arg_ret_params.mode = mode;
     dep_module1_dep_one_arg_ret_params.ret = ret;
+}
+
+void dep_module1_mock_dep_one_arg_ret_expect(uint32_t arg1, uint32_t ret)
+{
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_one_arg_ret_expdata_internal *internal = NULL;
+
+    /* Only in mode trace */
+
+    expdata = mocklib_expdata_create();
+    /* Set funtype */
+
+    /* Set expected function call parameters */
+    internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_one_arg_ret_expdata_internal));
+    internal->arg1 = arg1;
+    internal->ret = ret;
+    mocklib_expdata_internal_set(expdata, internal);
+
+    //todo: null check - is it necessary since null is checked in function under test?
+    mocklib_exp_set(expdata);
 }
 
 int32_t dep_module1_mock_dep_one_arg_ret_cnt_get(void)
@@ -323,15 +361,66 @@ int32_t dep_module1_mock_dep_one_arg_ret_cnt_get(void)
 
 uint32_t dep_one_arg_ret(uint32_t arg1)
 {
+    uint32_t retval;
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_one_arg_ret_expdata_internal *internal = NULL;
+
     dep_module1_dep_one_arg_ret_params.call_cnt++;
-    /* Log call order */
-    /* Check arg1 */
-    return dep_module1_dep_one_arg_ret_params.ret;
+
+    if (MOCKLIB_MODE_BASIC == dep_module1_dep_one_arg_ret_params.mode)
+    {
+        retval = dep_module1_dep_one_arg_ret_params.ret;
+    }
+    else if (MOCKLIB_MODE_TRACE == dep_module1_dep_one_arg_ret_params.mode)
+    {
+        expdata = mocklib_exp_get();
+        if (NULL == expdata)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        internal = mocklib_expdata_internal_get(expdata);
+        if (NULL == internal)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
+        retval = internal->ret;
+    }
+    else
+    {
+        //error
+    }
+
+    return retval;
 }
 
 void dep_module1_mock_dep_more_args_ret_config(mocklib_mode_t mode, int8_t ret)
 {
+    dep_module1_dep_more_args_ret_params.mode = mode;
     dep_module1_dep_more_args_ret_params.ret = ret;
+}
+
+void dep_module1_mock_dep_more_args_ret_expect(int8_t arg1, int16_t arg2, uint32_t ret)
+{
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_more_args_ret_expdata_internal *internal = NULL;
+
+    /* Only in mode trace */
+
+    expdata = mocklib_expdata_create();
+    /* Set funtype */
+
+    /* Set expected function call parameters */
+    internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_more_args_ret_expdata_internal));
+    internal->arg1 = arg1;
+    internal->arg2 = arg2;
+    internal->ret = ret;
+    mocklib_expdata_internal_set(expdata, internal);
+
+    //todo: null check - is it necessary since null is checked in function under test?
+    mocklib_exp_set(expdata);
 }
 
 int32_t dep_module1_mock_dep_more_args_ret_cnt_get(void)
@@ -341,9 +430,34 @@ int32_t dep_module1_mock_dep_more_args_ret_cnt_get(void)
 
 int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
 {
+    uint32_t retval;
+    mocklib_expdata_t expdata = NULL;
+    struct dep_module1_dep_more_args_ret_expdata_internal *internal = NULL;
+
     dep_module1_dep_more_args_ret_params.call_cnt++;
-    /* Log call order */
-    /* Check arg1 */
-    /* Check arg2 */
-    return dep_module1_dep_more_args_ret_params.ret;
+
+    if (MOCKLIB_MODE_BASIC == dep_module1_dep_more_args_ret_params.mode)
+    {
+        retval = dep_module1_dep_more_args_ret_params.ret;
+    }
+    else if (MOCKLIB_MODE_TRACE == dep_module1_dep_more_args_ret_params.mode)
+    {
+        expdata = mocklib_exp_get();
+        if (NULL == expdata)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        internal = mocklib_expdata_internal_get(expdata);
+        if (NULL == internal)
+        {
+            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+        }
+
+        UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
+        UTLIB_ASSERT_EQUAL(internal->arg2, arg2);
+        retval = internal->ret;
+    }
+
+    return retval;
 }

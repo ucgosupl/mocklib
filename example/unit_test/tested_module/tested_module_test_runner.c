@@ -40,4 +40,15 @@ TEST_GROUP_RUNNER(mocks)
     RUN_TEST_CASE(mocks, mode_trace_more_args_no_ret_expect_many_calls);
     RUN_TEST_CASE(mocks, mode_trace_more_args_no_ret_wrong_arg1);
     RUN_TEST_CASE(mocks, mode_trace_more_args_no_ret_wrong_arg2);
+
+    RUN_TEST_CASE(mocks, mode_trace_one_arg_ret_unexpected);
+    RUN_TEST_CASE(mocks, mode_trace_one_arg_ret_expect_single_call);
+    RUN_TEST_CASE(mocks, mode_trace_one_arg_ret_expect_many_calls);
+    RUN_TEST_CASE(mocks, mode_trace_one_arg_ret_wrong_arg1);
+
+    RUN_TEST_CASE(mocks, mode_trace_more_args_ret_unexpected);
+    RUN_TEST_CASE(mocks, mode_trace_more_args_ret_expect_single_call);
+    RUN_TEST_CASE(mocks, mode_trace_more_args_ret_expect_many_calls);
+    RUN_TEST_CASE(mocks, mode_trace_more_args_ret_wrong_arg1);
+    RUN_TEST_CASE(mocks, mode_trace_more_args_ret_wrong_arg2);
 }
