@@ -20,6 +20,17 @@
 #include "dep_module1/dep_module1.h"
 #include "dep_module1_mock.h"
 
+enum
+{
+    MOCK_FUNTYPE_NONE,
+    MOCK_FUNTYPE_dep_module1_no_args_no_ret,
+    MOCK_FUNTYPE_dep_module1_no_args_ret,
+    MOCK_FUNTYPE_dep_module1_one_arg_no_ret,
+    MOCK_FUNTYPE_dep_module1_more_args_no_ret,
+    MOCK_FUNTYPE_dep_module1_one_arg_ret,
+    MOCK_FUNTYPE_dep_module1_more_args_ret,
+};
+
 struct dep_module1_dep_no_args_no_ret_params
 {
     mocklib_mode_t mode;
@@ -125,7 +136,7 @@ void dep_module1_mock_dep_no_args_no_ret_expect(void)
     /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
-    /* Set funtype */
+    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_no_args_no_ret);
 
     //todo: null check - is it necessary since null is checked in function under test?
     mocklib_exp_set(expdata);
@@ -149,6 +160,11 @@ void dep_no_args_no_ret(void)
         {
             UTLIB_TEST_FAIL_MSG("Unexpected call to function");
         }
+
+        if (MOCK_FUNTYPE_dep_module1_no_args_no_ret != mocklib_expdata_funtype_get(expdata))
+        {
+            UTLIB_TEST_FAIL_MSG("Function called out of order");
+        }
     }
 }
 
@@ -166,7 +182,7 @@ void dep_module1_mock_dep_no_args_ret_expect(int32_t ret)
     /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
-    /* Set funtype */
+    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_no_args_ret);
 
     /* Set expected function call parameters */
     internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_no_args_ret_expdata_internal));
@@ -202,10 +218,15 @@ int32_t dep_no_args_ret(void)
             UTLIB_TEST_FAIL_MSG("Unexpected call to function");
         }
 
+        if (MOCK_FUNTYPE_dep_module1_no_args_ret != mocklib_expdata_funtype_get(expdata))
+        {
+            UTLIB_TEST_FAIL_MSG("Function called out of order");
+        }
+
         internal = mocklib_expdata_internal_get(expdata);
         if (NULL == internal)
         {
-            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+            UTLIB_TEST_FAIL_MSG("Missing expected function data");
         }
 
         retval = internal->ret;
@@ -231,7 +252,7 @@ void dep_module1_mock_dep_one_arg_no_ret_expect(uint16_t arg1)
     /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
-    /* Set funtype */
+    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_one_arg_no_ret);
 
     /* Set expected function call parameters */
     internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_one_arg_no_ret_expdata_internal));
@@ -262,10 +283,15 @@ void dep_one_arg_no_ret(uint16_t arg1)
             UTLIB_TEST_FAIL_MSG("Unexpected call to function");
         }
 
+        if (MOCK_FUNTYPE_dep_module1_one_arg_no_ret != mocklib_expdata_funtype_get(expdata))
+        {
+            UTLIB_TEST_FAIL_MSG("Function called out of order");
+        }
+
         internal = mocklib_expdata_internal_get(expdata);
         if (NULL == internal)
         {
-            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+            UTLIB_TEST_FAIL_MSG("Missing expected function data");
         }
 
         UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
@@ -285,7 +311,7 @@ void dep_module1_mock_dep_more_args_no_ret_expect(int32_t arg1, uint8_t arg2)
     /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
-    /* Set funtype */
+    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_more_args_no_ret);
 
     /* Set expected function call parameters */
     internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_more_args_no_ret_expdata_internal));
@@ -317,10 +343,15 @@ void dep_more_args_no_ret(int32_t arg1, uint8_t arg2)
             UTLIB_TEST_FAIL_MSG("Unexpected call to function");
         }
 
+        if (MOCK_FUNTYPE_dep_module1_more_args_no_ret != mocklib_expdata_funtype_get(expdata))
+        {
+            UTLIB_TEST_FAIL_MSG("Function called out of order");
+        }
+
         internal = mocklib_expdata_internal_get(expdata);
         if (NULL == internal)
         {
-            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+            UTLIB_TEST_FAIL_MSG("Missing expected function data");
         }
 
         UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
@@ -342,7 +373,7 @@ void dep_module1_mock_dep_one_arg_ret_expect(uint32_t arg1, uint32_t ret)
     /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
-    /* Set funtype */
+    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_one_arg_ret);
 
     /* Set expected function call parameters */
     internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_one_arg_ret_expdata_internal));
@@ -379,10 +410,15 @@ uint32_t dep_one_arg_ret(uint32_t arg1)
             UTLIB_TEST_FAIL_MSG("Unexpected call to function");
         }
 
+        if (MOCK_FUNTYPE_dep_module1_one_arg_ret != mocklib_expdata_funtype_get(expdata))
+        {
+            UTLIB_TEST_FAIL_MSG("Function called out of order");
+        }
+
         internal = mocklib_expdata_internal_get(expdata);
         if (NULL == internal)
         {
-            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+            UTLIB_TEST_FAIL_MSG("Missing expected function data");
         }
 
         UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
@@ -410,7 +446,7 @@ void dep_module1_mock_dep_more_args_ret_expect(int8_t arg1, int16_t arg2, uint32
     /* Only in mode trace */
 
     expdata = mocklib_expdata_create();
-    /* Set funtype */
+    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_more_args_ret);
 
     /* Set expected function call parameters */
     internal = MOCKLIB_MALLOC(sizeof(struct dep_module1_dep_more_args_ret_expdata_internal));
@@ -448,10 +484,15 @@ int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
             UTLIB_TEST_FAIL_MSG("Unexpected call to function");
         }
 
+        if (MOCK_FUNTYPE_dep_module1_more_args_ret != mocklib_expdata_funtype_get(expdata))
+        {
+            UTLIB_TEST_FAIL_MSG("Function called out of order");
+        }
+
         internal = mocklib_expdata_internal_get(expdata);
         if (NULL == internal)
         {
-            UTLIB_TEST_FAIL_MSG("Unexpected call to function");
+            UTLIB_TEST_FAIL_MSG("Missing expected function data");
         }
 
         UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
