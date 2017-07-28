@@ -1,0 +1,23 @@
+- mock z pustą funkcją
+- mock ze zwracaniem konkretnej wartości
+- mock ze zwracaniem wartości i sprawdzaniem parametrów
+- sprawdzanie kolejności wywołań funkcji
+- ignorowanie kolejności wywołań funkcji
+- przekazanie callbacka ze zmockowanym działaniem
+- mockowany plik .h jako argument dla buildera
+- output folder jako argument dla buildera
+- wyświetlanie linii kodu z niespełnionym warunkiem
+- sprawdzanie warunków po wywołaniu funkcji produkcyjnej
+- ignorowanie sprawdzania argumentów
+- exploding fake
+- exploding fake przy którejś iteracji
+- exploding fake dla warunku
+- sprawdzenie czy funkcja nie była wywołana
+- opcjonalna obsługa malloców
+- obsługa różnych frameworków testowych
+- współpraca różnych mocków w jednym targecie
+- możliwość wyboru nazewnictwa przez buildera - podłogi/camelcase
+- przekazanie struktury albo stringa do mocka i porównanie zawartości
+- funkcja może zawsze zwracać to samo, liczyć cnt i ignorować argumenty
+- wybór za pomocą opcji buildera - generowanie z macrami albo bez
+- możliwość pracy z builderem i bez (użycie makr)
