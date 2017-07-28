@@ -152,7 +152,7 @@ TEST(mocks, mode_trace_no_ret_no_args_expect_single_call)
     /* Confirm that function was called */
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_no_args_no_ret_cnt_get());
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_no_ret();
@@ -182,7 +182,7 @@ TEST(mocks, mode_trace_no_ret_no_args_expect_many_calls)
     /* Confirm that function was called */
     TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_no_args_no_ret_cnt_get());
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_no_ret();
@@ -215,7 +215,7 @@ TEST(mocks, mode_trace_no_args_ret_expect_single_call)
     /* Confirm that function returns expected value */
     TEST_ASSERT_EQUAL(ret, dep_no_args_ret());
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_ret();
@@ -244,7 +244,7 @@ TEST(mocks, mode_trace_no_args_ret_expect_many_calls)
         TEST_ASSERT_EQUAL(ret * (i + 1), dep_no_args_ret());
     }
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_ret();
@@ -279,7 +279,7 @@ TEST(mocks, mode_trace_one_arg_no_ret_expect_single_call)
     /* Confirm that function was called */
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_no_ret(arg1);
@@ -311,7 +311,7 @@ TEST(mocks, mode_trace_one_arg_no_ret_expect_many_calls)
     /* Confirm that function was called */
     TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_no_ret(arg1);
@@ -366,7 +366,7 @@ TEST(mocks, mode_trace_more_args_no_ret_expect_single_call)
     /* Confirm that function was called */
     TEST_ASSERT_EQUAL(1, dep_module1_mock_dep_more_args_no_ret_cnt_get());
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_no_ret(arg1, arg2);
@@ -400,7 +400,7 @@ TEST(mocks, mode_trace_more_args_no_ret_expect_many_calls)
     /* Confirm that function was called */
     TEST_ASSERT_EQUAL(call_cnt, dep_module1_mock_dep_more_args_no_ret_cnt_get());
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_no_ret(arg1, arg2);
@@ -471,7 +471,7 @@ TEST(mocks, mode_trace_one_arg_ret_expect_single_call)
     /* Confirm that function returns expected value */
     TEST_ASSERT_EQUAL(ret, dep_one_arg_ret(arg1));
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_ret(arg1);
@@ -502,7 +502,7 @@ TEST(mocks, mode_trace_one_arg_ret_expect_many_calls)
         TEST_ASSERT_EQUAL(ret * (i + 1), dep_one_arg_ret(arg1 * (i + 1)));
     }
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_one_arg_ret(arg1);
@@ -559,7 +559,7 @@ TEST(mocks, mode_trace_more_args_ret_expect_single_call)
     /* Confirm that function returns expected value */
     TEST_ASSERT_EQUAL(ret, dep_more_args_ret(arg1, arg2));
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_ret(arg1, arg2);
@@ -592,7 +592,7 @@ TEST(mocks, mode_trace_more_args_ret_expect_many_calls)
         TEST_ASSERT_EQUAL_INT8(ret * (i + 1), dep_more_args_ret(arg1 * (i + 1), arg2 * (i + 1)));
     }
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_more_args_ret(arg1, arg2);
@@ -649,7 +649,7 @@ TEST(mocks, mode_trace_call_no_args_no_ret_when_expected_other)
     dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_TRACE, 0);
     dep_module1_mock_dep_no_args_ret_expect(0);
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Function called out of order");
 
     /* Call function under test when not expected. */
@@ -667,7 +667,7 @@ TEST(mocks, mode_trace_call_no_args_ret_when_expected_other)
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     dep_module1_mock_dep_no_args_no_ret_expect();
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Function called out of order");
 
     /* Call function under test when not expected. */
@@ -689,7 +689,7 @@ TEST(mocks, mode_trace_call_one_arg_no_ret_when_expected_other)
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     dep_module1_mock_dep_no_args_no_ret_expect();
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Function called out of order");
 
     /* Call function under test when not expected. */
@@ -713,7 +713,7 @@ TEST(mocks, mode_trace_call_more_args_no_ret_when_expected_other)
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     dep_module1_mock_dep_no_args_no_ret_expect();
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Function called out of order");
 
     /* Call function under test when not expected. */
@@ -735,7 +735,7 @@ TEST(mocks, mode_trace_call_one_arg_ret_when_expected_other)
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     dep_module1_mock_dep_no_args_no_ret_expect();
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Function called out of order");
 
     /* Call function under test when not expected. */
@@ -759,7 +759,7 @@ TEST(mocks, mode_trace_call_more_args_ret_when_expected_other)
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     dep_module1_mock_dep_no_args_no_ret_expect();
 
-    /* Expect mock to call test fail on next call */
+    /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Function called out of order");
 
     /* Call function under test when not expected. */
@@ -768,5 +768,96 @@ TEST(mocks, mode_trace_call_more_args_ret_when_expected_other)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
+TEST(mocks, mode_basic_no_args_no_ret_expect_called)
+{
+    dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_no_args_no_ret_expect();
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_basic_no_args_ret_expect_called)
+{
+    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_BASIC, 0);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_no_args_ret_expect(0);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_basic_one_arg_no_ret_expect_called)
+{
+    uint16_t arg1;
+
+    arg1 = 57;
+    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_one_arg_no_ret_expect(arg1);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_basic_more_args_no_ret_expect_called)
+{
+    int32_t arg1;
+    uint8_t arg2;
+
+    arg1 = 58;
+    arg2 = 59;
+    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_more_args_no_ret_expect(arg1, arg2);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_basic_one_arg_ret_expect_called)
+{
+    uint32_t arg1;
+    uint32_t ret;
+
+    arg1 = 60;
+    ret = 61;
+    dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_BASIC, 0);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_one_arg_ret_expect(arg1, ret);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks, mode_basic_more_args_ret_expect_called)
+{
+    int8_t arg1;
+    int16_t arg2;
+    uint32_t ret;
+
+    arg1 = 62;
+    arg2 = 63;
+    ret = 64;
+    dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_BASIC, 0);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_more_args_ret_expect(arg1, arg2, ret);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
 //check if all expected functions were called
-//if expect called when basic mode - fail test immediately

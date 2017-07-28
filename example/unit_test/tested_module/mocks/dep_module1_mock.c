@@ -175,6 +175,14 @@ void * mocklib_helper_internal_get_and_check(mocklib_expdata_t expdata)
     return internal;
 }
 
+void mocklib_helper_err_if_mode_not_trace(mocklib_mode_t mode)
+{
+    if (MOCKLIB_MODE_TRACE != mode)
+    {
+        UTLIB_TEST_FAIL_MSG("Expect function shall be called only in trace mode");
+    }
+}
+
 void dep_module1_mock_init(void)
 {
     /* Reset all mock internal data */
@@ -195,7 +203,7 @@ void dep_module1_mock_dep_no_args_no_ret_expect(void)
 {
     mocklib_expdata_t expdata = NULL;
 
-    /* Only in mode trace */
+    mocklib_helper_err_if_mode_not_trace(dep_module1_dep_no_args_no_ret_params.mode);
 
     expdata = mocklib_helper_expdata_create_and_check();
     mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_no_args_no_ret);
@@ -233,7 +241,7 @@ void dep_module1_mock_dep_no_args_ret_expect(int32_t ret)
     mocklib_expdata_t expdata = NULL;
     struct dep_module1_dep_no_args_ret_expdata_internal *internal = NULL;
 
-    /* Only in mode trace */
+    mocklib_helper_err_if_mode_not_trace(dep_module1_dep_no_args_ret_params.mode);
 
     expdata = mocklib_helper_expdata_create_and_check();
     mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_no_args_ret);
@@ -291,7 +299,7 @@ void dep_module1_mock_dep_one_arg_no_ret_expect(uint16_t arg1)
     mocklib_expdata_t expdata = NULL;
     struct dep_module1_dep_one_arg_no_ret_expdata_internal *internal = NULL;
 
-    /* Only in mode trace */
+    mocklib_helper_err_if_mode_not_trace(dep_module1_dep_one_arg_no_ret_params.mode);
 
     expdata = mocklib_helper_expdata_create_and_check();
     mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_one_arg_no_ret);
@@ -338,7 +346,7 @@ void dep_module1_mock_dep_more_args_no_ret_expect(int32_t arg1, uint8_t arg2)
     mocklib_expdata_t expdata = NULL;
     struct dep_module1_dep_more_args_no_ret_expdata_internal *internal = NULL;
 
-    /* Only in mode trace */
+    mocklib_helper_err_if_mode_not_trace(dep_module1_dep_more_args_no_ret_params.mode);
 
     expdata = mocklib_helper_expdata_create_and_check();
     mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_more_args_no_ret);
@@ -388,7 +396,7 @@ void dep_module1_mock_dep_one_arg_ret_expect(uint32_t arg1, uint32_t ret)
     mocklib_expdata_t expdata = NULL;
     struct dep_module1_dep_one_arg_ret_expdata_internal *internal = NULL;
 
-    /* Only in mode trace */
+    mocklib_helper_err_if_mode_not_trace(dep_module1_dep_one_arg_ret_params.mode);
 
     expdata = mocklib_helper_expdata_create_and_check();
     mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_one_arg_ret);
@@ -449,7 +457,7 @@ void dep_module1_mock_dep_more_args_ret_expect(int8_t arg1, int16_t arg2, uint32
     mocklib_expdata_t expdata = NULL;
     struct dep_module1_dep_more_args_ret_expdata_internal *internal = NULL;
 
-    /* Only in mode trace */
+    mocklib_helper_err_if_mode_not_trace(dep_module1_dep_more_args_ret_params.mode);
 
     expdata = mocklib_helper_expdata_create_and_check();
     mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_more_args_ret);
@@ -492,6 +500,10 @@ int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
         UTLIB_ASSERT_EQUAL(internal->arg1, arg1);
         UTLIB_ASSERT_EQUAL(internal->arg2, arg2);
         retval = internal->ret;
+    }
+    else
+    {
+        //error
     }
 
     return retval;
