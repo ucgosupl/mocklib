@@ -18,17 +18,7 @@
 
 #include "dep_module1/dep_module1.h"
 #include "dep_module1_mock.h"
-
-enum
-{
-    MOCK_FUNTYPE_NONE,
-    MOCK_FUNTYPE_dep_module1_no_args_no_ret,
-    MOCK_FUNTYPE_dep_module1_no_args_ret,
-    MOCK_FUNTYPE_dep_module1_one_arg_no_ret,
-    MOCK_FUNTYPE_dep_module1_more_args_no_ret,
-    MOCK_FUNTYPE_dep_module1_one_arg_ret,
-    MOCK_FUNTYPE_dep_module1_more_args_ret,
-};
+#include "mocks_global.h"
 
 struct dep_module1_dep_no_args_no_ret_params
 {
