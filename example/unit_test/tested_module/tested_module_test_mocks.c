@@ -859,5 +859,3 @@ TEST(mocks, mode_basic_more_args_ret_expect_called)
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
-
-//check if all expected functions were called

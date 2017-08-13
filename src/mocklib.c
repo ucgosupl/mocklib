@@ -68,3 +68,10 @@ void mocklib_exp_set(mocklib_expdata_t exp)
 
     //todo: raise error when call stack full
 }
+
+void mocklib_exp_all_called(void)
+{
+	//test no error when no expected function
+	//test no error when all expected functions called
+	//test error when not all expected functions called
+}

@@ -33,5 +33,6 @@ typedef struct expfun_record * mocklib_expdata_t;
 void mocklib_init(void);
 mocklib_expdata_t mocklib_exp_get(void);
 void mocklib_exp_set(mocklib_expdata_t exp);
+void mocklib_exp_all_called(void);
 
 #endif /* _MOCKLIB_H_ */
