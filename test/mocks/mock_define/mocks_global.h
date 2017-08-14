@@ -12,12 +12,12 @@
 enum
 {
     MOCK_FUNTYPE_NONE,
-    MOCK_FUNTYPE_dep_module1_dep_no_args_no_ret,
-    MOCK_FUNTYPE_dep_module1_dep_no_args_ret,
-    MOCK_FUNTYPE_dep_module1_dep_one_arg_no_ret,
-    MOCK_FUNTYPE_dep_module1_dep_more_args_no_ret,
-    MOCK_FUNTYPE_dep_module1_dep_one_arg_ret,
-    MOCK_FUNTYPE_dep_module1_dep_more_args_ret,
+	MOCKLIB_FUNTYPE(dep_module1, dep_no_args_no_ret),
+	MOCKLIB_FUNTYPE(dep_module1, dep_no_args_ret),
+	MOCKLIB_FUNTYPE(dep_module1, dep_one_arg_no_ret),
+	MOCKLIB_FUNTYPE(dep_module1, dep_more_args_no_ret),
+	MOCKLIB_FUNTYPE(dep_module1, dep_one_arg_ret),
+	MOCKLIB_FUNTYPE(dep_module1, dep_more_args_ret),
 };
 
 #endif /* _MOCKS_GLOBAL_H_ */

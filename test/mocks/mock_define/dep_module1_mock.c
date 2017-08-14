@@ -126,7 +126,7 @@ void DEP_NO_ARGS_NO_RET_EXPECT(void)
     mocklib_common_err_if_mode_not_trace(dep_module1_dep_no_args_no_ret_params.mode);
 
     expdata = mocklib_common_expdata_create_and_check();
-    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_dep_no_args_no_ret);
+    mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_no_args_no_ret));
 
     mocklib_exp_set(expdata);
 }
@@ -146,7 +146,7 @@ void dep_no_args_no_ret(void)
     {
         expdata = mocklib_common_expdata_get_and_check();
 
-        mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_no_args_no_ret);
+        mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_no_args_no_ret));
     }
 }
 
@@ -164,7 +164,7 @@ void DEP_NO_ARGS_RET_EXPECT(int32_t ret)
     mocklib_common_err_if_mode_not_trace(dep_module1_dep_no_args_ret_params.mode);
 
     expdata = mocklib_common_expdata_create_and_check();
-    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_dep_no_args_ret);
+    mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_no_args_ret));
 
     /* Set expected function call parameters */
     internal = mocklib_common_internal_create_and_check(sizeof(struct dep_module1_dep_no_args_ret_expdata_internal));
@@ -195,7 +195,7 @@ int32_t dep_no_args_ret(void)
     {
         expdata = mocklib_common_expdata_get_and_check();
 
-        mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_no_args_ret);
+        mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_no_args_ret));
 
         internal = mocklib_common_internal_get_and_check(expdata);
 
@@ -222,7 +222,7 @@ void DEP_ONE_ARG_NO_RET_EXPECT(uint16_t arg1)
     mocklib_common_err_if_mode_not_trace(dep_module1_dep_one_arg_no_ret_params.mode);
 
     expdata = mocklib_common_expdata_create_and_check();
-    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_dep_one_arg_no_ret);
+    mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_one_arg_no_ret));
 
     /* Set expected function call parameters */
     internal = mocklib_common_internal_create_and_check(sizeof(struct dep_module1_dep_one_arg_no_ret_expdata_internal));
@@ -248,7 +248,7 @@ void dep_one_arg_no_ret(uint16_t arg1)
     {
         expdata = mocklib_common_expdata_get_and_check();
 
-        mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_one_arg_no_ret);
+        mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_one_arg_no_ret));
 
         internal = mocklib_common_internal_get_and_check(expdata);
 
@@ -269,7 +269,7 @@ void DEP_MORE_ARGS_NO_RET_EXPECT(int32_t arg1, uint8_t arg2)
     mocklib_common_err_if_mode_not_trace(dep_module1_dep_more_args_no_ret_params.mode);
 
     expdata = mocklib_common_expdata_create_and_check();
-    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_dep_more_args_no_ret);
+    mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_more_args_no_ret));
 
     /* Set expected function call parameters */
     internal = mocklib_common_internal_create_and_check(sizeof(struct dep_module1_dep_more_args_no_ret_expdata_internal));
@@ -296,7 +296,7 @@ void dep_more_args_no_ret(int32_t arg1, uint8_t arg2)
     {
         expdata = mocklib_common_expdata_get_and_check();
 
-        mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_more_args_no_ret);
+        mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_more_args_no_ret));
 
         internal = mocklib_common_internal_get_and_check(expdata);
 
@@ -319,7 +319,7 @@ void DEP_ONE_ARG_RET_EXPECT(uint32_t arg1, uint32_t ret)
     mocklib_common_err_if_mode_not_trace(dep_module1_dep_one_arg_ret_params.mode);
 
     expdata = mocklib_common_expdata_create_and_check();
-    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_dep_one_arg_ret);
+    mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_one_arg_ret));
 
     /* Set expected function call parameters */
     internal = mocklib_common_internal_create_and_check(sizeof(struct dep_module1_dep_one_arg_ret_expdata_internal));
@@ -351,7 +351,7 @@ uint32_t dep_one_arg_ret(uint32_t arg1)
     {
         expdata = mocklib_common_expdata_get_and_check();
 
-        mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_one_arg_ret);
+        mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_one_arg_ret));
 
         internal = mocklib_common_internal_get_and_check(expdata);
 
@@ -380,7 +380,7 @@ void DEP_MORE_ARGS_RET_EXPECT(int8_t arg1, int16_t arg2, uint32_t ret)
     mocklib_common_err_if_mode_not_trace(dep_module1_dep_more_args_ret_params.mode);
 
     expdata = mocklib_common_expdata_create_and_check();
-    mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_dep_module1_dep_more_args_ret);
+    mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_more_args_ret));
 
     /* Set expected function call parameters */
     internal = mocklib_common_internal_create_and_check(sizeof(struct dep_module1_dep_more_args_ret_expdata_internal));
@@ -413,7 +413,7 @@ int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
     {
         expdata = mocklib_common_expdata_get_and_check();
 
-        mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_more_args_ret);
+        mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(dep_module1, dep_more_args_ret));
 
         internal = mocklib_common_internal_get_and_check(expdata);
 
