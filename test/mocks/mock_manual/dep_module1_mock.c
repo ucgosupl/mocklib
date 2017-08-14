@@ -398,7 +398,7 @@ int32_t dep_module1_mock_dep_more_args_ret_cnt_get(void)
 
 int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
 {
-    uint32_t retval;
+	int8_t retval;
     mocklib_expdata_t expdata = NULL;
     struct dep_module1_dep_more_args_ret_expdata_internal *internal = NULL;
 
