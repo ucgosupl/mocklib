@@ -103,7 +103,7 @@ static struct dep_module1_dep_more_args_no_ret_params dep_module1_dep_more_args_
 static struct dep_module1_dep_one_arg_ret_params dep_module1_dep_one_arg_ret_params;
 static struct dep_module1_dep_more_args_ret_params dep_module1_dep_more_args_ret_params;
 
-void dep_module1_mock_init(void)
+void MOCK_INIT(void)
 {
     /* Reset all mock internal data */
     memset(&dep_module1_dep_no_args_no_ret_params, 0, sizeof(struct dep_module1_dep_no_args_no_ret_params));

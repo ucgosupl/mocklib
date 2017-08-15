@@ -11,6 +11,8 @@
 
 #include "mocklib_define.h"
 
+#define MOCK_INIT						MOCKLIB_FUN_MOCK_INIT(dep_module1)
+
 #define DEP_NO_ARGS_NO_RET_CONFIG		MOCKLIB_FUN_CONFIG(dep_module1, dep_no_args_no_ret)
 #define DEP_NO_ARGS_NO_RET_EXPECT		MOCKLIB_FUN_EXPECT(dep_module1, dep_no_args_no_ret)
 #define DEP_NO_ARGS_NO_RET_CNT			MOCKLIB_FUN_CNT(dep_module1, dep_no_args_no_ret)
@@ -35,7 +37,7 @@
 #define DEP_MORE_ARGS_RET_EXPECT		MOCKLIB_FUN_EXPECT(dep_module1, dep_more_args_ret)
 #define DEP_MORE_ARGS_RET_CNT			MOCKLIB_FUN_CNT(dep_module1, dep_more_args_ret)
 
-void dep_module1_mock_init(void);
+void MOCK_INIT(void);
 
 void DEP_NO_ARGS_NO_RET_CONFIG(mocklib_mode_t mode);
 void DEP_NO_ARGS_NO_RET_EXPECT(void);
