@@ -29,97 +29,14 @@ struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret)
 
 /* No internal expdata for function with no arguments and no return value. */
 
-struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret)
-{
-    mocklib_mode_t mode;
-    int32_t call_cnt;
-
-    int32_t ret;
-};
-
-struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_no_args_ret)
-{
-    int32_t ret;
-};
-
-struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret)
-{
-    mocklib_mode_t mode;
-    int32_t call_cnt;
-};
-
-struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_one_arg_no_ret)
-{
-    uint16_t arg1;
-};
-
-struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret)
-{
-    mocklib_mode_t mode;
-    int32_t call_cnt;
-};
-
-struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_more_args_no_ret)
-{
-    int32_t arg1;
-    uint8_t arg2;
-};
-
-struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret)
-{
-    mocklib_mode_t mode;
-    int32_t call_cnt;
-
-    uint32_t ret;
-};
-
-struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_one_arg_ret)
-{
-    uint32_t arg1;
-
-    uint32_t ret;
-};
-
-struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret)
-{
-    mocklib_mode_t mode;
-    int32_t call_cnt;
-
-    int8_t ret;
-};
-
-struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_more_args_ret)
-{
-    int8_t arg1;
-    int16_t arg2;
-
-    int8_t ret;
-};
-
 static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret);
-static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret);
-static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret);
-static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret);
-static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret);
-static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret);
 
-void MOCK_INIT(void)
-{
-    /* Reset all mock internal data */
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret)));
-}
-
-void DEP_NO_ARGS_NO_RET_CONFIG(mocklib_mode_t mode)
+void MOCKLIB_FUN_CONFIG(dep_module1, dep_no_args_no_ret)(mocklib_mode_t mode)
 {
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret).mode = mode;
 }
 
-void DEP_NO_ARGS_NO_RET_EXPECT(void)
+void MOCKLIB_FUN_EXPECT(dep_module1, dep_no_args_no_ret)(void)
 {
     mocklib_expdata_t expdata = NULL;
 
@@ -131,7 +48,7 @@ void DEP_NO_ARGS_NO_RET_EXPECT(void)
     mocklib_exp_set(expdata);
 }
 
-int32_t DEP_NO_ARGS_NO_RET_CNT(void)
+int32_t MOCKLIB_FUN_CNT(dep_module1, dep_no_args_no_ret)(void)
 {
     return MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret).call_cnt;
 }
@@ -150,13 +67,28 @@ void dep_no_args_no_ret(void)
     }
 }
 
-void DEP_NO_ARGS_RET_CONFIG(mocklib_mode_t mode, int32_t ret)
+struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret)
+{
+    mocklib_mode_t mode;
+    int32_t call_cnt;
+
+    int32_t ret;
+};
+
+struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_no_args_ret)
+{
+    int32_t ret;
+};
+
+static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret);
+
+void MOCKLIB_FUN_CONFIG(dep_module1, dep_no_args_ret)(mocklib_mode_t mode, int32_t ret)
 {
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret).mode = mode;
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret).ret = ret;
 }
 
-void DEP_NO_ARGS_RET_EXPECT(int32_t ret)
+void MOCKLIB_FUN_EXPECT(dep_module1, dep_no_args_ret)(int32_t ret)
 {
     mocklib_expdata_t expdata = NULL;
     struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_no_args_ret) *internal = NULL;
@@ -174,7 +106,7 @@ void DEP_NO_ARGS_RET_EXPECT(int32_t ret)
     mocklib_exp_set(expdata);
 }
 
-int32_t DEP_NO_ARGS_RET_CNT(void)
+int32_t MOCKLIB_FUN_CNT(dep_module1, dep_no_args_ret)(void)
 {
     return MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret).call_cnt;
 }
@@ -209,12 +141,25 @@ int32_t dep_no_args_ret(void)
     return retval;
 }
 
-void DEP_ONE_ARG_NO_RET_CONFIG(mocklib_mode_t mode)
+struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret)
+{
+    mocklib_mode_t mode;
+    int32_t call_cnt;
+};
+
+struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_one_arg_no_ret)
+{
+    uint16_t arg1;
+};
+
+static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret);
+
+void MOCKLIB_FUN_CONFIG(dep_module1, dep_one_arg_no_ret)(mocklib_mode_t mode)
 {
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret).mode = mode;
 }
 
-void DEP_ONE_ARG_NO_RET_EXPECT(uint16_t arg1)
+void MOCKLIB_FUN_EXPECT(dep_module1, dep_one_arg_no_ret)(uint16_t arg1)
 {
     mocklib_expdata_t expdata = NULL;
     struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_one_arg_no_ret) *internal = NULL;
@@ -232,7 +177,7 @@ void DEP_ONE_ARG_NO_RET_EXPECT(uint16_t arg1)
     mocklib_exp_set(expdata);
 }
 
-int32_t DEP_ONE_ARG_NO_RET_CNT(void)
+int32_t MOCKLIB_FUN_CNT(dep_module1, dep_one_arg_no_ret)(void)
 {
     return MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret).call_cnt;
 }
@@ -256,12 +201,26 @@ void dep_one_arg_no_ret(uint16_t arg1)
     }
 }
 
-void DEP_MORE_ARGS_NO_RET_CONFIG(mocklib_mode_t mode)
+struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret)
+{
+    mocklib_mode_t mode;
+    int32_t call_cnt;
+};
+
+struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_more_args_no_ret)
+{
+    int32_t arg1;
+    uint8_t arg2;
+};
+
+static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret);
+
+void MOCKLIB_FUN_CONFIG(dep_module1, dep_more_args_no_ret)(mocklib_mode_t mode)
 {
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret).mode = mode;
 }
 
-void DEP_MORE_ARGS_NO_RET_EXPECT(int32_t arg1, uint8_t arg2)
+void MOCKLIB_FUN_EXPECT(dep_module1, dep_more_args_no_ret)(int32_t arg1, uint8_t arg2)
 {
     mocklib_expdata_t expdata = NULL;
     struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_more_args_no_ret) *internal = NULL;
@@ -280,7 +239,7 @@ void DEP_MORE_ARGS_NO_RET_EXPECT(int32_t arg1, uint8_t arg2)
     mocklib_exp_set(expdata);
 }
 
-int32_t DEP_MORE_ARGS_NO_RET_CNT(void)
+int32_t MOCKLIB_FUN_CNT(dep_module1, dep_more_args_no_ret)(void)
 {
     return MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret).call_cnt;
 }
@@ -305,13 +264,30 @@ void dep_more_args_no_ret(int32_t arg1, uint8_t arg2)
     }
 }
 
-void DEP_ONE_ARG_RET_CONFIG(mocklib_mode_t mode, uint32_t ret)
+struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret)
+{
+    mocklib_mode_t mode;
+    int32_t call_cnt;
+
+    uint32_t ret;
+};
+
+struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_one_arg_ret)
+{
+    uint32_t arg1;
+
+    uint32_t ret;
+};
+
+static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret);
+
+void MOCKLIB_FUN_CONFIG(dep_module1, dep_one_arg_ret)(mocklib_mode_t mode, uint32_t ret)
 {
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret).mode = mode;
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret).ret = ret;
 }
 
-void DEP_ONE_ARG_RET_EXPECT(uint32_t arg1, uint32_t ret)
+void MOCKLIB_FUN_EXPECT(dep_module1, dep_one_arg_ret)(uint32_t arg1, uint32_t ret)
 {
     mocklib_expdata_t expdata = NULL;
     struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_one_arg_ret) *internal = NULL;
@@ -330,7 +306,7 @@ void DEP_ONE_ARG_RET_EXPECT(uint32_t arg1, uint32_t ret)
     mocklib_exp_set(expdata);
 }
 
-int32_t DEP_ONE_ARG_RET_CNT(void)
+int32_t MOCKLIB_FUN_CNT(dep_module1, dep_one_arg_ret)(void)
 {
     return MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret).call_cnt;
 }
@@ -366,13 +342,31 @@ uint32_t dep_one_arg_ret(uint32_t arg1)
     return retval;
 }
 
-void DEP_MORE_ARGS_RET_CONFIG(mocklib_mode_t mode, int8_t ret)
+struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret)
+{
+    mocklib_mode_t mode;
+    int32_t call_cnt;
+
+    int8_t ret;
+};
+
+struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_more_args_ret)
+{
+    int8_t arg1;
+    int16_t arg2;
+
+    int8_t ret;
+};
+
+static struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret) MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret);
+
+void MOCKLIB_FUN_CONFIG(dep_module1, dep_more_args_ret)(mocklib_mode_t mode, int8_t ret)
 {
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret).mode = mode;
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret).ret = ret;
 }
 
-void DEP_MORE_ARGS_RET_EXPECT(int8_t arg1, int16_t arg2, uint32_t ret)
+void MOCKLIB_FUN_EXPECT(dep_module1, dep_more_args_ret)(int8_t arg1, int16_t arg2, uint32_t ret)
 {
     mocklib_expdata_t expdata = NULL;
     struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_more_args_ret) *internal = NULL;
@@ -392,7 +386,7 @@ void DEP_MORE_ARGS_RET_EXPECT(int8_t arg1, int16_t arg2, uint32_t ret)
     mocklib_exp_set(expdata);
 }
 
-int32_t DEP_MORE_ARGS_RET_CNT(void)
+int32_t MOCKLIB_FUN_CNT(dep_module1, dep_more_args_ret)(void)
 {
     return MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret).call_cnt;
 }
@@ -427,4 +421,16 @@ int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
     }
 
     return retval;
+}
+
+
+void MOCK_INIT(void)
+{
+    /* Reset all mock internal data */
+    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret)));
+    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret)));
+    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret)));
+    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret)));
+    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret)));
+    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret)));
 }
