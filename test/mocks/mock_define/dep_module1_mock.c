@@ -366,7 +366,7 @@ void MOCKLIB_FUN_CONFIG(dep_module1, dep_more_args_ret)(mocklib_mode_t mode, int
     MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret).ret = ret;
 }
 
-void MOCKLIB_FUN_EXPECT(dep_module1, dep_more_args_ret)(int8_t arg1, int16_t arg2, uint32_t ret)
+void MOCKLIB_FUN_EXPECT(dep_module1, dep_more_args_ret)(int8_t arg1, int16_t arg2, int8_t ret)
 {
     mocklib_expdata_t expdata = NULL;
     struct MOCKLIB_STRUCT_INTERNAL(dep_module1, dep_more_args_ret) *internal = NULL;
