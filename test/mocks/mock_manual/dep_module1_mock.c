@@ -371,7 +371,7 @@ void dep_module1_mock_dep_more_args_ret_config(mocklib_mode_t mode, int8_t ret)
     dep_module1_dep_more_args_ret_params.ret = ret;
 }
 
-void dep_module1_mock_dep_more_args_ret_expect(int8_t arg1, int16_t arg2, uint32_t ret)
+void dep_module1_mock_dep_more_args_ret_expect(int8_t arg1, int16_t arg2, int8_t ret)
 {
     mocklib_expdata_t expdata = NULL;
     struct dep_module1_dep_more_args_ret_expdata_internal *internal = NULL;
