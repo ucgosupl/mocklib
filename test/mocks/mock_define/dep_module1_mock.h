@@ -11,9 +11,9 @@
 
 #include "mocklib_define.h"
 
-#define MOCK_INIT						MOCKLIB_FUN_MOCK_INIT(dep_module1)
+#define DEP_MODULE1_MOCK_INIT           MOCKLIB_FUN_MOCK_INIT(dep_module1)
 
-void MOCK_INIT(void);
+void DEP_MODULE1_MOCK_INIT(void);
 
 MOCKLIB_MOCK_HEADER_NORET_ARGS0(dep_module1, dep_no_args_no_ret);
 

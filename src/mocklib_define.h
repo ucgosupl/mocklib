@@ -47,6 +47,9 @@
         expdata = mocklib_common_expdata_create_and_check(); \
         mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(file, fun));
 
+#define MOCKLIB_MOCK_INIT(file, fun) \
+        memset(&MOCKLIB_STRUCT_PARAMS(file, fun), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(file, fun)));
+
 #define MOCKLIB_MOCK_HEADER_NORET_ARGS0(file, fun) \
         void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode); \
         void MOCKLIB_FUN_EXPECT(file, fun)(void); \

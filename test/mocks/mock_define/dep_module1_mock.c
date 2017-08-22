@@ -33,13 +33,13 @@ MOCKLIB_MOCK_RET_ARGS1(dep_module1, dep_one_arg_ret, uint32_t, uint32_t);
 
 MOCKLIB_MOCK_RET_ARGS2(dep_module1, dep_more_args_ret, int8_t, int8_t, int16_t);
 
-void MOCK_INIT(void)
+void DEP_MODULE1_MOCK_INIT(void)
 {
     /* Reset all mock internal data */
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_no_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_no_args_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_no_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_no_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_one_arg_ret)));
-    memset(&MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(dep_module1, dep_more_args_ret)));
+    MOCKLIB_MOCK_INIT(dep_module1, dep_no_args_no_ret);
+    MOCKLIB_MOCK_INIT(dep_module1, dep_no_args_ret);
+    MOCKLIB_MOCK_INIT(dep_module1, dep_one_arg_no_ret);
+    MOCKLIB_MOCK_INIT(dep_module1, dep_more_args_no_ret);
+    MOCKLIB_MOCK_INIT(dep_module1, dep_one_arg_ret);
+    MOCKLIB_MOCK_INIT(dep_module1, dep_more_args_ret);
 }
