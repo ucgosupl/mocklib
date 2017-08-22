@@ -466,7 +466,7 @@ TEST(mocks, mode_trace_one_arg_ret_expect_single_call)
     arg1 = 31;
     ret = 32;
     dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_TRACE, 0);
-    dep_module1_mock_dep_one_arg_ret_expect(arg1, ret);
+    dep_module1_mock_dep_one_arg_ret_expect(ret, arg1);
 
     /* Confirm that function returns expected value */
     TEST_ASSERT_EQUAL(ret, dep_one_arg_ret(arg1));
@@ -493,7 +493,7 @@ TEST(mocks, mode_trace_one_arg_ret_expect_many_calls)
     dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_TRACE, 0);
     for (i = 0; i < call_cnt; i++)
     {
-        dep_module1_mock_dep_one_arg_ret_expect(arg1 * (i + 1), ret * (i + 1));
+        dep_module1_mock_dep_one_arg_ret_expect(ret * (i + 1), arg1 * (i + 1));
     }
 
     /* Confirm that function returns expected value for every call */
@@ -518,7 +518,7 @@ TEST(mocks, mode_trace_one_arg_ret_wrong_arg1)
     arg1 = 35;
     ret = 36;
     dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_TRACE, 0);
-    dep_module1_mock_dep_one_arg_ret_expect(arg1, ret);
+    dep_module1_mock_dep_one_arg_ret_expect(ret, arg1);
 
     /* Expect assert equal to fail on first call */
     utlib_assert_equal_init(1);
@@ -554,7 +554,7 @@ TEST(mocks, mode_trace_more_args_ret_expect_single_call)
     arg2 = 40;
     ret = 41;
     dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_TRACE, 0);
-    dep_module1_mock_dep_more_args_ret_expect(arg1, arg2, ret);
+    dep_module1_mock_dep_more_args_ret_expect(ret, arg1, arg2);
 
     /* Confirm that function returns expected value */
     TEST_ASSERT_EQUAL(ret, dep_more_args_ret(arg1, arg2));
@@ -583,7 +583,7 @@ TEST(mocks, mode_trace_more_args_ret_expect_many_calls)
     dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_TRACE, 0);
     for (i = 0; i < call_cnt; i++)
     {
-        dep_module1_mock_dep_more_args_ret_expect(arg1 * (i + 1), arg2 * (i + 1), ret * (i + 1));
+        dep_module1_mock_dep_more_args_ret_expect(ret * (i + 1), arg1 * (i + 1), arg2 * (i + 1));
     }
 
     /* Confirm that function returns expected value for every call */
@@ -610,7 +610,7 @@ TEST(mocks, mode_trace_more_args_ret_wrong_arg1)
     arg2 = 46;
     ret = 47;
     dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_TRACE, 0);
-    dep_module1_mock_dep_more_args_ret_expect(arg1, arg2, ret);
+    dep_module1_mock_dep_more_args_ret_expect(ret, arg1, arg2);
 
     /* Expect assert equal to fail on first call */
     utlib_assert_equal_init(1);
@@ -630,7 +630,7 @@ TEST(mocks, mode_trace_more_args_ret_wrong_arg2)
     arg2 = 49;
     ret = 50;
     dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_TRACE, 0);
-    dep_module1_mock_dep_more_args_ret_expect(arg1, arg2, ret);
+    dep_module1_mock_dep_more_args_ret_expect(ret, arg1, arg2);
 
     /* Expect assert equal to fail on second call - first call for correct arg1 */
     utlib_assert_equal_init(2);
@@ -836,7 +836,7 @@ TEST(mocks, mode_basic_one_arg_ret_expect_called)
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
 
-    dep_module1_mock_dep_one_arg_ret_expect(arg1, ret);
+    dep_module1_mock_dep_one_arg_ret_expect(ret, arg1);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
@@ -855,7 +855,7 @@ TEST(mocks, mode_basic_more_args_ret_expect_called)
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
 
-    dep_module1_mock_dep_more_args_ret_expect(arg1, arg2, ret);
+    dep_module1_mock_dep_more_args_ret_expect(ret, arg1, arg2);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }

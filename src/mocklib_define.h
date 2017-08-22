@@ -244,7 +244,7 @@
 
 #define MOCKLIB_MOCK_HEADER_RET_ARGS1(file, fun, ret_type, arg1_type) \
         void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
-        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1); \
         int32_t MOCKLIB_FUN_CNT(file, fun)(void);
 
 #define MOCKLIB_MOCK_RET_ARGS1(file, fun, ret_type, arg1_type) \
@@ -263,7 +263,7 @@
             MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret; \
         } \
         \
-        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, ret_type ret) \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1) \
         { \
             mocklib_expdata_t expdata = NULL; \
             struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
@@ -305,7 +305,7 @@
 
 #define MOCKLIB_MOCK_HEADER_RET_ARGS2(file, fun, ret_type, arg1_type, arg2_type) \
         void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
-        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2); \
         int32_t MOCKLIB_FUN_CNT(file, fun)(void);
 
 #define MOCKLIB_MOCK_RET_ARGS2(file, fun, ret_type, arg1_type, arg2_type) \
@@ -325,7 +325,7 @@
             MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;    \
         } \
         \
-        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, ret_type ret) \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2) \
         { \
             mocklib_expdata_t expdata = NULL; \
             struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
@@ -368,6 +368,5 @@
         }
 
 /* TODO: defines for more args */
-//zamienic kolejnosc w expect - najpierw ret potem arg
 
 #endif /* _MOCKLIB_DEFINE_H_ */
