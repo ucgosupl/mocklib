@@ -205,7 +205,400 @@
             } \
         }
 
-/* TODO: defines for more args */
+/** Mock interface declaration for mocked function with no return value and 3 arguments. */
+#define MOCKLIB_MOCK_HEADER_NORET_ARGS3(file, fun, arg1_type, arg2_type, arg3_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with no return value and 3 arguments. */
+#define MOCKLIB_MOCK_NORET_ARGS3(file, fun, arg1_type, arg2_type, arg3_type) \
+        MOCKLIB_PARAMS_NORET(file, fun); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+        MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        void fun(arg1_type arg1, arg2_type arg2, arg3_type arg3) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+            } \
+        }
+
+/** Mock interface declaration for mocked function with no return value and 4 arguments. */
+#define MOCKLIB_MOCK_HEADER_NORET_ARGS4(file, fun, arg1_type, arg2_type, arg3_type, arg4_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with no return value and 4 arguments. */
+#define MOCKLIB_MOCK_NORET_ARGS4(file, fun, arg1_type, arg2_type, arg3_type, arg4_type) \
+        MOCKLIB_PARAMS_NORET(file, fun); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+        MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        void fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+            } \
+        }
+
+/** Mock interface declaration for mocked function with no return value and 5 arguments. */
+#define MOCKLIB_MOCK_HEADER_NORET_ARGS5(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with no return value and 5 arguments. */
+#define MOCKLIB_MOCK_NORET_ARGS5(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type) \
+        MOCKLIB_PARAMS_NORET(file, fun); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+        MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        void fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+            } \
+        }
+
+/** Mock interface declaration for mocked function with no return value and 6 arguments. */
+#define MOCKLIB_MOCK_HEADER_NORET_ARGS6(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with no return value and 6 arguments. */
+#define MOCKLIB_MOCK_NORET_ARGS6(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type) \
+        MOCKLIB_PARAMS_NORET(file, fun); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+            arg6_type arg6; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+        MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            internal->arg6 = arg6; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        void fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+                UTLIB_ASSERT_EQUAL(internal->arg6, arg6); \
+            } \
+        }
+
+/** Mock interface declaration for mocked function with no return value and 7 arguments. */
+#define MOCKLIB_MOCK_HEADER_NORET_ARGS7(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with no return value and 7 arguments. */
+#define MOCKLIB_MOCK_NORET_ARGS7(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type) \
+        MOCKLIB_PARAMS_NORET(file, fun); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+            arg6_type arg6; \
+            arg7_type arg7; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+        MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            internal->arg6 = arg6; \
+            internal->arg7 = arg7; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        void fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+                UTLIB_ASSERT_EQUAL(internal->arg6, arg6); \
+                UTLIB_ASSERT_EQUAL(internal->arg7, arg7); \
+            } \
+        }
+
+/** Mock interface declaration for mocked function with no return value and 8 arguments. */
+#define MOCKLIB_MOCK_HEADER_NORET_ARGS8(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type, arg8_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7, arg8_type arg8); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with no return value and 8 arguments. */
+#define MOCKLIB_MOCK_NORET_ARGS8(file, fun, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type, arg8_type) \
+        MOCKLIB_PARAMS_NORET(file, fun); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+            arg6_type arg6; \
+            arg7_type arg7; \
+            arg8_type arg8; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+        MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7, arg8_type arg8) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            internal->arg6 = arg6; \
+            internal->arg7 = arg7; \
+            internal->arg8 = arg8; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        void fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7, arg8_type arg8) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+                UTLIB_ASSERT_EQUAL(internal->arg6, arg6); \
+                UTLIB_ASSERT_EQUAL(internal->arg7, arg7); \
+                UTLIB_ASSERT_EQUAL(internal->arg8, arg8); \
+            } \
+        }
 
 /** Mock interface declaration for mocked function with return value and no arguments. */
 #define MOCKLIB_MOCK_HEADER_RET_ARGS0(file, fun, ret_type) \
@@ -396,6 +789,483 @@
             return retval; \
         }
 
-/* TODO: defines for more args */
+/** Mock interface declaration for mocked function with return value and 3 arguments. */
+#define MOCKLIB_MOCK_HEADER_RET_ARGS3(file, fun, ret_type, arg1_type, arg2_type, arg3_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with return value and 3 arguments. */
+#define MOCKLIB_MOCK_RET_ARGS3(file, fun, ret_type, arg1_type, arg2_type, arg3_type) \
+        MOCKLIB_PARAMS_RET(file, fun, ret_type); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            ret_type ret; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+            MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;    \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->ret = ret; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        ret_type fun(arg1_type arg1, arg2_type arg2, arg3_type arg3) \
+        { \
+            ret_type retval; \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_BASIC == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                retval = MOCKLIB_STRUCT_PARAMS(file, fun).ret; \
+            } \
+            else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                retval = internal->ret; \
+            } \
+            else \
+            { \
+                /* Error */\
+            } \
+            return retval; \
+        }
+
+/** Mock interface declaration for mocked function with return value and 4 arguments. */
+#define MOCKLIB_MOCK_HEADER_RET_ARGS4(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with return value and 4 arguments. */
+#define MOCKLIB_MOCK_RET_ARGS4(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type) \
+        MOCKLIB_PARAMS_RET(file, fun, ret_type); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            ret_type ret; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+            MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;    \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->ret = ret; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        ret_type fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4) \
+        { \
+            ret_type retval; \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_BASIC == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                retval = MOCKLIB_STRUCT_PARAMS(file, fun).ret; \
+            } \
+            else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                retval = internal->ret; \
+            } \
+            else \
+            { \
+                /* Error */\
+            } \
+            return retval; \
+        }
+
+/** Mock interface declaration for mocked function with return value and 5 arguments. */
+#define MOCKLIB_MOCK_HEADER_RET_ARGS5(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with return value and 5 arguments. */
+#define MOCKLIB_MOCK_RET_ARGS5(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type) \
+        MOCKLIB_PARAMS_RET(file, fun, ret_type); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+            ret_type ret; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+            MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;    \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            internal->ret = ret; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        ret_type fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5) \
+        { \
+            ret_type retval; \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_BASIC == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                retval = MOCKLIB_STRUCT_PARAMS(file, fun).ret; \
+            } \
+            else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+                retval = internal->ret; \
+            } \
+            else \
+            { \
+                /* Error */\
+            } \
+            return retval; \
+        }
+
+/** Mock interface declaration for mocked function with return value and 6 arguments. */
+#define MOCKLIB_MOCK_HEADER_RET_ARGS6(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with return value and 6 arguments. */
+#define MOCKLIB_MOCK_RET_ARGS6(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type) \
+        MOCKLIB_PARAMS_RET(file, fun, ret_type); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+            arg6_type arg6; \
+            ret_type ret; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+            MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;    \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            internal->arg6 = arg6; \
+            internal->ret = ret; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        ret_type fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6) \
+        { \
+            ret_type retval; \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_BASIC == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                retval = MOCKLIB_STRUCT_PARAMS(file, fun).ret; \
+            } \
+            else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+                UTLIB_ASSERT_EQUAL(internal->arg6, arg6); \
+                retval = internal->ret; \
+            } \
+            else \
+            { \
+                /* Error */\
+            } \
+            return retval; \
+        }
+
+/** Mock interface declaration for mocked function with return value and 7 arguments. */
+#define MOCKLIB_MOCK_HEADER_RET_ARGS7(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with return value and 7 arguments. */
+#define MOCKLIB_MOCK_RET_ARGS7(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type) \
+        MOCKLIB_PARAMS_RET(file, fun, ret_type); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+            arg6_type arg6; \
+            arg7_type arg7; \
+            ret_type ret; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+            MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;    \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            internal->arg6 = arg6; \
+            internal->arg7 = arg7; \
+            internal->ret = ret; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        ret_type fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7) \
+        { \
+            ret_type retval; \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_BASIC == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                retval = MOCKLIB_STRUCT_PARAMS(file, fun).ret; \
+            } \
+            else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+                UTLIB_ASSERT_EQUAL(internal->arg6, arg6); \
+                UTLIB_ASSERT_EQUAL(internal->arg7, arg7); \
+                retval = internal->ret; \
+            } \
+            else \
+            { \
+                /* Error */\
+            } \
+            return retval; \
+        }
+
+/** Mock interface declaration for mocked function with return value and 8 arguments. */
+#define MOCKLIB_MOCK_HEADER_RET_ARGS8(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type, arg8_type) \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret); \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7, arg8_type arg8); \
+        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
+
+/** Mock implementation for mocked function with return value and 8 arguments. */
+#define MOCKLIB_MOCK_RET_ARGS8(file, fun, ret_type, arg1_type, arg2_type, arg3_type, arg4_type, \
+        arg5_type, arg6_type, arg7_type, arg8_type) \
+        MOCKLIB_PARAMS_RET(file, fun, ret_type); \
+        struct MOCKLIB_STRUCT_INTERNAL(file, fun) \
+        { \
+            arg1_type arg1; \
+            arg2_type arg2; \
+            arg3_type arg3; \
+            arg4_type arg4; \
+            arg5_type arg5; \
+            arg6_type arg6; \
+            arg7_type arg7; \
+            arg8_type arg8; \
+            ret_type ret; \
+        }; \
+        static struct MOCKLIB_STRUCT_PARAMS(file, fun) \
+            MOCKLIB_STRUCT_PARAMS(file, fun); \
+        \
+        void MOCKLIB_FUN_CONFIG(file, fun)(mocklib_mode_t mode, ret_type ret) \
+        { \
+            MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;    \
+        } \
+        \
+        void MOCKLIB_FUN_EXPECT(file, fun)(ret_type ret, arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7, arg8_type arg8) \
+        { \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_FUN_EXPECT_COMMON(file, fun); \
+            internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun))); \
+            internal->arg1 = arg1; \
+            internal->arg2 = arg2; \
+            internal->arg3 = arg3; \
+            internal->arg4 = arg4; \
+            internal->arg5 = arg5; \
+            internal->arg6 = arg6; \
+            internal->arg7 = arg7; \
+            internal->arg8 = arg8; \
+            internal->ret = ret; \
+            mocklib_expdata_internal_set(expdata, internal); \
+            mocklib_exp_set(expdata); \
+        } \
+        \
+        MOCKLIB_FUN_CNT_IMPL(file, fun); \
+        \
+        ret_type fun(arg1_type arg1, arg2_type arg2, arg3_type arg3, arg4_type arg4, \
+                arg5_type arg5, arg6_type arg6, arg7_type arg7, arg8_type arg8) \
+        { \
+            ret_type retval; \
+            mocklib_expdata_t expdata = NULL; \
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL; \
+            MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
+            \
+            if (MOCKLIB_MODE_BASIC == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                retval = MOCKLIB_STRUCT_PARAMS(file, fun).ret; \
+            } \
+            else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
+            { \
+                expdata = mocklib_common_expdata_get_and_check(); \
+                mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
+                internal = mocklib_common_internal_get_and_check(expdata); \
+                UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
+                UTLIB_ASSERT_EQUAL(internal->arg2, arg2); \
+                UTLIB_ASSERT_EQUAL(internal->arg3, arg3); \
+                UTLIB_ASSERT_EQUAL(internal->arg4, arg4); \
+                UTLIB_ASSERT_EQUAL(internal->arg5, arg5); \
+                UTLIB_ASSERT_EQUAL(internal->arg6, arg6); \
+                UTLIB_ASSERT_EQUAL(internal->arg7, arg7); \
+                UTLIB_ASSERT_EQUAL(internal->arg8, arg8); \
+                retval = internal->ret; \
+            } \
+            else \
+            { \
+                /* Error */\
+            } \
+            return retval; \
+        }
 
 #endif /* _MOCKLIB_DEFINE_H_ */
