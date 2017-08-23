@@ -1,7 +1,7 @@
 /*
  * File:    mocklib_malloc.h
  * Author:  Maciej Gajdzica
- * Brief:
+ * Brief:   Definitions for malloc functions used by mock library.
  *
  * Date:    27.07.2017
  */

@@ -1,7 +1,7 @@
 /*
  * File:    mocklib_common.h
  * Author:  Maciej Gajdzica
- * Brief:
+ * Brief:   Functions used internally by generated mocks.
  *
  * Date:    13.08.2017
  */

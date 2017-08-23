@@ -1,7 +1,7 @@
 /*
  * File:    mocklib_common.c
  * Author:  Maciej Gajdzica
- * Brief:
+ * Brief:   Functions used internally by generated mocks.
  *
  * Date:    13.08.2017
  */
@@ -14,6 +14,7 @@
 #include "mocklib.h"
 #include "mocklib_expfun.h"
 #include "mocklib_malloc.h"
+#include "mocklib_common.h"
 
 mocklib_expdata_t mocklib_common_expdata_create_and_check(void)
 {

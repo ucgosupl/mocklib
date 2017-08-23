@@ -1,7 +1,7 @@
 /*
  * File:    mocklib_define.h
  * Author:  Maciej Gajdzica
- * Brief:
+ * Brief:   Macros creating mock interface for a given module and function.
  *
  * Date:    13.08.2017
  */

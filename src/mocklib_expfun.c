@@ -1,7 +1,7 @@
 /*
  * File:    mocklib_expfun.c
- * Author:  mgajdzica
- * Brief:   Short brief.
+ * Author:  Maciej Gajdzica
+ * Brief:   Functions handling expected function data.
  *
  * Date:    27.07.2017
  */
