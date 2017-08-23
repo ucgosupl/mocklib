@@ -36,7 +36,7 @@ void mocklib_init(void)
         /* Clean up any existing objects */
         if (NULL != stack_params.stack[i])
         {
-            mocklib_expdata_destroy(stack_params.stack[i]);
+            //mocklib_expdata_destroy(stack_params.stack[i]);
         }
 
         stack_params.stack[i] = NULL;
