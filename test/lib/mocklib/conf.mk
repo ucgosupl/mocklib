@@ -20,6 +20,7 @@ UNIT_TEST \
 # In the code paths relative to this path should be provided.
 INC_DIRS := \
 ../../../src/ \
+../../utlib_checks/ \
 ../../../external/Unity/src \
 ../../../external/Unity/extras/fixture/src \
 
@@ -46,6 +47,7 @@ TEST_INC_DIRS := \
 # In these paths source files are searched recursively in the subfolders.
 TEST_SRC_DIRS := \
 ./ \
+../../utlib_checks/ \
 ../../../external/Unity/src/ \
 ../../../external/Unity/extras/fixture/src/ \
 

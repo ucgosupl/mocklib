@@ -12,6 +12,8 @@
 #include "mocklib.h"
 #include "mocklib_expfun.h"
 #include "mocklib_malloc.h"
+#include "mocklib_internal.h"
+#include "mocklib_utlib_defines.h"
 
 #define CALL_STACK_SIZE     20
 
@@ -22,7 +24,7 @@ struct call_stack_params
     mocklib_expdata_t stack[CALL_STACK_SIZE];
 };
 
-static struct call_stack_params stack_params;
+PRIVATE struct call_stack_params stack_params;
 
 void mocklib_init(void)
 {
@@ -36,7 +38,8 @@ void mocklib_init(void)
         /* Clean up any existing objects */
         if (NULL != stack_params.stack[i])
         {
-            //mocklib_expdata_destroy(stack_params.stack[i]);
+            mocklib_expdata_destroy(stack_params.stack[i]);
+            /* TODO: What if destroy returns error? */
         }
 
         stack_params.stack[i] = NULL;
@@ -52,26 +55,36 @@ mocklib_expdata_t mocklib_exp_get(void)
         retval = stack_params.stack[stack_params.next];
         stack_params.next++;
     }
-
-    //todo: raise error when trying to get more than available on stack
+    else
+    {
+        UTLIB_TEST_FAIL_MSG("All expected functions data already taken");
+    }
 
     return retval;
 }
 
 void mocklib_exp_set(mocklib_expdata_t exp)
 {
+    if (NULL == exp)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+    }
+
     if (CALL_STACK_SIZE > stack_params.cnt)
     {
         stack_params.stack[stack_params.cnt] = exp;
         stack_params.cnt++;
     }
-
-    //todo: raise error when call stack full
+    else
+    {
+        UTLIB_TEST_FAIL_MSG("Exceeded maximum allowed number of expected functions");
+    }
 }
 
 void mocklib_exp_all_called(void)
 {
-	//test no error when no expected function
-	//test no error when all expected functions called
-	//test error when not all expected functions called
+    if (stack_params.next != stack_params.cnt)
+    {
+        UTLIB_TEST_FAIL_MSG("Not all expected functions called");
+    }
 }
