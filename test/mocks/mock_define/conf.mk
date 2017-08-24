@@ -38,7 +38,7 @@ SRC_FILES_EXC := \
 # In the code paths relative to this path should be provided.
 TEST_INC_DIRS := \
 . \
-../utils \
+../../utlib_checks/ \
 ../../../src \
 ../../../external/Unity/src \
 ../../../external/Unity/extras/fixture/src \
@@ -48,7 +48,7 @@ TEST_INC_DIRS := \
 TEST_SRC_DIRS := \
 ./ \
 ../test/ \
-../utils/ \
+../../utlib_checks/ \
 ../../../src/ \
 ../../../external/Unity/src/ \
 ../../../external/Unity/extras/fixture/src/ \
