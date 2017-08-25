@@ -44,15 +44,6 @@ void * mocklib_common_internal_create_and_check(size_t size)
     return internal;
 }
 
-mocklib_expdata_t mocklib_common_expdata_get_and_check(void)
-{
-    mocklib_expdata_t expdata;
-
-    expdata = mocklib_exp_get();
-
-    return expdata;
-}
-
 void mocklib_common_funtype_check(mocklib_expdata_t expdata, mocklib_funtype_t funtype_exp)
 {
     if (funtype_exp != mocklib_expdata_funtype_get(expdata))

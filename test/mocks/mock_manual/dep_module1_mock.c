@@ -143,7 +143,7 @@ void dep_no_args_no_ret(void)
 
     if (MOCKLIB_MODE_TRACE == dep_module1_dep_no_args_no_ret_params.mode)
     {
-        expdata = mocklib_common_expdata_get_and_check();
+        expdata = mocklib_exp_get();
 
         mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_no_args_no_ret);
     }
@@ -192,7 +192,7 @@ int32_t dep_no_args_ret(void)
     }
     else if (MOCKLIB_MODE_TRACE == dep_module1_dep_no_args_ret_params.mode)
     {
-        expdata = mocklib_common_expdata_get_and_check();
+        expdata = mocklib_exp_get();
 
         mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_no_args_ret);
 
@@ -245,7 +245,7 @@ void dep_one_arg_no_ret(uint16_t arg1)
 
     if (MOCKLIB_MODE_TRACE == dep_module1_dep_one_arg_no_ret_params.mode)
     {
-        expdata = mocklib_common_expdata_get_and_check();
+        expdata = mocklib_exp_get();
 
         mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_one_arg_no_ret);
 
@@ -293,7 +293,7 @@ void dep_more_args_no_ret(int32_t arg1, uint8_t arg2)
 
     if (MOCKLIB_MODE_TRACE == dep_module1_dep_more_args_no_ret_params.mode)
     {
-        expdata = mocklib_common_expdata_get_and_check();
+        expdata = mocklib_exp_get();
 
         mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_more_args_no_ret);
 
@@ -348,7 +348,7 @@ uint32_t dep_one_arg_ret(uint32_t arg1)
     }
     else if (MOCKLIB_MODE_TRACE == dep_module1_dep_one_arg_ret_params.mode)
     {
-        expdata = mocklib_common_expdata_get_and_check();
+        expdata = mocklib_exp_get();
 
         mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_one_arg_ret);
 
@@ -410,7 +410,7 @@ int8_t dep_more_args_ret(int8_t arg1, int16_t arg2)
     }
     else if (MOCKLIB_MODE_TRACE == dep_module1_dep_more_args_ret_params.mode)
     {
-        expdata = mocklib_common_expdata_get_and_check();
+        expdata = mocklib_exp_get();
 
         mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_dep_module1_dep_more_args_ret);
 

@@ -99,7 +99,7 @@
             MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++; \
             if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
             { \
-                expdata = mocklib_common_expdata_get_and_check(); \
+                expdata = mocklib_exp_get(); \
                 mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
             } \
         }
@@ -146,7 +146,7 @@
             \
             if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
             { \
-                expdata = mocklib_common_expdata_get_and_check(); \
+                expdata = mocklib_exp_get(); \
                 mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
                 internal = mocklib_common_internal_get_and_check(expdata); \
                 UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
@@ -197,7 +197,7 @@
             \
             if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
             { \
-                expdata = mocklib_common_expdata_get_and_check(); \
+                expdata = mocklib_exp_get(); \
                 mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
                 internal = mocklib_common_internal_get_and_check(expdata); \
                 UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
@@ -648,7 +648,7 @@
             } \
             else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
             { \
-                expdata = mocklib_common_expdata_get_and_check(); \
+                expdata = mocklib_exp_get(); \
                 mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
                 internal = mocklib_common_internal_get_and_check(expdata); \
                 retval = internal->ret; \
@@ -710,7 +710,7 @@
             } \
             else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
             { \
-                expdata = mocklib_common_expdata_get_and_check(); \
+                expdata = mocklib_exp_get(); \
                 mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
                 internal = mocklib_common_internal_get_and_check(expdata); \
                 UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
@@ -775,7 +775,7 @@
             } \
             else if (MOCKLIB_MODE_TRACE == MOCKLIB_STRUCT_PARAMS(file, fun).mode) \
             { \
-                expdata = mocklib_common_expdata_get_and_check(); \
+                expdata = mocklib_exp_get(); \
                 mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun)); \
                 internal = mocklib_common_internal_get_and_check(expdata); \
                 UTLIB_ASSERT_EQUAL(internal->arg1, arg1); \
