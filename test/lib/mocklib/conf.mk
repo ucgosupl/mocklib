@@ -15,6 +15,7 @@ OUT_DIR := out/
 # Defines passed as compiler arguments
 GLOBAL_DEFS := \
 UNIT_TEST \
+MOCKLIB_UNIT_TEST \
 
 # Paths to header files (.h).
 # In the code paths relative to this path should be provided.

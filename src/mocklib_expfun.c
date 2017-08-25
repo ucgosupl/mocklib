@@ -10,8 +10,9 @@
 #include <stdint.h>
 
 #include "mocklib.h"
-#include "mocklib_malloc.h"
 #include "mocklib_expfun.h"
+#include "mocklib_malloc.h"
+#include "mocklib_utlib_defines.h"
 
 struct expfun_record
 {
@@ -24,14 +25,25 @@ mocklib_expdata_t mocklib_expdata_create(void)
     mocklib_expdata_t ret = NULL;
 
     ret = MOCKLIB_MALLOC(sizeof(struct expfun_record));
+
+    if (NULL == ret)
+    {
+        return NULL;
+    }
+
     ret->internal = NULL;
     ret->funtype = 0;
 
     return ret;
 }
 
-int32_t mocklib_expdata_destroy(mocklib_expdata_t expdata)
+void mocklib_expdata_destroy(mocklib_expdata_t expdata)
 {
+    if (NULL == expdata)
+    {
+        return;
+    }
+
     if (NULL != expdata->internal)
     {
         MOCKLIB_FREE(expdata->internal);
@@ -39,29 +51,49 @@ int32_t mocklib_expdata_destroy(mocklib_expdata_t expdata)
 
     MOCKLIB_FREE(expdata);
 
-    return 0;
+    return;
 }
 
-int32_t mocklib_expdata_funtype_set(mocklib_expdata_t expdata, mocklib_funtype_t type)
+void mocklib_expdata_funtype_set(mocklib_expdata_t expdata, mocklib_funtype_t type)
 {
-    expdata->funtype = type;
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return;
+    }
 
-    return 0;
+    expdata->funtype = type;
 }
 
 mocklib_funtype_t mocklib_expdata_funtype_get(mocklib_expdata_t expdata)
 {
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return NULL;
+    }
+
     return expdata->funtype;
 }
 
-int32_t mocklib_expdata_internal_set(mocklib_expdata_t expdata, void *internal)
+void mocklib_expdata_internal_set(mocklib_expdata_t expdata, void *internal)
 {
-    expdata->internal = internal;
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return;
+    }
 
-    return 0;
+    expdata->internal = internal;
 }
 
 void * mocklib_expdata_internal_get(mocklib_expdata_t expdata)
 {
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return NULL;
+    }
+
     return expdata->internal;
 }

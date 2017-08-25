@@ -11,7 +11,6 @@
 
 #include "mocklib.h"
 #include "mocklib_expfun.h"
-#include "mocklib_malloc.h"
 #include "mocklib_internal.h"
 #include "mocklib_utlib_defines.h"
 

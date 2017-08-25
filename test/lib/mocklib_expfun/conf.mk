@@ -3,11 +3,11 @@
 # Author:	Maciej Gajdzica
 # Brief:	
 #
-# Date:		26.07.2017
+# Date:		24.08.2017
 ##
 
 #Name of output files
-TARGET_NAME := mock_manual
+TARGET_NAME := mocklib_expfun
 
 # Directory containing compilation result.
 OUT_DIR := out/
@@ -20,7 +20,11 @@ MOCKLIB_UNIT_TEST \
 # Paths to header files (.h).
 # In the code paths relative to this path should be provided.
 INC_DIRS := \
-../src/ \
+../../../src/ \
+../../utlib_checks/ \
+../../utlib_malloc/ \
+../../../external/Unity/src \
+../../../external/Unity/extras/fixture/src \
 
 # Paths to source file folders (.c and .S).
 # In these paths source files are searched recursively in the subfolders.
@@ -28,6 +32,7 @@ SRC_DIRS := \
 
 # Additional source files to be compiled.
 SRC_FILES := \
+../../../src/mocklib_expfun.c \
 
 # Source paths to be excluded from build.
 SRC_DIRS_EXC := \
@@ -39,19 +44,13 @@ SRC_FILES_EXC := \
 # In the code paths relative to this path should be provided.
 TEST_INC_DIRS := \
 . \
-../../utlib_checks/ \
-../../../src \
-../../../port/std_malloc \
-../../../external/Unity/src \
-../../../external/Unity/extras/fixture/src \
 
 # Paths to test source file folders (.c and .S).
 # In these paths source files are searched recursively in the subfolders.
 TEST_SRC_DIRS := \
 ./ \
-../test/ \
 ../../utlib_checks/ \
-../../../src/ \
+../../utlib_malloc/ \
 ../../../external/Unity/src/ \
 ../../../external/Unity/extras/fixture/src/ \
 
