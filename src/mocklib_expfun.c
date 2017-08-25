@@ -10,8 +10,9 @@
 #include <stdint.h>
 
 #include "mocklib.h"
-#include "mocklib_malloc.h"
 #include "mocklib_expfun.h"
+#include "mocklib_malloc.h"
+#include "mocklib_utlib_defines.h"
 
 struct expfun_record
 {
@@ -25,16 +26,23 @@ mocklib_expdata_t mocklib_expdata_create(void)
 
     ret = MOCKLIB_MALLOC(sizeof(struct expfun_record));
 
-    //todo: check if ret != NULL
+    if (NULL == ret)
+    {
+        return NULL;
+    }
+
     ret->internal = NULL;
     ret->funtype = 0;
 
     return ret;
 }
 
-int32_t mocklib_expdata_destroy(mocklib_expdata_t expdata)
+void mocklib_expdata_destroy(mocklib_expdata_t expdata)
 {
-    //todo: check if expdata != NULL
+    if (NULL == expdata)
+    {
+        return;
+    }
 
     if (NULL != expdata->internal)
     {
@@ -43,37 +51,49 @@ int32_t mocklib_expdata_destroy(mocklib_expdata_t expdata)
 
     MOCKLIB_FREE(expdata);
 
-    return 0;
+    return;
 }
 
-int32_t mocklib_expdata_funtype_set(mocklib_expdata_t expdata, mocklib_funtype_t type)
+void mocklib_expdata_funtype_set(mocklib_expdata_t expdata, mocklib_funtype_t type)
 {
-    //todo: check if expdata != NULL
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return;
+    }
 
     expdata->funtype = type;
-
-    return 0;
 }
 
 mocklib_funtype_t mocklib_expdata_funtype_get(mocklib_expdata_t expdata)
 {
-    //todo: check if expdata != NULL
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return NULL;
+    }
 
     return expdata->funtype;
 }
 
-int32_t mocklib_expdata_internal_set(mocklib_expdata_t expdata, void *internal)
+void mocklib_expdata_internal_set(mocklib_expdata_t expdata, void *internal)
 {
-    //todo: check if expdata != NULL
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return;
+    }
 
     expdata->internal = internal;
-
-    return 0;
 }
 
 void * mocklib_expdata_internal_get(mocklib_expdata_t expdata)
 {
-    //todo: check if expdata != NULL
+    if (NULL == expdata)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid expected function data");
+        return NULL;
+    }
 
     return expdata->internal;
 }

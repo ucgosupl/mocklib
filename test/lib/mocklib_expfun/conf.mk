@@ -50,6 +50,7 @@ TEST_INC_DIRS := \
 TEST_SRC_DIRS := \
 ./ \
 ../../utlib_checks/ \
+../../utlib_malloc/ \
 ../../../external/Unity/src/ \
 ../../../external/Unity/extras/fixture/src/ \
 
