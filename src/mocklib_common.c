@@ -20,7 +20,7 @@ mocklib_expdata_t mocklib_common_expdata_create_and_check(void)
 {
     mocklib_expdata_t expdata = NULL;
 
-    //expdata = mocklib_expdata_create();
+    expdata = mocklib_expdata_create();
 
     if (NULL == expdata)
     {
@@ -46,7 +46,7 @@ void * mocklib_common_internal_create_and_check(size_t size)
 
 void mocklib_common_funtype_check(mocklib_expdata_t expdata, mocklib_funtype_t funtype_exp)
 {
-    //if (funtype_exp != mocklib_expdata_funtype_get(expdata))
+    if (funtype_exp != mocklib_expdata_funtype_get(expdata))
     {
         UTLIB_TEST_FAIL_MSG("Function called out of order");
     }
@@ -54,9 +54,9 @@ void mocklib_common_funtype_check(mocklib_expdata_t expdata, mocklib_funtype_t f
 
 void * mocklib_common_internal_get_and_check(mocklib_expdata_t expdata)
 {
-    void *internal;
+    void *internal = NULL;
 
-    //internal = mocklib_expdata_internal_get(expdata);
+    internal = mocklib_expdata_internal_get(expdata);
     if (NULL == internal)
     {
         UTLIB_TEST_FAIL_MSG("Missing expected function data");
