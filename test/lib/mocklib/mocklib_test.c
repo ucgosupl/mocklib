@@ -104,7 +104,7 @@ TEST(mocklib, exp_get_fail_when_all_exp_already_given)
 
     mocklib_exp_get();
 
-    utlib_test_fail_msg_init("All expected functions data already taken");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     mocklib_exp_get();
 
@@ -113,7 +113,7 @@ TEST(mocklib, exp_get_fail_when_all_exp_already_given)
 
 TEST(mocklib, exp_get_fail_when_empty)
 {
-    utlib_test_fail_msg_init("All expected functions data already taken");
+    utlib_test_fail_msg_init("All expected functions already called");
 
     mocklib_exp_get();
 

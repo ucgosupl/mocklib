@@ -57,7 +57,7 @@ mocklib_expdata_t mocklib_exp_get(void)
     }
     else
     {
-        UTLIB_TEST_FAIL_MSG("All expected functions data already taken");
+        UTLIB_TEST_FAIL_MSG("All expected functions already called");
     }
 
     return retval;

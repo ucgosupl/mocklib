@@ -49,10 +49,6 @@ mocklib_expdata_t mocklib_common_expdata_get_and_check(void)
     mocklib_expdata_t expdata;
 
     expdata = mocklib_exp_get();
-    if (NULL == expdata)
-    {
-        UTLIB_TEST_FAIL_MSG("All expected functions already called");
-    }
 
     return expdata;
 }
