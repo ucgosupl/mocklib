@@ -15,6 +15,7 @@ OUT_DIR := out/
 # Defines passed as compiler arguments
 GLOBAL_DEFS := \
 UNIT_TEST \
+MOCKLIB_UNIT_TEST \
 
 # Paths to header files (.h).
 # In the code paths relative to this path should be provided.
@@ -40,6 +41,7 @@ TEST_INC_DIRS := \
 . \
 ../../utlib_checks/ \
 ../../../src \
+../../../port/std_malloc \
 ../../../external/Unity/src \
 ../../../external/Unity/extras/fixture/src \
 

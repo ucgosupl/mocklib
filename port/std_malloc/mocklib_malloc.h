@@ -9,8 +9,10 @@
 #ifndef _MOCKLIB_MALLOC_H_
 #define _MOCKLIB_MALLOC_H_
 
-//#include <stdlib.h>
+#ifdef MOCKLIB_UNIT_TEST
 #include "unity_fixture.h"
+#endif
+
 #define MOCKLIB_MALLOC(size)    malloc(size)
 #define MOCKLIB_FREE(obj)       free(obj)
 
