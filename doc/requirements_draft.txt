@@ -22,3 +22,4 @@
 - wybór za pomocą opcji buildera - generowanie z macrami albo bez
 - możliwość pracy z builderem i bez (użycie makr)
 - definicje dla test frameworka w oddzielnym folderze port
+- dodac targety uruchamiajace testy dla kazdego makefile
