@@ -3,7 +3,7 @@
  * Author:  Maciej Gajdzica
  * Brief:
  *
- * Date:    23 sie 2017
+ * Date:    23.08.2017
  */
 
 #ifndef _MOCKLIB_TEST_MOCKS_H_

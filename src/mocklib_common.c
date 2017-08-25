@@ -54,7 +54,7 @@ void mocklib_common_funtype_check(mocklib_expdata_t expdata, mocklib_funtype_t f
 
 void * mocklib_common_internal_get_and_check(mocklib_expdata_t expdata)
 {
-    void *internal;
+    void *internal = NULL;
 
     internal = mocklib_expdata_internal_get(expdata);
     if (NULL == internal)
