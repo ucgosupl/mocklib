@@ -54,7 +54,7 @@ TEST(mocklib, init_stack_old_item_destroy)
 
     ptr_val = NULL;
     stack_params.stack[0] = ptr_val;
-    mock_mocklib_expdata_destroy_init(0);
+    mock_mocklib_expdata_destroy_init();
 
     mocklib_init();
 
@@ -62,7 +62,7 @@ TEST(mocklib, init_stack_old_item_destroy)
 
     ptr_val = (mocklib_expdata_t)5;
     stack_params.stack[0] = ptr_val;
-    mock_mocklib_expdata_destroy_init(0);
+    mock_mocklib_expdata_destroy_init();
 
     mocklib_init();
 

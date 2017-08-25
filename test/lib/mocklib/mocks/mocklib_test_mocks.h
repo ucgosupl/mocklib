@@ -18,7 +18,7 @@ struct call_stack_params
     mocklib_expdata_t stack[CALL_STACK_SIZE];
 };
 
-void mock_mocklib_expdata_destroy_init(int32_t ret);
+void mock_mocklib_expdata_destroy_init(void);
 int32_t mock_mocklib_expdata_destroy_cnt_get(void);
 mocklib_expdata_t mock_mocklib_expdata_destroy_arg_expdata_get(void);
 
