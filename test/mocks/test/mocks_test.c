@@ -13,6 +13,7 @@
 #include "dep_module1/dep_module1.h"
 
 #include "mocklib.h"
+#include "mocklib_internal.h"
 #include "utlib_checks.h"
 #include "dep_module1_mock.h"
 

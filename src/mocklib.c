@@ -10,8 +10,8 @@
 #include <stdint.h>
 
 #include "mocklib.h"
-#include "mocklib_expfun.h"
 #include "mocklib_internal.h"
+#include "mocklib_expfun.h"
 #include "mocklib_utlib_defines.h"
 
 #define CALL_STACK_SIZE     20

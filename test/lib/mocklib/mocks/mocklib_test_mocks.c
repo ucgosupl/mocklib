@@ -11,6 +11,7 @@
 #include <stdint.h>
 
 #include "mocklib.h"
+#include "mocklib_internal.h"
 #include "mocklib_expfun.h"
 
 #include "mocklib_test_mocks.h"

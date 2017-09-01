@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include "mocklib.h"
+#include "mocklib_internal.h"
 #include "mocklib_expfun.h"
 
 #include "mocks/mocklib_expfun_test_mocks.h"

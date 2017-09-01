@@ -1,19 +1,4 @@
 /*
- *
- *                  This software is part of UniAC2 system
- *
- *          VOESTALPINE SIGNALING SOPOT COMPANY PROPRIETARY INFORMATION
- *   This software was created by Voestalpine SIGNALING Sopot and is supplied under
- *        the terms of a license agreement or nondisclosure agreement with
- *  Voestalpine SIGNALING Sopot Company and may not be copied or disclosed except in
- *                  accordance with the terms of that agreement.
- *    Copyright(c) 2016 Voestalpine SIGNALING Sopot Company. All Rights Reserved.
- *
- *     REDISTRIBUTION OF THIS SOURCE CODE MUST RETAIN THE ABOVE COPYRIGHT NOTICE
- *
- */
-
-/*
  * File:    mocklib_internal.h
  * Author:  Maciej Gajdzica
  * Brief:   Symbols used by library internally.
@@ -29,5 +14,28 @@
 #else
 #define PRIVATE
 #endif
+
+/** Type for expected function data - storing return value and expected parameters. */
+typedef struct expfun_record * mocklib_expdata_t;
+
+/**
+ * Get data of function expected to be called next.
+ *
+ * When all expected function data already given - function causes test to fail.
+ *
+ * @return                  Expected function data.
+ */
+mocklib_expdata_t mocklib_exp_get(void);
+
+/**
+ * Add new expected function data to call stack.
+ *
+ * This function causes test to fail in following cases:
+ * - Invalid input argument.
+ * - Expected function data internal queue already full.
+ *
+ * @param exp               Expected function data.
+ */
+void mocklib_exp_set(mocklib_expdata_t exp);
 
 #endif /* _MOCKLIB_INTERNAL_H_ */

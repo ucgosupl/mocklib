@@ -13,6 +13,7 @@
 #include "mocklib_utlib_defines.h"
 
 #include "mocklib.h"
+#include "mocklib_internal.h"
 #include "mocklib_expfun.h"
 #include "mocklib_common.h"
 #include "mocklib_define.h"
