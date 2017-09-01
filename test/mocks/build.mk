@@ -159,6 +159,7 @@ BIN := $(OUT_DIR)bin/$(TARGET_NAME).exe
 HEX := $(OUT_DIR)bin/$(TARGET_NAME).hex
 LSS := $(OUT_DIR)bin/$(TARGET_NAME).lss
 DMP := $(OUT_DIR)bin/$(TARGET_NAME).dmp
+REPORT := $(OUT_DIR)report/$(TARGET_NAME).txt
 
 C_OBJS := $(addprefix $(OUT_DIR)code/, $(notdir $(C_SRCS:.$(C_EXT)=.o)))
 TEST_C_OBJS := $(addprefix $(OUT_DIR)test/, $(notdir $(TEST_C_SRCS:.$(C_EXT)=.o)))
@@ -173,6 +174,8 @@ all : print_header make_out_dir $(BIN) $(LSS) $(DMP) $(HEX) print_size test_run
 	@$(ECHO) build $(TARGET_NAME)
 
 test_run : $(ELF)
+	./$(BIN) > $(REPORT)
+	cat $(REPORT)
 
 # Binaries generation
 $(HEX) : $(BIN)
@@ -262,6 +265,7 @@ make_out_dir :
 	$(MKDIR) -p  $(OUT_DIR)bin
 	$(MKDIR) -p  $(OUT_DIR)code
 	$(MKDIR) -p  $(OUT_DIR)test
+	$(MKDIR) -p  $(OUT_DIR)report
 	@$(ECHO)
 
 clean :
