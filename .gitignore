@@ -9,3 +9,6 @@ bin/
 
 # MPLAB project files
 *.X
+
+# PyCharm project files
+.idea
