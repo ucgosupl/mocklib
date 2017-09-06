@@ -4,7 +4,7 @@ import sys
 
 def fun_list_get(text):
     tmp = preprocessing(text)
-    fun_re = re.compile(r'[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+\s*\((\s*void\s*|(\s*[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+\s*,)*\s*[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+\s*)\)\s*;')
+    fun_re = re.compile(r'[a-zA-Z0-9_]+[\s\*]+[a-zA-Z0-9_]+\s*\((\s*void\s*|(\s*[a-zA-Z0-9_]+[\s\*]+[a-zA-Z0-9_]+\s*,)*\s*[a-zA-Z0-9_]+[\s\*]+[a-zA-Z0-9_]+\s*)\)\s*;')
     funs = fun_re.finditer(tmp)
     list = [item.group() for item in funs]
     return list
@@ -51,7 +51,7 @@ def strip_extern(text):
 
 if __name__ == "__main__":
     if 1 >= len(sys.argv):
-        filepath = "../src/mocklib.h"
+        filepath = "../test/scripts/fun_parse_ptr.h"
     else:
         filepath = sys.argv[1]
 
