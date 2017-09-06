@@ -14,7 +14,7 @@ void
 mocklib_init(void );
 void mocklib_init( void );
 
-type_ret mocklib_exp_all_called(type1 arg1);
+type_ret mocklib_exp_all_called (type1 arg1);
 type_ret mocklib_exp_all_called(type1 arg1
 );
 type_ret mocklib_exp_all_called(type1
