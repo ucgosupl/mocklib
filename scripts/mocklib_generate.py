@@ -1,10 +1,7 @@
 import argparse
 import os
 
-from fun_parse import fun_parse
-from fun_list_get import fun_list_get
-from generate_mock_h import generate_mock_h
-from generate_mock_c import generate_mock_c
+from mock_generator import *
 
 argp = argparse.ArgumentParser(description='Generate mocks from given header file.')
 argp.add_argument('file', help="Header file from which mock is generated.")
