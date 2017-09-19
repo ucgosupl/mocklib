@@ -43,8 +43,8 @@ def includes_generate(file_name, include_path):
 #include "mocklib_expfun.h"
 #include "mocklib_common.h"
 
-#include "{1}/{0}.h"
-#include "{0}_mock.h"
+#include "{0}{1}.h"
+#include "{1}_mock.h"
 #include "mocks_global.h"
 
 """.format(include_path, file_name)
@@ -243,6 +243,7 @@ def mock_init_fun_generate(file_name, fun_data):
     retval += "}\n"
     return retval
 
+
 if __name__ == "__main__":
     fun1 = ("fun1", "void", ["arg1_type", "arg2_type"])
     fun2 = ("fun2", "int32_t*", ["arg1_type*", "arg2_type"])
@@ -252,5 +253,6 @@ if __name__ == "__main__":
     fun_data = [fun1, fun2, fun3, fun4]
 
     file_name = "filename"
+    include_path = "dir/"
 
-    print(generate_mock_c(file_name, file_name, fun_data))
+    print(generate_mock_c(file_name, include_path, fun_data))
