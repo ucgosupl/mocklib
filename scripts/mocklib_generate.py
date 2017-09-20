@@ -35,11 +35,11 @@ for fun in fun_list:
 mock_h = generate_mock_h(file_no_ext, fun_data)
 mock_c = generate_mock_c(file_no_ext, inc_path, fun_data)
 
-mock_c_file = "{0}{1}.c".format(out_dir, file_no_ext)
-mock_h_file = "{0}{1}.h".format(out_dir, file_no_ext)
+mock_c_file = "{0}{1}/{1}.c".format(out_dir, file_no_ext)
+mock_h_file = "{0}{1}/{1}.h".format(out_dir, file_no_ext)
 
-if out_dir is not "" and not os.path.exists(out_dir):
-    os.makedirs(out_dir)
+if out_dir is not "" and not os.path.exists(out_dir + file_no_ext):
+    os.makedirs(out_dir + file_no_ext)
 
 with open(mock_h_file, "w") as file:
     file.write(mock_h)
