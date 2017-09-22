@@ -128,6 +128,8 @@ def expect_fun_generate(file_name, fun_name, ret_type, arg_type_list):
     retval += """    mocklib_expdata_t expdata = NULL;
     struct {0}_{1}_expdata_internal *internal = NULL;
 
+    mocklib_common_err_if_mode_not_trace({0}_{1}_params.mode);
+
     expdata = mocklib_common_expdata_create_and_check();
     mocklib_expdata_funtype_set(expdata, MOCK_FUNTYPE_{0}_{1});
 """.format(file_name, fun_name)
@@ -154,7 +156,7 @@ def expect_fun_generate(file_name, fun_name, ret_type, arg_type_list):
 
 
 def cnt_fun_generate(file_name, fun_data):
-    retval = """int32_t {0}_{1}_cnt_get(void)
+    retval = """int32_t {0}_mock_{1}_cnt_get(void)
 {{
     return {0}_{1}_params.call_cnt;
 }}
@@ -227,6 +229,11 @@ def mock_fun_generate(file_name, fun_name, ret_type, arg_type_list):
     {
         /*TODO: handle error*/
     }
+"""
+
+    if "void" != ret_type:
+        retval += """
+    return retval;
 """
 
     retval += "}\n\n"

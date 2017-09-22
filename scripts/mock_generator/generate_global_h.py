@@ -13,7 +13,7 @@ def generate_global_h_enum(file_name, fun_data):
     enum = ""
 
     for fun in fun_data:
-        enum += "MOCK_FUNTYPE_{0}_{1};\n".format(file_name, fun[0])
+        enum += "MOCK_FUNTYPE_{0}_{1},\n".format(file_name, fun[0])
 
     return enum
 
