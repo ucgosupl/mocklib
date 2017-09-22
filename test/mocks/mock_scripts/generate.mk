@@ -42,5 +42,8 @@ print :
 $(MOCK_OUT_DIR)/% : %.h
 	python ../../../scripts/mocklib_generate.py -o $(MOCK_OUT_DIR) $<
 
-.PHONY : all
+clean :
+	@$(RM) -rf $(MOCK_OUT_DIR)
+
+.PHONY : all clean
 .PHONY : print
