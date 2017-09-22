@@ -48,12 +48,6 @@ def config_fun_generate(file_name, fun_name, ret_type, arg_type_list):
     if "void" != ret_type:
         retval += ", {0} ret".format(ret_type)
 
-    if "void" != arg_type_list[0]:
-        i = 1
-        for arg_type in arg_type_list:
-            retval += ", {0} arg{1}".format(arg_type, i)
-            i += 1
-
     retval += ");\n"
     return retval;
 
