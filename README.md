@@ -3,6 +3,10 @@ Mocklib
 
 C library for creating test doubles.
 
+master: [![Build Status](https://travis-ci.org/ucgosupl/mocklib.svg?branch=master)](https://travis-ci.org/ucgosupl/mocklib)
+
+dev: [![Build Status](https://travis-ci.org/ucgosupl/mocklib.svg?branch=dev)](https://travis-ci.org/ucgosupl/mocklib)
+
 # Features
 - Basic mode:
 	* Count function calls.
