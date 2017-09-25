@@ -1,0 +1,17 @@
+################################################################################
+# File:     .travis.yml
+# Author:   Maciej Gajdzica
+# Brief:    Configuration file for Travis-CI continuous integration tool.
+################################################################################
+
+sudo: false
+dist: trusty
+
+# Turn off default travis email notifications
+notifications:
+  email: false
+
+language: generic
+
+script:
+  - make
