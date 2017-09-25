@@ -71,7 +71,7 @@ mocklib_funtype_t mocklib_expdata_funtype_get(mocklib_expdata_t expdata)
     if (NULL == expdata)
     {
         UTLIB_TEST_FAIL_MSG("Invalid expected function data");
-        return NULL;
+        return 0;
     }
 
     return expdata->funtype;
