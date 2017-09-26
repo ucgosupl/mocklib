@@ -119,20 +119,20 @@ TEST_TEAR_DOWN(mocks_callback)
 
 TEST(mocks_callback, no_args_no_ret_fail_when_wrong_mode_passed_to_cb_config)
 {
-    dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_BASIC);
+    dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
-    dep_module1_mock_dep_no_args_no_ret_cb_config(NULL);
+    dep_module1_mock_dep_no_args_no_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
 TEST(mocks_callback, no_args_no_ret_cb_called)
 {
-    dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_CALLBACK);
-    dep_module1_mock_dep_no_args_no_ret_cb_config(dep_no_args_no_ret_cb);
+    dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_no_args_no_ret_cb_cfg(dep_no_args_no_ret_cb);
 
     dep_no_args_no_ret();
 
@@ -141,20 +141,20 @@ TEST(mocks_callback, no_args_no_ret_cb_called)
 
 TEST(mocks_callback, no_args_ret_fail_when_wrong_mode_passed_to_cb_config)
 {
-    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_BASIC, 0);
+    dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_BASIC);
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
-    dep_module1_mock_dep_no_args_ret_cb_config(NULL);
+    dep_module1_mock_dep_no_args_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
 TEST(mocks_callback, no_args_ret_cb_called)
 {
-    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_no_args_ret_cb_config(dep_no_args_ret_cb);
+    dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_no_args_ret_cb_cfg(dep_no_args_ret_cb);
 
     dep_no_args_ret();
 
@@ -168,8 +168,8 @@ TEST(mocks_callback, no_args_ret_retval)
 
     ret_expected = 1234;
     dep_no_args_ret_cb_params.ret = ret_expected;
-    dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_no_args_ret_cb_config(dep_no_args_ret_cb);
+    dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_no_args_ret_cb_cfg(dep_no_args_ret_cb);
 
     ret_actual = dep_no_args_ret();
 
@@ -178,20 +178,20 @@ TEST(mocks_callback, no_args_ret_retval)
 
 TEST(mocks_callback, one_arg_no_ret_fail_when_wrong_mode_passed_to_cb_config)
 {
-    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_BASIC);
+    dep_module1_mock_dep_one_arg_no_ret_mode_set(MOCKLIB_MODE_BASIC);
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
-    dep_module1_mock_dep_one_arg_no_ret_cb_config(NULL);
+    dep_module1_mock_dep_one_arg_no_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
 TEST(mocks_callback, one_arg_no_ret_cb_called)
 {
-    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_CALLBACK);
-    dep_module1_mock_dep_one_arg_no_ret_cb_config(dep_one_arg_no_ret_cb);
+    dep_module1_mock_dep_one_arg_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_one_arg_no_ret_cb_cfg(dep_one_arg_no_ret_cb);
 
     dep_one_arg_no_ret(0);
 
@@ -203,8 +203,8 @@ TEST(mocks_callback, one_arg_no_ret_args)
     uint16_t arg1;
 
     arg1 = 0xAAAA;
-    dep_module1_mock_dep_one_arg_no_ret_config(MOCKLIB_MODE_CALLBACK);
-    dep_module1_mock_dep_one_arg_no_ret_cb_config(dep_one_arg_no_ret_cb);
+    dep_module1_mock_dep_one_arg_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_one_arg_no_ret_cb_cfg(dep_one_arg_no_ret_cb);
 
     dep_one_arg_no_ret(arg1);
 
@@ -213,20 +213,20 @@ TEST(mocks_callback, one_arg_no_ret_args)
 
 TEST(mocks_callback, more_args_no_ret_fail_when_wrong_mode_passed_to_cb_config)
 {
-    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_BASIC);
+    dep_module1_mock_dep_more_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
-    dep_module1_mock_dep_more_args_no_ret_cb_config(NULL);
+    dep_module1_mock_dep_more_args_no_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
 TEST(mocks_callback, more_args_no_ret_cb_called)
 {
-    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_CALLBACK);
-    dep_module1_mock_dep_more_args_no_ret_cb_config(dep_more_args_no_ret_cb);
+    dep_module1_mock_dep_more_args_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_more_args_no_ret_cb_cfg(dep_more_args_no_ret_cb);
 
     dep_more_args_no_ret(0, 0);
 
@@ -240,8 +240,8 @@ TEST(mocks_callback, more_args_no_ret_args)
 
     arg1 = 1234;
     arg2 = 0xAA;
-    dep_module1_mock_dep_more_args_no_ret_config(MOCKLIB_MODE_CALLBACK);
-    dep_module1_mock_dep_more_args_no_ret_cb_config(dep_more_args_no_ret_cb);
+    dep_module1_mock_dep_more_args_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_more_args_no_ret_cb_cfg(dep_more_args_no_ret_cb);
 
     dep_more_args_no_ret(arg1, arg2);
 
@@ -251,20 +251,20 @@ TEST(mocks_callback, more_args_no_ret_args)
 
 TEST(mocks_callback, one_arg_ret_fail_when_wrong_mode_passed_to_cb_config)
 {
-    dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_BASIC, 0);
+    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_BASIC);
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
-    dep_module1_mock_dep_one_arg_ret_cb_config(NULL);
+    dep_module1_mock_dep_one_arg_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
 TEST(mocks_callback, one_arg_ret_cb_called)
 {
-    dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_one_arg_ret_cb_config(dep_one_arg_ret_cb);
+    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_one_arg_ret_cb_cfg(dep_one_arg_ret_cb);
 
     dep_one_arg_ret(0);
 
@@ -278,8 +278,8 @@ TEST(mocks_callback, one_arg_ret_retval)
 
     ret_expected = 0xAAAAAAAA;
     dep_one_arg_ret_cb_params.ret = ret_expected;
-    dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_one_arg_ret_cb_config(dep_one_arg_ret_cb);
+    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_one_arg_ret_cb_cfg(dep_one_arg_ret_cb);
 
     ret_actual = dep_one_arg_ret(0);
 
@@ -291,8 +291,8 @@ TEST(mocks_callback, one_arg_ret_args)
     uint32_t arg1;
 
     arg1 = 1234;
-    dep_module1_mock_dep_one_arg_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_one_arg_ret_cb_config(dep_one_arg_ret_cb);
+    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_one_arg_ret_cb_cfg(dep_one_arg_ret_cb);
 
     dep_one_arg_ret(arg1);
 
@@ -301,20 +301,20 @@ TEST(mocks_callback, one_arg_ret_args)
 
 TEST(mocks_callback, more_args_ret_fail_when_wrong_mode_passed_to_cb_config)
 {
-    dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_BASIC, 0);
+    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_BASIC);
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
-    dep_module1_mock_dep_more_args_ret_cb_config(NULL);
+    dep_module1_mock_dep_more_args_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
 TEST(mocks_callback, more_args_ret_cb_called)
 {
-    dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_more_args_ret_cb_config(dep_more_args_ret_cb);
+    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_more_args_ret_cb_cfg(dep_more_args_ret_cb);
 
     dep_more_args_ret(0, 0);
 
@@ -328,8 +328,8 @@ TEST(mocks_callback, more_args_ret_retval)
 
     ret_expected = 123;
     dep_more_args_ret_cb_params.ret = ret_expected;
-    dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_more_args_ret_cb_config(dep_more_args_ret_cb);
+    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_more_args_ret_cb_cfg(dep_more_args_ret_cb);
 
     ret_actual = dep_more_args_ret(0, 0);
 
@@ -343,8 +343,8 @@ TEST(mocks_callback, more_args_ret_args)
 
     arg1 = 123;
     arg2 = 1234;
-    dep_module1_mock_dep_more_args_ret_config(MOCKLIB_MODE_CALLBACK, 0);
-    dep_module1_mock_dep_more_args_ret_cb_config(dep_more_args_ret_cb);
+    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+    dep_module1_mock_dep_more_args_ret_cb_cfg(dep_more_args_ret_cb);
 
     dep_more_args_ret(arg1, arg2);
 
