@@ -193,7 +193,8 @@ void dep_module1_mock_dep_no_args_ret_mode_set(mocklib_mode_t mode)
 
 void dep_module1_mock_dep_no_args_ret_basic_cfg(int32_t ret)
 {
-    /* TODO: error if mode other than basic */
+    mocklib_common_err_if_mode_not_basic(dep_module1_dep_no_args_ret_params.mode);
+
     dep_module1_dep_no_args_ret_params.ret = ret;
 }
 
@@ -403,7 +404,8 @@ void dep_module1_mock_dep_one_arg_ret_mode_set(mocklib_mode_t mode)
 
 void dep_module1_mock_dep_one_arg_ret_basic_cfg(uint32_t ret)
 {
-    /* TODO: error if mode other than basic */
+    mocklib_common_err_if_mode_not_basic(dep_module1_dep_one_arg_ret_params.mode);
+
     dep_module1_dep_one_arg_ret_params.ret = ret;
 }
 
@@ -476,7 +478,8 @@ void dep_module1_mock_dep_more_args_ret_mode_set(mocklib_mode_t mode)
 
 void dep_module1_mock_dep_more_args_ret_basic_cfg(int8_t ret)
 {
-    /* TODO: error if mode other than basic */
+    mocklib_common_err_if_mode_not_basic(dep_module1_dep_more_args_ret_params.mode);
+
     dep_module1_dep_more_args_ret_params.ret = ret;
 }
 

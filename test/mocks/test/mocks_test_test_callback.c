@@ -117,7 +117,7 @@ TEST_TEAR_DOWN(mocks_callback)
     mocklib_init();
 }
 
-TEST(mocks_callback, no_args_no_ret_fail_when_wrong_mode_passed_to_cb_config)
+TEST(mocks_callback, no_args_no_ret_fail_when_wrong_mode_passed_to_config)
 {
     dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
 
@@ -139,7 +139,7 @@ TEST(mocks_callback, no_args_no_ret_cb_called)
     TEST_ASSERT_EQUAL(1, dep_no_args_no_ret_cb_params.cnt);
 }
 
-TEST(mocks_callback, no_args_ret_fail_when_wrong_mode_passed_to_cb_config)
+TEST(mocks_callback, no_args_ret_fail_when_wrong_mode_passed_to_config)
 {
     dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_BASIC);
 
@@ -176,7 +176,7 @@ TEST(mocks_callback, no_args_ret_retval)
     TEST_ASSERT_EQUAL(ret_expected, ret_actual);
 }
 
-TEST(mocks_callback, one_arg_no_ret_fail_when_wrong_mode_passed_to_cb_config)
+TEST(mocks_callback, one_arg_no_ret_fail_when_wrong_mode_passed_to_config)
 {
     dep_module1_mock_dep_one_arg_no_ret_mode_set(MOCKLIB_MODE_BASIC);
 
@@ -211,7 +211,7 @@ TEST(mocks_callback, one_arg_no_ret_args)
     TEST_ASSERT_EQUAL(arg1, dep_one_arg_no_ret_cb_params.arg1);
 }
 
-TEST(mocks_callback, more_args_no_ret_fail_when_wrong_mode_passed_to_cb_config)
+TEST(mocks_callback, more_args_no_ret_fail_when_wrong_mode_passed_to_config)
 {
     dep_module1_mock_dep_more_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
 
@@ -249,7 +249,7 @@ TEST(mocks_callback, more_args_no_ret_args)
     TEST_ASSERT_EQUAL(arg2, dep_more_args_no_ret_cb_params.arg2);
 }
 
-TEST(mocks_callback, one_arg_ret_fail_when_wrong_mode_passed_to_cb_config)
+TEST(mocks_callback, one_arg_ret_fail_when_wrong_mode_passed_to_config)
 {
     dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_BASIC);
 
@@ -299,7 +299,7 @@ TEST(mocks_callback, one_arg_ret_args)
     TEST_ASSERT_EQUAL(arg1, dep_one_arg_ret_cb_params.arg1);
 }
 
-TEST(mocks_callback, more_args_ret_fail_when_wrong_mode_passed_to_cb_config)
+TEST(mocks_callback, more_args_ret_fail_when_wrong_mode_passed_to_config)
 {
     dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_BASIC);
 

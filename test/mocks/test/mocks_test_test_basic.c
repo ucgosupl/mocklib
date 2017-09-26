@@ -45,6 +45,18 @@ TEST(mocks_basic, no_args_no_ret)
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_no_args_no_ret_cnt_get());
 }
 
+TEST(mocks_basic, no_args_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_TRACE);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in basic mode");
+
+    dep_module1_mock_dep_no_args_ret_basic_cfg(0);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
 TEST(mocks_basic, no_args_ret)
 {
     int32_t retval;
@@ -94,6 +106,18 @@ TEST(mocks_basic, more_args_no_ret)
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_more_args_no_ret_cnt_get());
 }
 
+TEST(mocks_basic, one_arg_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_TRACE);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in basic mode");
+
+    dep_module1_mock_dep_one_arg_ret_basic_cfg(0);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
 TEST(mocks_basic, one_arg_ret)
 {
     uint32_t retval;
@@ -113,6 +137,18 @@ TEST(mocks_basic, one_arg_ret)
 
     TEST_ASSERT_EQUAL(retval, dep_one_arg_ret(arg1));
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_one_arg_ret_cnt_get());
+}
+
+TEST(mocks_basic, more_args_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_TRACE);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in basic mode");
+
+    dep_module1_mock_dep_more_args_ret_basic_cfg(0);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
 TEST(mocks_basic, more_args_ret)
@@ -136,97 +172,4 @@ TEST(mocks_basic, more_args_ret)
 
     TEST_ASSERT_EQUAL(retval, dep_more_args_ret(arg1, arg2));
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_more_args_ret_cnt_get());
-}
-
-
-TEST(mocks_basic, no_args_no_ret_expect_called)
-{
-    dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
-
-    /* Expect mock to call test fail next */
-    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
-
-    dep_module1_mock_dep_no_args_no_ret_trace_expect();
-
-    TEST_FAIL_MESSAGE("Test should never reach this line!");
-}
-
-TEST(mocks_basic, no_args_ret_expect_called)
-{
-    dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_BASIC);
-
-    /* Expect mock to call test fail next */
-    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
-
-    dep_module1_mock_dep_no_args_ret_trace_expect(0);
-
-    TEST_FAIL_MESSAGE("Test should never reach this line!");
-}
-
-TEST(mocks_basic, one_arg_no_ret_expect_called)
-{
-    uint16_t arg1;
-
-    arg1 = 57;
-    dep_module1_mock_dep_one_arg_no_ret_mode_set(MOCKLIB_MODE_BASIC);
-
-    /* Expect mock to call test fail next */
-    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
-
-    dep_module1_mock_dep_one_arg_no_ret_trace_expect(arg1);
-
-    TEST_FAIL_MESSAGE("Test should never reach this line!");
-}
-
-TEST(mocks_basic, more_args_no_ret_expect_called)
-{
-    int32_t arg1;
-    uint8_t arg2;
-
-    arg1 = 58;
-    arg2 = 59;
-    dep_module1_mock_dep_more_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
-
-    /* Expect mock to call test fail next */
-    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
-
-    dep_module1_mock_dep_more_args_no_ret_trace_expect(arg1, arg2);
-
-    TEST_FAIL_MESSAGE("Test should never reach this line!");
-}
-
-TEST(mocks_basic, one_arg_ret_expect_called)
-{
-    uint32_t arg1;
-    uint32_t ret;
-
-    arg1 = 60;
-    ret = 61;
-    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_BASIC);
-
-    /* Expect mock to call test fail next */
-    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
-
-    dep_module1_mock_dep_one_arg_ret_trace_expect(ret, arg1);
-
-    TEST_FAIL_MESSAGE("Test should never reach this line!");
-}
-
-TEST(mocks_basic, more_args_ret_expect_called)
-{
-    int8_t arg1;
-    int16_t arg2;
-    uint32_t ret;
-
-    arg1 = 62;
-    arg2 = 63;
-    ret = 64;
-    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_BASIC);
-
-    /* Expect mock to call test fail next */
-    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
-
-    dep_module1_mock_dep_more_args_ret_trace_expect(ret, arg1, arg2);
-
-    TEST_FAIL_MESSAGE("Test should never reach this line!");
 }

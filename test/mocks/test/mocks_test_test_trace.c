@@ -36,7 +36,19 @@ TEST_TEAR_DOWN(mocks_trace)
     mocklib_init();
 }
 
-TEST(mocks_trace, no_ret_no_args_unexpected)
+TEST(mocks_trace, no_args_no_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_no_args_no_ret_trace_expect();
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_trace, no_args_no_ret_unexpected)
 {
     dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_TRACE);
     utlib_test_fail_msg_init("All expected functions already called");
@@ -46,7 +58,7 @@ TEST(mocks_trace, no_ret_no_args_unexpected)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, no_ret_no_args_expect_single_call)
+TEST(mocks_trace, no_args_no_ret_expect_single_call)
 {
     /* Config mock to expect single call */
     dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_TRACE);
@@ -65,7 +77,7 @@ TEST(mocks_trace, no_ret_no_args_expect_single_call)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, no_ret_no_args_expect_many_calls)
+TEST(mocks_trace, no_args_no_ret_expect_many_calls)
 {
     int32_t call_cnt;
     int32_t i;
@@ -91,6 +103,18 @@ TEST(mocks_trace, no_ret_no_args_expect_many_calls)
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_no_ret();
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_trace, no_args_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_no_args_ret_trace_expect(0);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
@@ -150,6 +174,18 @@ TEST(mocks_trace, no_args_ret_expect_many_calls)
     utlib_test_fail_msg_init("All expected functions already called");
 
     dep_no_args_ret();
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_trace, one_arg_no_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_one_arg_no_ret_mode_set(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_one_arg_no_ret_trace_expect(0);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
@@ -233,6 +269,18 @@ TEST(mocks_trace, one_arg_no_ret_wrong_arg1)
     utlib_assert_equal_init(1);
 
     dep_one_arg_no_ret(arg1 + 5);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_trace, more_args_no_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_more_args_no_ret_mode_set(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_more_args_no_ret_trace_expect(0, 0);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
@@ -346,6 +394,18 @@ TEST(mocks_trace, more_args_no_ret_wrong_arg2)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
+TEST(mocks_trace, one_arg_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_one_arg_ret_trace_expect(0, 0);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
 TEST(mocks_trace, one_arg_ret_unexpected)
 {
     uint32_t arg1;
@@ -426,6 +486,18 @@ TEST(mocks_trace, one_arg_ret_wrong_arg1)
     utlib_assert_equal_init(1);
 
     dep_one_arg_ret(arg1 + 5);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_trace, more_args_ret_fail_when_wrong_mode_passed_to_config)
+{
+    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_BASIC);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
+
+    dep_module1_mock_dep_more_args_ret_trace_expect(0, 0, 0);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
@@ -669,4 +741,3 @@ TEST(mocks_trace, call_more_args_ret_when_expected_other)
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
-
