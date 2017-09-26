@@ -64,3 +64,8 @@ TEST_GROUP_RUNNER(mocks_trace)
     RUN_TEST_CASE(mocks_trace, mode_trace_call_one_arg_ret_when_expected_other);
     RUN_TEST_CASE(mocks_trace, mode_trace_call_more_args_ret_when_expected_other);
 }
+
+TEST_GROUP_RUNNER(mocks_callback)
+{
+    RUN_TEST_CASE(mocks_callback, first_test);
+}

@@ -16,6 +16,8 @@ static void run_all_tests(void)
     RUN_TEST_GROUP(mocks);
     printf("\nTrace mode tests:\n");
     RUN_TEST_GROUP(mocks_trace);
+    printf("\nCallback mode tests:\n");
+    RUN_TEST_GROUP(mocks_callback);
 }
 
 int main(void)
