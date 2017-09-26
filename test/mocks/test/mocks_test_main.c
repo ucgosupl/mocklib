@@ -12,8 +12,10 @@
 
 static void run_all_tests(void)
 {
-    printf("Run tests of mocks:\n");
+    printf("Basic mode tests:\n");
     RUN_TEST_GROUP(mocks);
+    printf("\nTrace mode tests:\n");
+    RUN_TEST_GROUP(mocks_trace);
 }
 
 int main(void)
