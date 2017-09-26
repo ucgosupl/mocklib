@@ -71,6 +71,12 @@ enum
      * order.
      */
     MOCKLIB_MODE_TRACE,
+
+    /**
+     * Mock calls provided callback function, passes all arguments to it and
+     * forwards returned value back to caller.
+     */
+    MOCKLIB_MODE_CALLBACK,
 };
 
 /** Type for mocklib mode - available modes in enum. */

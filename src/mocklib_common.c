@@ -73,3 +73,11 @@ void mocklib_common_err_if_mode_not_trace(mocklib_mode_t mode)
         UTLIB_TEST_FAIL_MSG("Expect function shall be called only in trace mode");
     }
 }
+
+void mocklib_common_err_if_mode_not_cb(mocklib_mode_t mode)
+{
+    if (MOCKLIB_MODE_CALLBACK != mode)
+    {
+        UTLIB_TEST_FAIL_MSG("Expect function shall be called only in callback mode");
+    }
+}
