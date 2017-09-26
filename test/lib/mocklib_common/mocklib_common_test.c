@@ -226,6 +226,28 @@ TEST(mocklib_common, internal_gc_fail_when_null)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
+TEST(mocklib_common, cb_check)
+{
+    mocklib_common_cb_check((void *)0xAAAAAAAA);
+
+    utlib_test_fail_msg_init("Invalid callback function");
+
+    mocklib_common_cb_check(NULL);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocklib_common, err_not_basic)
+{
+    mocklib_common_err_if_mode_not_basic(MOCKLIB_MODE_BASIC);
+
+    utlib_test_fail_msg_init("Expect function shall be called only in basic mode");
+
+    mocklib_common_err_if_mode_not_basic(MOCKLIB_MODE_TRACE);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
 TEST(mocklib_common, err_not_trace)
 {
     mocklib_common_err_if_mode_not_trace(MOCKLIB_MODE_TRACE);
@@ -233,6 +255,17 @@ TEST(mocklib_common, err_not_trace)
     utlib_test_fail_msg_init("Expect function shall be called only in trace mode");
 
     mocklib_common_err_if_mode_not_trace(MOCKLIB_MODE_BASIC);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocklib_common, err_not_cb)
+{
+    mocklib_common_err_if_mode_not_cb(MOCKLIB_MODE_CALLBACK);
+
+    utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
+
+    mocklib_common_err_if_mode_not_cb(MOCKLIB_MODE_BASIC);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }

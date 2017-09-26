@@ -25,5 +25,9 @@ TEST_GROUP_RUNNER(mocklib_common)
     RUN_TEST_CASE(mocklib_common, internal_gc_ret);
     RUN_TEST_CASE(mocklib_common, internal_gc_fail_when_null);
 
+    RUN_TEST_CASE(mocklib_common, cb_check);
+
+    RUN_TEST_CASE(mocklib_common, err_not_basic);
     RUN_TEST_CASE(mocklib_common, err_not_trace);
+    RUN_TEST_CASE(mocklib_common, err_not_cb);
 }
