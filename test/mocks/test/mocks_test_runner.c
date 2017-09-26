@@ -75,26 +75,32 @@ TEST_GROUP_RUNNER(mocks_trace)
 TEST_GROUP_RUNNER(mocks_callback)
 {
     RUN_TEST_CASE(mocks_callback, no_args_no_ret_fail_when_wrong_mode_passed_to_config);
+    RUN_TEST_CASE(mocks_callback, no_args_no_ret_fail_when_null_cb);
     RUN_TEST_CASE(mocks_callback, no_args_no_ret_cb_called);
 
     RUN_TEST_CASE(mocks_callback, no_args_ret_fail_when_wrong_mode_passed_to_config);
+    RUN_TEST_CASE(mocks_callback, no_args_ret_fail_when_null_cb);
     RUN_TEST_CASE(mocks_callback, no_args_ret_cb_called);
     RUN_TEST_CASE(mocks_callback, no_args_ret_retval);
 
     RUN_TEST_CASE(mocks_callback, one_arg_no_ret_fail_when_wrong_mode_passed_to_config);
+    RUN_TEST_CASE(mocks_callback, one_arg_no_ret_fail_when_null_cb);
     RUN_TEST_CASE(mocks_callback, one_arg_no_ret_cb_called);
     RUN_TEST_CASE(mocks_callback, one_arg_no_ret_args);
 
     RUN_TEST_CASE(mocks_callback, more_args_no_ret_fail_when_wrong_mode_passed_to_config);
+    RUN_TEST_CASE(mocks_callback, more_args_no_ret_fail_when_null_cb);
     RUN_TEST_CASE(mocks_callback, more_args_no_ret_cb_called);
     RUN_TEST_CASE(mocks_callback, more_args_no_ret_args);
 
     RUN_TEST_CASE(mocks_callback, one_arg_ret_fail_when_wrong_mode_passed_to_config);
+    RUN_TEST_CASE(mocks_callback, one_arg_ret_fail_when_null_cb);
     RUN_TEST_CASE(mocks_callback, one_arg_ret_cb_called);
     RUN_TEST_CASE(mocks_callback, one_arg_ret_retval);
     RUN_TEST_CASE(mocks_callback, one_arg_ret_args);
 
     RUN_TEST_CASE(mocks_callback, more_args_ret_fail_when_wrong_mode_passed_to_config);
+    RUN_TEST_CASE(mocks_callback, more_args_ret_fail_when_null_cb);
     RUN_TEST_CASE(mocks_callback, more_args_ret_cb_called);
     RUN_TEST_CASE(mocks_callback, more_args_ret_retval);
     RUN_TEST_CASE(mocks_callback, more_args_ret_args);

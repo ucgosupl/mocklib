@@ -141,6 +141,8 @@ void dep_module1_mock_dep_no_args_no_ret_cb_cfg(dep_module1_dep_no_args_no_ret_c
 {
     mocklib_common_err_if_mode_not_cb(dep_module1_dep_no_args_no_ret_params.mode);
 
+    mocklib_common_cb_check((void *)cb);
+
     dep_module1_dep_no_args_no_ret_params.cb = cb;
 }
 
@@ -201,6 +203,8 @@ void dep_module1_mock_dep_no_args_ret_basic_cfg(int32_t ret)
 void dep_module1_mock_dep_no_args_ret_cb_cfg(dep_module1_dep_no_args_ret_cb cb)
 {
     mocklib_common_err_if_mode_not_cb(dep_module1_dep_no_args_ret_params.mode);
+
+    mocklib_common_cb_check((void *)cb);
 
     dep_module1_dep_no_args_ret_params.cb = cb;
 }
@@ -273,6 +277,8 @@ void dep_module1_mock_dep_one_arg_no_ret_cb_cfg(dep_module1_dep_one_arg_no_ret_c
 {
     mocklib_common_err_if_mode_not_cb(dep_module1_dep_one_arg_no_ret_params.mode);
 
+    mocklib_common_cb_check((void *)cb);
+
     dep_module1_dep_one_arg_no_ret_params.cb = cb;
 }
 
@@ -340,6 +346,8 @@ void dep_module1_mock_dep_more_args_no_ret_basic_cfg(void)
 void dep_module1_mock_dep_more_args_no_ret_cb_cfg(dep_module1_dep_more_args_no_ret_cb cb)
 {
     mocklib_common_err_if_mode_not_cb(dep_module1_dep_more_args_no_ret_params.mode);
+
+    mocklib_common_cb_check((void *)cb);
 
     dep_module1_dep_more_args_no_ret_params.cb = cb;
 }
@@ -412,6 +420,8 @@ void dep_module1_mock_dep_one_arg_ret_basic_cfg(uint32_t ret)
 void dep_module1_mock_dep_one_arg_ret_cb_cfg(dep_module1_dep_one_arg_ret_cb cb)
 {
     mocklib_common_err_if_mode_not_cb(dep_module1_dep_one_arg_ret_params.mode);
+
+    mocklib_common_cb_check((void *)cb);
 
     dep_module1_dep_one_arg_ret_params.cb = cb;
 }
@@ -486,6 +496,8 @@ void dep_module1_mock_dep_more_args_ret_basic_cfg(int8_t ret)
 void dep_module1_mock_dep_more_args_ret_cb_cfg(dep_module1_dep_more_args_ret_cb cb)
 {
     mocklib_common_err_if_mode_not_cb(dep_module1_dep_more_args_ret_params.mode);
+
+    mocklib_common_cb_check((void *)cb);
 
     dep_module1_dep_more_args_ret_params.cb = cb;
 }

@@ -124,6 +124,18 @@ TEST(mocks_callback, no_args_no_ret_fail_when_wrong_mode_passed_to_config)
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
+    dep_module1_mock_dep_no_args_no_ret_cb_cfg(dep_no_args_no_ret_cb);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_callback, no_args_no_ret_fail_when_null_cb)
+{
+    dep_module1_mock_dep_no_args_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Invalid callback function");
+
     dep_module1_mock_dep_no_args_no_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
@@ -145,6 +157,18 @@ TEST(mocks_callback, no_args_ret_fail_when_wrong_mode_passed_to_config)
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
+
+    dep_module1_mock_dep_no_args_ret_cb_cfg(dep_no_args_ret_cb);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_callback, no_args_ret_fail_when_null_cb)
+{
+    dep_module1_mock_dep_no_args_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Invalid callback function");
 
     dep_module1_mock_dep_no_args_ret_cb_cfg(NULL);
 
@@ -183,6 +207,18 @@ TEST(mocks_callback, one_arg_no_ret_fail_when_wrong_mode_passed_to_config)
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
 
+    dep_module1_mock_dep_one_arg_no_ret_cb_cfg(dep_one_arg_no_ret_cb);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_callback, one_arg_no_ret_fail_when_null_cb)
+{
+    dep_module1_mock_dep_one_arg_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Invalid callback function");
+
     dep_module1_mock_dep_one_arg_no_ret_cb_cfg(NULL);
 
     TEST_FAIL_MESSAGE("Test should never reach this line!");
@@ -217,6 +253,18 @@ TEST(mocks_callback, more_args_no_ret_fail_when_wrong_mode_passed_to_config)
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
+
+    dep_module1_mock_dep_more_args_no_ret_cb_cfg(dep_more_args_no_ret_cb);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_callback, more_args_no_ret_fail_when_null_cb)
+{
+    dep_module1_mock_dep_more_args_no_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Invalid callback function");
 
     dep_module1_mock_dep_more_args_no_ret_cb_cfg(NULL);
 
@@ -255,6 +303,18 @@ TEST(mocks_callback, one_arg_ret_fail_when_wrong_mode_passed_to_config)
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
+
+    dep_module1_mock_dep_one_arg_ret_cb_cfg(dep_one_arg_ret_cb);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_callback, one_arg_ret_fail_when_null_cb)
+{
+    dep_module1_mock_dep_one_arg_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Invalid callback function");
 
     dep_module1_mock_dep_one_arg_ret_cb_cfg(NULL);
 
@@ -305,6 +365,18 @@ TEST(mocks_callback, more_args_ret_fail_when_wrong_mode_passed_to_config)
 
     /* Expect mock to call test fail next */
     utlib_test_fail_msg_init("Expect function shall be called only in callback mode");
+
+    dep_module1_mock_dep_more_args_ret_cb_cfg(dep_more_args_ret_cb);
+
+    TEST_FAIL_MESSAGE("Test should never reach this line!");
+}
+
+TEST(mocks_callback, more_args_ret_fail_when_null_cb)
+{
+    dep_module1_mock_dep_more_args_ret_mode_set(MOCKLIB_MODE_CALLBACK);
+
+    /* Expect mock to call test fail next */
+    utlib_test_fail_msg_init("Invalid callback function");
 
     dep_module1_mock_dep_more_args_ret_cb_cfg(NULL);
 
