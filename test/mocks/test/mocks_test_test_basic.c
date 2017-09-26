@@ -17,9 +17,9 @@
 #include "utlib_checks.h"
 #include "dep_module1_mock.h"
 
-TEST_GROUP(mocks);
+TEST_GROUP(mocks_basic);
 
-TEST_SETUP(mocks)
+TEST_SETUP(mocks_basic)
 {
     mocklib_init();
 
@@ -29,12 +29,12 @@ TEST_SETUP(mocks)
     utlib_assert_equal_init(0);
 }
 
-TEST_TEAR_DOWN(mocks)
+TEST_TEAR_DOWN(mocks_basic)
 {
     mocklib_init();
 }
 
-TEST(mocks, mode_basic_no_args_no_ret)
+TEST(mocks_basic, no_args_no_ret)
 {
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_BASIC);
 
@@ -45,7 +45,7 @@ TEST(mocks, mode_basic_no_args_no_ret)
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_no_args_no_ret_cnt_get());
 }
 
-TEST(mocks, mode_basic_no_args_ret)
+TEST(mocks_basic, no_args_ret)
 {
     int32_t retval;
 
@@ -62,7 +62,7 @@ TEST(mocks, mode_basic_no_args_ret)
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_no_args_ret_cnt_get());
 }
 
-TEST(mocks, mode_basic_one_arg_no_ret)
+TEST(mocks_basic, one_arg_no_ret)
 {
     uint16_t arg1;
 
@@ -76,7 +76,7 @@ TEST(mocks, mode_basic_one_arg_no_ret)
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_one_arg_no_ret_cnt_get());
 }
 
-TEST(mocks, mode_basic_more_args_no_ret)
+TEST(mocks_basic, more_args_no_ret)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -92,7 +92,7 @@ TEST(mocks, mode_basic_more_args_no_ret)
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_more_args_no_ret_cnt_get());
 }
 
-TEST(mocks, mode_basic_one_arg_ret)
+TEST(mocks_basic, one_arg_ret)
 {
     uint32_t retval;
     uint32_t arg1;
@@ -111,7 +111,7 @@ TEST(mocks, mode_basic_one_arg_ret)
     TEST_ASSERT_EQUAL(2, dep_module1_mock_dep_one_arg_ret_cnt_get());
 }
 
-TEST(mocks, mode_basic_more_args_ret)
+TEST(mocks_basic, more_args_ret)
 {
     int8_t retval;
     int8_t arg1;
@@ -133,7 +133,7 @@ TEST(mocks, mode_basic_more_args_ret)
 }
 
 
-TEST(mocks, mode_basic_no_args_no_ret_expect_called)
+TEST(mocks_basic, no_args_no_ret_expect_called)
 {
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_BASIC);
 
@@ -145,7 +145,7 @@ TEST(mocks, mode_basic_no_args_no_ret_expect_called)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks, mode_basic_no_args_ret_expect_called)
+TEST(mocks_basic, no_args_ret_expect_called)
 {
     dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_BASIC, 0);
 
@@ -157,7 +157,7 @@ TEST(mocks, mode_basic_no_args_ret_expect_called)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks, mode_basic_one_arg_no_ret_expect_called)
+TEST(mocks_basic, one_arg_no_ret_expect_called)
 {
     uint16_t arg1;
 
@@ -172,7 +172,7 @@ TEST(mocks, mode_basic_one_arg_no_ret_expect_called)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks, mode_basic_more_args_no_ret_expect_called)
+TEST(mocks_basic, more_args_no_ret_expect_called)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -189,7 +189,7 @@ TEST(mocks, mode_basic_more_args_no_ret_expect_called)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks, mode_basic_one_arg_ret_expect_called)
+TEST(mocks_basic, one_arg_ret_expect_called)
 {
     uint32_t arg1;
     uint32_t ret;
@@ -206,7 +206,7 @@ TEST(mocks, mode_basic_one_arg_ret_expect_called)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks, mode_basic_more_args_ret_expect_called)
+TEST(mocks_basic, more_args_ret_expect_called)
 {
     int8_t arg1;
     int16_t arg2;

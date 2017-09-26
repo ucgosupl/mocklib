@@ -36,7 +36,7 @@ TEST_TEAR_DOWN(mocks_trace)
     mocklib_init();
 }
 
-TEST(mocks_trace, mode_trace_no_ret_no_args_unexpected)
+TEST(mocks_trace, no_ret_no_args_unexpected)
 {
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
     utlib_test_fail_msg_init("All expected functions already called");
@@ -46,7 +46,7 @@ TEST(mocks_trace, mode_trace_no_ret_no_args_unexpected)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_no_ret_no_args_expect_single_call)
+TEST(mocks_trace, no_ret_no_args_expect_single_call)
 {
     /* Config mock to expect single call */
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
@@ -65,7 +65,7 @@ TEST(mocks_trace, mode_trace_no_ret_no_args_expect_single_call)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_no_ret_no_args_expect_many_calls)
+TEST(mocks_trace, no_ret_no_args_expect_many_calls)
 {
     int32_t call_cnt;
     int32_t i;
@@ -95,7 +95,7 @@ TEST(mocks_trace, mode_trace_no_ret_no_args_expect_many_calls)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_no_args_ret_unexpected)
+TEST(mocks_trace, no_args_ret_unexpected)
 {
     int32_t ret;
 
@@ -108,7 +108,7 @@ TEST(mocks_trace, mode_trace_no_args_ret_unexpected)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_no_args_ret_expect_single_call)
+TEST(mocks_trace, no_args_ret_expect_single_call)
 {
     int32_t ret;
 
@@ -128,7 +128,7 @@ TEST(mocks_trace, mode_trace_no_args_ret_expect_single_call)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_no_args_ret_expect_many_calls)
+TEST(mocks_trace, no_args_ret_expect_many_calls)
 {
     int32_t ret;
     int32_t call_cnt;
@@ -157,7 +157,7 @@ TEST(mocks_trace, mode_trace_no_args_ret_expect_many_calls)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_no_ret_unexpected)
+TEST(mocks_trace, one_arg_no_ret_unexpected)
 {
     uint16_t arg1;
 
@@ -170,7 +170,7 @@ TEST(mocks_trace, mode_trace_one_arg_no_ret_unexpected)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_no_ret_expect_single_call)
+TEST(mocks_trace, one_arg_no_ret_expect_single_call)
 {
     uint16_t arg1;
 
@@ -192,7 +192,7 @@ TEST(mocks_trace, mode_trace_one_arg_no_ret_expect_single_call)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_no_ret_expect_many_calls)
+TEST(mocks_trace, one_arg_no_ret_expect_many_calls)
 {
     uint16_t arg1;
     int32_t call_cnt;
@@ -224,7 +224,7 @@ TEST(mocks_trace, mode_trace_one_arg_no_ret_expect_many_calls)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_no_ret_wrong_arg1)
+TEST(mocks_trace, one_arg_no_ret_wrong_arg1)
 {
     uint16_t arg1;
 
@@ -240,7 +240,7 @@ TEST(mocks_trace, mode_trace_one_arg_no_ret_wrong_arg1)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_no_ret_unexpected)
+TEST(mocks_trace, more_args_no_ret_unexpected)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -255,7 +255,7 @@ TEST(mocks_trace, mode_trace_more_args_no_ret_unexpected)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_no_ret_expect_single_call)
+TEST(mocks_trace, more_args_no_ret_expect_single_call)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -279,7 +279,7 @@ TEST(mocks_trace, mode_trace_more_args_no_ret_expect_single_call)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_no_ret_expect_many_calls)
+TEST(mocks_trace, more_args_no_ret_expect_many_calls)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -313,7 +313,7 @@ TEST(mocks_trace, mode_trace_more_args_no_ret_expect_many_calls)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_no_ret_wrong_arg1)
+TEST(mocks_trace, more_args_no_ret_wrong_arg1)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -331,7 +331,7 @@ TEST(mocks_trace, mode_trace_more_args_no_ret_wrong_arg1)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_no_ret_wrong_arg2)
+TEST(mocks_trace, more_args_no_ret_wrong_arg2)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -349,7 +349,7 @@ TEST(mocks_trace, mode_trace_more_args_no_ret_wrong_arg2)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_ret_unexpected)
+TEST(mocks_trace, one_arg_ret_unexpected)
 {
     uint32_t arg1;
 
@@ -362,7 +362,7 @@ TEST(mocks_trace, mode_trace_one_arg_ret_unexpected)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_ret_expect_single_call)
+TEST(mocks_trace, one_arg_ret_expect_single_call)
 {
     uint32_t arg1;
     uint32_t ret;
@@ -384,7 +384,7 @@ TEST(mocks_trace, mode_trace_one_arg_ret_expect_single_call)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_ret_expect_many_calls)
+TEST(mocks_trace, one_arg_ret_expect_many_calls)
 {
     uint32_t arg1;
     uint32_t ret;
@@ -415,7 +415,7 @@ TEST(mocks_trace, mode_trace_one_arg_ret_expect_many_calls)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_one_arg_ret_wrong_arg1)
+TEST(mocks_trace, one_arg_ret_wrong_arg1)
 {
     uint32_t arg1;
     uint32_t ret;
@@ -433,7 +433,7 @@ TEST(mocks_trace, mode_trace_one_arg_ret_wrong_arg1)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_ret_unexpected)
+TEST(mocks_trace, more_args_ret_unexpected)
 {
     int8_t arg1;
     int16_t arg2;
@@ -448,7 +448,7 @@ TEST(mocks_trace, mode_trace_more_args_ret_unexpected)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_ret_expect_single_call)
+TEST(mocks_trace, more_args_ret_expect_single_call)
 {
     int8_t arg1;
     int16_t arg2;
@@ -472,7 +472,7 @@ TEST(mocks_trace, mode_trace_more_args_ret_expect_single_call)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_ret_expect_many_calls)
+TEST(mocks_trace, more_args_ret_expect_many_calls)
 {
     int8_t arg1;
     int16_t arg2;
@@ -505,7 +505,7 @@ TEST(mocks_trace, mode_trace_more_args_ret_expect_many_calls)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_ret_wrong_arg1)
+TEST(mocks_trace, more_args_ret_wrong_arg1)
 {
     int8_t arg1;
     int16_t arg2;
@@ -525,7 +525,7 @@ TEST(mocks_trace, mode_trace_more_args_ret_wrong_arg1)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_more_args_ret_wrong_arg2)
+TEST(mocks_trace, more_args_ret_wrong_arg2)
 {
     int8_t arg1;
     int16_t arg2;
@@ -545,7 +545,7 @@ TEST(mocks_trace, mode_trace_more_args_ret_wrong_arg2)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_call_no_args_no_ret_when_expected_other)
+TEST(mocks_trace, call_no_args_no_ret_when_expected_other)
 {
     /* Function under test only configured to trace mode - not expected to be called. */
     dep_module1_mock_dep_no_args_no_ret_config(MOCKLIB_MODE_TRACE);
@@ -563,7 +563,7 @@ TEST(mocks_trace, mode_trace_call_no_args_no_ret_when_expected_other)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_call_no_args_ret_when_expected_other)
+TEST(mocks_trace, call_no_args_ret_when_expected_other)
 {
     /* Function under test only configured to trace mode - not expected to be called. */
     dep_module1_mock_dep_no_args_ret_config(MOCKLIB_MODE_TRACE, 0);
@@ -581,7 +581,7 @@ TEST(mocks_trace, mode_trace_call_no_args_ret_when_expected_other)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_call_one_arg_no_ret_when_expected_other)
+TEST(mocks_trace, call_one_arg_no_ret_when_expected_other)
 {
     uint16_t arg1;
 
@@ -603,7 +603,7 @@ TEST(mocks_trace, mode_trace_call_one_arg_no_ret_when_expected_other)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_call_more_args_no_ret_when_expected_other)
+TEST(mocks_trace, call_more_args_no_ret_when_expected_other)
 {
     int32_t arg1;
     uint8_t arg2;
@@ -627,7 +627,7 @@ TEST(mocks_trace, mode_trace_call_more_args_no_ret_when_expected_other)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_call_one_arg_ret_when_expected_other)
+TEST(mocks_trace, call_one_arg_ret_when_expected_other)
 {
     uint32_t arg1;
 
@@ -649,7 +649,7 @@ TEST(mocks_trace, mode_trace_call_one_arg_ret_when_expected_other)
     TEST_FAIL_MESSAGE("Test should never reach this line!");
 }
 
-TEST(mocks_trace, mode_trace_call_more_args_ret_when_expected_other)
+TEST(mocks_trace, call_more_args_ret_when_expected_other)
 {
     int8_t arg1;
     int16_t arg2;

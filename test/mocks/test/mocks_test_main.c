@@ -13,7 +13,7 @@
 static void run_all_tests(void)
 {
     printf("Basic mode tests:\n");
-    RUN_TEST_GROUP(mocks);
+    RUN_TEST_GROUP(mocks_basic);
     printf("\nTrace mode tests:\n");
     RUN_TEST_GROUP(mocks_trace);
     printf("\nCallback mode tests:\n");
