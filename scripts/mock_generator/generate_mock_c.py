@@ -9,7 +9,9 @@ def generate_mock_c(file_name, include_path, fun_data):
         mock_c += struct_params_generate(file_name, fun[0], fun[1])
         mock_c += struct_internal_generate(file_name, fun[0], fun[1], fun[2])
         mock_c += params_declaration_generate(file_name, fun[0])
-        mock_c += config_fun_generate(file_name, fun[0], fun[1])
+        mock_c += mode_set_fun_generate(file_name, fun[0])
+        mock_c += basic_cfg_fun_generate(file_name, fun[0], fun[1])
+        mock_c += cb_cfg_fun_generate(file_name, fun[0])
         mock_c += expect_fun_generate(file_name, fun[0], fun[1], fun[2])
         mock_c += cnt_fun_generate(file_name, fun[0])
         mock_c += mock_fun_generate(file_name, fun[0], fun[1], fun[2])
@@ -60,6 +62,8 @@ def struct_params_generate(file_name, fun_name, ret_type):
     if "void" != ret_type:
         retval += "\n    {0} ret;\n".format(ret_type)
 
+    retval += "\n    {0}_{1}_cb cb;\n".format(file_name, fun_name)
+
     retval += "};\n\n"
     return retval;
 
@@ -87,25 +91,56 @@ def params_declaration_generate(file_name, fun_name):
     retval = "static struct {0}_{1}_params {0}_{1}_params;\n\n".format(file_name, fun_name)
     return retval
 
-def config_fun_generate(file_name, fun_name, ret_type):
-    retval = "void {0}_mock_{1}_config(mocklib_mode_t mode".format(file_name, fun_name)
+def mode_set_fun_generate(file_name, fun_name):
+    retval = """void {0}_mock_{1}_mode_set(mocklib_mode_t mode)
+{{
+    {0}_{1}_params.mode = mode;
+}}
 
-    if "void" != ret_type:
-        retval += ", {0} ret".format(ret_type)
+""".format(file_name, fun_name)
+    return retval
 
-    retval += ")\n{\n"
 
-    retval += "    {0}_{1}_params.mode = mode;\n".format(file_name, fun_name)
+def basic_cfg_fun_generate(file_name, fun_name, ret_type):
+    retval = "void {0}_mock_{1}_basic_cfg(".format(file_name, fun_name)
 
-    if "void" != ret_type:
-        retval += "    {0}_{1}_params.ret = ret;\n".format(file_name, fun_name)
+    if "void" == ret_type:
+        retval += """void)
+{
+    /* TODO: error if mode other than basic */
+    /* No config for basic mode when no return value. */
+}
 
-    retval += "}\n\n"
+"""
+    else:
+        retval += """{2} ret)
+{{
+    mocklib_common_err_if_mode_not_basic({0}_{1}_params.mode);
+
+    {0}_{1}_params.ret = ret;
+}}
+
+""".format(file_name, fun_name, ret_type)
 
     return retval
 
+
+def cb_cfg_fun_generate(file_name, fun_name):
+    retval = """void {0}_mock_{1}_cb_cfg({0}_{1}_cb cb)
+{{
+    mocklib_common_err_if_mode_not_cb({0}_{1}_params.mode);
+
+    mocklib_common_cb_check((void *)cb);
+
+    {0}_{1}_params.cb = cb;
+}}
+
+""".format(file_name, fun_name)
+    return retval
+
+
 def expect_fun_generate(file_name, fun_name, ret_type, arg_type_list):
-    retval = "void {0}_mock_{1}_expect(".format(file_name, fun_name)
+    retval = "void {0}_mock_{1}_trace_expect(".format(file_name, fun_name)
 
     args = 0
     if "void" != ret_type:
@@ -192,44 +227,63 @@ def mock_fun_generate(file_name, fun_name, ret_type, arg_type_list):
 
 """.format(file_name, fun_name)
 
-    retval += "    if (MOCKLIB_MODE_BASIC == {0}_{1}_params.mode)\n    {{".format(file_name, fun_name)
-
-    if "void" != ret_type:
-        retval += "\n        retval = {0}_{1}_params.ret;".format(file_name, fun_name)
-
-    retval += "\n    }\n"
-
-    retval += """    else if (MOCKLIB_MODE_TRACE == {0}_{1}_params.mode)
+    retval += """    switch({0}_{1}_params.mode)
     {{
-        expdata = mocklib_exp_get();
+    case MOCKLIB_MODE_BASIC:
+        """.format(file_name, fun_name)
 
+    if "void" == ret_type:
+        retval += "/* Do nothing since there is no ret value. */\n"
+    else:
+        retval += "retval = {0}_{1}_params.ret;\n".format(file_name, fun_name)
+
+    retval += """        break;
+    case MOCKLIB_MODE_TRACE:
+        """
+
+    retval += """expdata = mocklib_exp_get();
         mocklib_common_funtype_check(expdata, MOCK_FUNTYPE_{0}_{1});
-""".format(file_name, fun_name)
+    """.format(file_name, fun_name)
 
     args = 0
     if "void" != ret_type:
         args += 1
 
     if "void" != arg_type_list[0]:
-            args += 1
+        args += 1
 
     if 0 != args:
         retval += "\n        internal = mocklib_common_internal_get_and_check(expdata);\n\n"
 
         if "void" != arg_type_list[0]:
             for i in range(len(arg_type_list)):
-                retval += "        UTLIB_ASSERT_EQUAL(internal->arg{0}, arg{0});\n".format(i+1)
+                retval += "        UTLIB_ASSERT_EQUAL(internal->arg{0}, arg{0});\n".format(i + 1)
 
         if "void" != ret_type:
             retval += "        retval = internal->ret;\n"
 
-    retval += "    }\n"
+    retval += """        break;
+    case MOCKLIB_MODE_CALLBACK:
+        """
 
-    retval += """    else
-    {
-        /*TODO: handle error*/
-    }
-"""
+    if "void" != ret_type:
+        retval += "retval = "
+
+    retval += "{0}_{1}_params.cb(".format(file_name, fun_name)
+
+    if "void" != arg_type_list[0]:
+        for i in range(len(arg_type_list)):
+            if (i > 0):
+                retval += ", "
+
+            retval += "arg{0}".format(i + 1)
+
+    retval += """);
+        break;
+    default:
+        /* Invalid mode - handle error */
+        break;
+    }"""
 
     if "void" != ret_type:
         retval += """
