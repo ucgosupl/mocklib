@@ -12,8 +12,12 @@
 
 static void run_all_tests(void)
 {
-    printf("Run tests of mocks:\n");
-    RUN_TEST_GROUP(mocks);
+    printf("Basic mode tests:\n");
+    RUN_TEST_GROUP(mocks_basic);
+    printf("\nTrace mode tests:\n");
+    RUN_TEST_GROUP(mocks_trace);
+    printf("\nCallback mode tests:\n");
+    RUN_TEST_GROUP(mocks_callback);
 }
 
 int main(void)

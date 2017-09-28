@@ -43,10 +43,31 @@ void mocklib_common_funtype_check(mocklib_expdata_t expdata, mocklib_funtype_t f
 void * mocklib_common_internal_get_and_check(mocklib_expdata_t expdata);
 
 /**
+ * Fail test if callback function is invalid.
+ *
+ * @param cb                Callback function pointer.
+ */
+void mocklib_common_cb_check(void *cb);
+
+/**
+ * Fail test if mock mode is not basic.
+ *
+ * @param mode              Mock mode.
+ */
+void mocklib_common_err_if_mode_not_basic(mocklib_mode_t mode);
+
+/**
  * Fail test if mock mode is not trace.
  *
  * @param mode              Mock mode.
  */
 void mocklib_common_err_if_mode_not_trace(mocklib_mode_t mode);
+
+/**
+ * Fail test if mock mode is not callback.
+ *
+ * @param mode              Mock mode.
+ */
+void mocklib_common_err_if_mode_not_cb(mocklib_mode_t mode);
 
 #endif /* _MOCKLIB_COMMON_H_ */
