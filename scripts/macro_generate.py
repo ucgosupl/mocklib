@@ -1,15 +1,16 @@
 import time
+import sys
 
 
 def generate_define_h(max_args):
     define_h = top_generate()
     define_h += static_part_generate()
 
-    for i in range(max_args):
+    for i in range(max_args + 1):
         define_h += mock_header_noret(i)
         define_h += mock_impl_noret(i)
 
-    for i in range(max_args):
+    for i in range(max_args + 1):
         define_h += mock_header_ret(i)
         define_h += mock_impl_ret(i)
 
@@ -326,12 +327,15 @@ def mock_header_trace_expect_ret(args_cnt):
 
 def mock_header_trace_expect(args_cnt, is_ret):
     if is_ret is True:
-        ret_str = "ret_type ret, "
+        ret_str = "ret_type ret"
+
+        if args_cnt > 0:
+            ret_str += ", "
     else:
         ret_str = ""
 
     retval = "        void MOCKLIB_FUN_TRACE_EXPECT(file, fun)({}".format(ret_str)
-    retval += arg_list(args_cnt)
+    retval += arg_list_no_void(args_cnt)
     retval += ");\\\n"
     return retval
 
@@ -379,11 +383,15 @@ def mock_impl_params_ret():
 
 
 def mock_impl_params(is_ret):
-    tmp = ""
-    if is_ret is False:
-        tmp = "NO"
+    define = ""
+    args = ""
 
-    return "        MOCKLIB_PARAMS_{0}RET(file, fun);\\\n".format(tmp)
+    if is_ret is False:
+        define = "NO"
+    else:
+        args = ", ret_type"
+
+    return "        MOCKLIB_PARAMS_{0}RET(file, fun{1});\\\n".format(define, args)
 
 
 def mock_impl_internal_noret(args_cnt):
@@ -474,11 +482,10 @@ def mock_impl_trace_expect(args_cnt, is_ret):
     if args_cnt is not 0:
         is_ret_or_args_used = True
 
-        for i in range(args_cnt):
-            if i is not 0 or is_ret is True:
-                retval += ", "
+        if is_ret is True:
+            retval += ", "
 
-            retval += "arg{0}_type arg{0}".format(i + 1)
+        retval += arg_list_no_void(args_cnt)
 
     if is_ret_or_args_used is False:
         retval += "void"
@@ -490,17 +497,16 @@ def mock_impl_trace_expect(args_cnt, is_ret):
             MOCKLIB_FUN_TRACE_EXPECT_COMMON(file, fun);\\
 """
 
-    if args_cnt is not 0:
+    if is_ret_or_args_used is True:
         retval += "            "
         retval += "internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun)));\\\n"
 
         for i in range(args_cnt):
             retval += "            internal->arg{0} = arg{0};\\\n".format(i + 1)
 
-    if is_ret is True:
-        retval += "            internal->ret = ret;\\\n"
+        if is_ret is True:
+            retval += "            internal->ret = ret;\\\n"
 
-    if is_ret_or_args_used is True:
         retval += "            mocklib_expdata_internal_set(expdata, internal);\\\n"
 
     retval += """            mocklib_exp_set(expdata);\\
@@ -539,7 +545,7 @@ def mock_impl_fun(args_cnt, is_ret):
         if args_cnt > 0:
             is_ret_or_args_used = True
 
-    retval += """ fun("""
+    retval += " fun("
     retval += arg_list(args_cnt)
 
     retval += ")\\\n        {\\\n"
@@ -551,6 +557,7 @@ def mock_impl_fun(args_cnt, is_ret):
 
 
     retval += """            mocklib_expdata_t expdata = NULL;\\
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL;\\
             MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++;\\
             switch (MOCKLIB_STRUCT_PARAMS(file, fun).mode)\\
             {\\
@@ -615,14 +622,24 @@ def arg_list(args_cnt):
     if args_cnt is 0:
         retval += "void"
     else:
-        for i in range(args_cnt):
-            if i is not 0:
-                retval += ", "
-
-            retval += "arg{0}_type arg{0}".format(i + 1)
+        retval += arg_list_no_void(args_cnt)
 
     return retval
 
 
+def arg_list_no_void(args_cnt):
+    retval = ""
+
+    for i in range(args_cnt):
+        if i is not 0:
+            retval += ", "
+
+        retval += "arg{0}_type arg{0}".format(i + 1)
+
+    return retval
+
 if __name__ == "__main__":
-    print(generate_define_h(2))
+    args_cnt = int(sys.argv[1])
+
+    with open("mocklib_define.h", 'w') as f:
+        f.write(generate_define_h(args_cnt))
