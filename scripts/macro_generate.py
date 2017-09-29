@@ -10,7 +10,8 @@ def generate_define_h(max_args):
         define_h += mock_impl_noret(i)
 
     for i in range(max_args):
-        define_h += generate_ret_macros(i)
+        define_h += mock_header_ret(i)
+        define_h += mock_impl_ret(i)
 
     define_h += bottom_guard()
 
@@ -19,6 +20,76 @@ def generate_define_h(max_args):
 def top_generate():
     retval = top_comment()
     retval += top_guard()
+
+    return retval
+
+
+def static_part_generate():
+    retval = funtype()
+    retval += struct_params()
+    retval += struct_internal()
+    retval += params_common_fields()
+    retval += params_noret()
+    retval += params_ret()
+    retval += fun_mode_set_impl()
+    retval += fun_cb_cfg_impl()
+    retval += fun_cnt_impl()
+    retval += fun_trace_expect_common()
+    retval += mock_init()
+
+    return retval
+
+
+def mock_header_noret(args_cnt):
+    retval = define_mock_header_noret(args_cnt)
+    retval += mock_header_cb_noret(args_cnt)
+    retval += mock_header_mode_set()
+    retval += mock_header_basic_cfg_noret()
+    retval += mock_header_cb_cfg()
+    retval += mock_header_trace_expect_noret(args_cnt)
+    retval += mock_header_cnt()
+
+    return retval
+
+
+def mock_header_ret(args_cnt):
+    retval = define_mock_header_ret(args_cnt)
+    retval += mock_header_cb_ret(args_cnt)
+    retval += mock_header_mode_set()
+    retval += mock_header_basic_cfg_ret()
+    retval += mock_header_cb_cfg()
+    retval += mock_header_trace_expect_ret(args_cnt)
+    retval += mock_header_cnt()
+
+    return retval
+
+
+def mock_impl_noret(args_cnt):
+    retval = define_mock_impl_noret(args_cnt)
+    retval += mock_impl_params_noret()
+    retval += mock_impl_internal_noret(args_cnt)
+    retval += mock_impl_params_declaration()
+    retval += mock_impl_mode_set()
+    retval += mock_impl_basic_cfg_noret()
+    retval += mock_impl_cb_cfg()
+    retval += mock_impl_trace_expect_noret(args_cnt)
+    retval += mock_impl_cnt()
+    retval += mock_impl_fun_noret(args_cnt)
+
+    return retval
+
+
+def mock_impl_ret(args_cnt):
+    retval = define_mock_impl_ret(args_cnt)
+    retval += mock_impl_params_ret()
+    retval += mock_impl_internal_ret(args_cnt)
+    retval += mock_impl_params_declaration()
+    retval += mock_impl_mode_set()
+    retval += mock_impl_basic_cfg_ret()
+    retval += mock_impl_cb_cfg()
+    retval += mock_impl_trace_expect_ret(args_cnt)
+    retval += mock_impl_cnt()
+    retval += mock_impl_fun_ret(args_cnt)
 
     return retval
 
@@ -47,22 +118,6 @@ def top_guard():
 
 def bottom_guard():
     retval = """#endif /* _DEP_MODULE1_MOCK_H_ */"""
-
-    return retval
-
-
-def static_part_generate():
-    retval = funtype()
-    retval += struct_params()
-    retval += struct_internal()
-    retval += params_common_fields()
-    retval += params_noret()
-    retval += params_ret()
-    retval += fun_mode_set_impl()
-    retval += fun_cb_cfg_impl()
-    retval += fun_cnt_impl()
-    retval += fun_trace_expect_common()
-    retval += mock_init()
 
     return retval
 
@@ -185,60 +240,162 @@ def mock_init():
     return retval
 
 
-def mock_header_noret(args_cnt):
-    retval = """/** Mock interface declaration for mocked function with no return value and no arguments. */
-#define MOCKLIB_MOCK_HEADER_NORET_ARGS{0}(file, fun""".format(args_cnt)
+def define_mock_header_noret(args_cnt):
+    return define_mock_header(args_cnt, False)
+
+
+def define_mock_header_ret(args_cnt):
+    return define_mock_header(args_cnt, True)
+
+
+def define_mock_header(args_cnt, is_ret):
+    if is_ret is True:
+        comment = ""
+        define = ""
+        args = ", ret_type"
+    else:
+        comment = "no "
+        define = "NO"
+        args = ""
+
+    retval = """/** Mock interface declaration for mocked function with {1}return value. */
+#define MOCKLIB_MOCK_HEADER_{2}RET_ARGS{0}(file, fun{3}""".format(args_cnt, comment, define, args)
 
     if args_cnt is not 0:
         for i in range(args_cnt):
             retval += ", arg{0}_type".format(i + 1)
 
-    retval += """) \\
-            typedef void (*MOCKLIB_CB(file, fun))("""
+    retval += ") \\\n"
 
-    if args_cnt is 0:
-        retval += "void"
-    else:
-        for i in range(args_cnt):
-            if i is not 0:
-                retval += ", "
-
-            retval += "arg{0}_type arg{0}".format(i + 1)
-
-    retval += ");\\\n"
-
-    retval += """        void MOCKLIB_FUN_MODE_SET(file, fun)(mocklib_mode_t mode);\\
-            void MOCKLIB_FUN_BASIC_CFG(file, fun)(void);\\
-            void MOCKLIB_FUN_CB_CFG(file, fun)(MOCKLIB_CB(file, fun) cb);\\
-            void MOCKLIB_FUN_TRACE_EXPECT(file, fun)("""
-
-    if args_cnt is 0:
-        retval += "void"
-    else:
-        for i in range(args_cnt):
-            if i is not 0:
-                retval += ", "
-
-            retval += "arg{0}_type arg{0}".format(i + 1)
-
-    retval += """);\\
-            int32_t MOCKLIB_FUN_CNT(file, fun)(void);
-
-"""
     return retval
 
 
-def mock_impl_noret(args_cnt):
-    retval = """/** Mock implementation for mocked function with no return value and no arguments. */
-#define MOCKLIB_MOCK_NORET_ARGS{0}(file, fun""".format(args_cnt)
+def mock_header_cb_noret(args_cnt):
+    return mock_header_cb(args_cnt, False)
+
+
+def mock_header_cb_ret(args_cnt):
+    return mock_header_cb(args_cnt, True)
+
+
+def mock_header_cb(args_cnt, is_ret):
+    if is_ret is True:
+        ret_str = "ret_type"
+    else:
+        ret_str = "void"
+
+    retval = "        typedef {0} (*MOCKLIB_CB(file, fun))(".format(ret_str)
+    retval += arg_list(args_cnt)
+    retval += ");\\\n"
+
+    return retval
+
+
+def mock_header_mode_set():
+    return "        void MOCKLIB_FUN_MODE_SET(file, fun)(mocklib_mode_t mode);\\\n"
+
+
+def mock_header_basic_cfg_noret():
+    return mock_header_basic(False)
+
+
+def mock_header_basic_cfg_ret():
+    return mock_header_basic(True)
+
+
+def mock_header_basic(is_ret):
+    if is_ret is True:
+        ret_str = "ret_type ret"
+    else:
+        ret_str = "void"
+
+    return "        void MOCKLIB_FUN_BASIC_CFG(file, fun)({0});\\\n".format(ret_str)
+
+
+def mock_header_cb_cfg():
+    return "        void MOCKLIB_FUN_CB_CFG(file, fun)(MOCKLIB_CB(file, fun) cb);\\\n"
+
+
+def mock_header_trace_expect_noret(args_cnt):
+    return mock_header_trace_expect(args_cnt, False)
+
+
+def mock_header_trace_expect_ret(args_cnt):
+    return mock_header_trace_expect(args_cnt, True)
+
+
+def mock_header_trace_expect(args_cnt, is_ret):
+    if is_ret is True:
+        ret_str = "ret_type ret, "
+    else:
+        ret_str = ""
+
+    retval = "        void MOCKLIB_FUN_TRACE_EXPECT(file, fun)({}".format(ret_str)
+    retval += arg_list(args_cnt)
+    retval += ");\\\n"
+    return retval
+
+
+def mock_header_cnt():
+    return "        int32_t MOCKLIB_FUN_CNT(file, fun)(void);\n\n"
+
+
+def define_mock_impl_noret(args_cnt):
+    return define_mock_impl(args_cnt, False)
+
+
+def define_mock_impl_ret(args_cnt):
+    return define_mock_impl(args_cnt, True)
+
+
+def define_mock_impl(args_cnt, is_ret):
+    if is_ret is True:
+        comment = ""
+        define = ""
+        args = ", ret_type"
+    else:
+        comment = "no "
+        define = "NO"
+        args = ""
+
+    retval = """/** Mock implementation for mocked function with {1}return value. */
+#define MOCKLIB_MOCK_{2}RET_ARGS{0}(file, fun{3}""".format(args_cnt, comment, define, args)
 
     if args_cnt is not 0:
         for i in range(args_cnt):
             retval += ", arg{0}_type".format(i + 1)
 
-    retval += """) \\
-        MOCKLIB_PARAMS_NORET(file, fun);\\
-        struct MOCKLIB_STRUCT_INTERNAL(file, fun)\\
+    retval += ") \\\n"
+
+    return retval
+
+
+def mock_impl_params_noret():
+    return mock_impl_params(False)
+
+
+def mock_impl_params_ret():
+    return mock_impl_params(True)
+
+
+def mock_impl_params(is_ret):
+    tmp = ""
+    if is_ret is False:
+        tmp = "NO"
+
+    return "        MOCKLIB_PARAMS_{0}RET(file, fun);\\\n".format(tmp)
+
+
+def mock_impl_internal_noret(args_cnt):
+    return mock_impl_internal(args_cnt, False)
+
+
+def mock_impl_internal_ret(args_cnt):
+    return mock_impl_internal(args_cnt, True)
+
+
+def mock_impl_internal(args_cnt, is_ret):
+    retval = """        struct MOCKLIB_STRUCT_INTERNAL(file, fun)\\
         {\\
 """
 
@@ -246,79 +403,189 @@ def mock_impl_noret(args_cnt):
         for i in range(args_cnt):
             retval += "            arg{0}_type arg{0};\\\n".format(i + 1)
 
-    retval += """        };\\
-        static struct MOCKLIB_STRUCT_PARAMS(file, fun)\\
+    if is_ret is True:
+        retval += "            ret_type ret;\\\n"
+
+    retval += "        };\\\n"
+    return retval
+
+
+def mock_impl_params_declaration():
+    return """        static struct MOCKLIB_STRUCT_PARAMS(file, fun)\\
             MOCKLIB_STRUCT_PARAMS(file, fun);\\
         \\
-        MOCKLIB_FUN_MODE_SET_IMPL(file, fun)\\
-        \\
-        void MOCKLIB_FUN_BASIC_CFG(file, fun)(void)\\
-        {\\
-        }\\
-        \\
-        MOCKLIB_FUN_CB_CFG_IMPL(file, fun)\\
-        \\
-        void MOCKLIB_FUN_TRACE_EXPECT(file, fun)("""
+"""
 
-    if args_cnt is 0:
-        retval += "void"
+
+def mock_impl_mode_set():
+    return """        MOCKLIB_FUN_MODE_SET_IMPL(file, fun)\\
+        \\
+"""
+
+
+def mock_impl_basic_cfg_noret():
+    return mock_impl_basic_cfg(False)
+
+
+def mock_impl_basic_cfg_ret():
+    return mock_impl_basic_cfg(True)
+
+
+def mock_impl_basic_cfg(is_ret):
+    if is_ret is True:
+        args = "ret_type ret"
+        impl = """
+            mocklib_common_err_if_mode_not_basic(MOCKLIB_STRUCT_PARAMS(file, fun).mode);\\
+            MOCKLIB_STRUCT_PARAMS(file, fun).ret = ret;\\"""
     else:
-        for i in range(args_cnt):
-            if i is not 0:
-                retval += ", "
-            retval += "arg{0}_type arg{0}".format(i + 1)
+        args = "void"
+        impl = ""
 
-    retval += """)\\
-        {\\
-            mocklib_expdata_t expdata = NULL;\\
-            MOCKLIB_FUN_TRACE_EXPECT_COMMON(file, fun);\\
-            """
+    return """        void MOCKLIB_FUN_BASIC_CFG(file, fun)({0})\\
+        {{\\{1}
+        }}\\
+        \\
+""".format(args, impl)
+
+
+def mock_impl_cb_cfg():
+    return """        MOCKLIB_FUN_CB_CFG_IMPL(file, fun)\\
+        \\
+"""
+
+
+def mock_impl_trace_expect_noret(args_cnt):
+    return mock_impl_trace_expect(args_cnt, False)
+
+
+def mock_impl_trace_expect_ret(args_cnt):
+    return mock_impl_trace_expect(args_cnt, True)
+
+
+def mock_impl_trace_expect(args_cnt, is_ret):
+    retval = "        void MOCKLIB_FUN_TRACE_EXPECT(file, fun)("
+
+    is_ret_or_args_used = False
+
+    if is_ret is True:
+        is_ret_or_args_used = True
+        retval += "ret_type ret"
 
     if args_cnt is not 0:
-        retval += "internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun)));\\"
+        is_ret_or_args_used = True
 
         for i in range(args_cnt):
-            retval += "internal->arg1 = arg1;\\\n".format(i + 1)
-
-        retval += "            mocklib_expdata_internal_set(expdata, internal);\\"
-
-    retval += """mocklib_exp_set(expdata);\\
-        }\\
-        \\
-        MOCKLIB_FUN_CNT_IMPL(file, fun);\\
-        \\
-        void fun("""
-
-    if args_cnt is 0:
-        retval += "void"
-    else:
-        for i in range(args_cnt):
-            if i is not 0:
+            if i is not 0 or is_ret is True:
                 retval += ", "
+
             retval += "arg{0}_type arg{0}".format(i + 1)
+
+    if is_ret_or_args_used is False:
+        retval += "void"
 
     retval += """)\\
         {\\
             mocklib_expdata_t expdata = NULL;\\
+            struct MOCKLIB_STRUCT_INTERNAL(file, fun) *internal = NULL;\\
+            MOCKLIB_FUN_TRACE_EXPECT_COMMON(file, fun);\\
+"""
+
+    if args_cnt is not 0:
+        retval += "            "
+        retval += "internal = mocklib_common_internal_create_and_check(sizeof(struct MOCKLIB_STRUCT_INTERNAL(file, fun)));\\\n"
+
+        for i in range(args_cnt):
+            retval += "            internal->arg{0} = arg{0};\\\n".format(i + 1)
+
+    if is_ret is True:
+        retval += "            internal->ret = ret;\\\n"
+
+    if is_ret_or_args_used is True:
+        retval += "            mocklib_expdata_internal_set(expdata, internal);\\\n"
+
+    retval += """            mocklib_exp_set(expdata);\\
+        }\\
+        \\
+"""
+
+    return retval
+
+
+def mock_impl_cnt():
+    return """        MOCKLIB_FUN_CNT_IMPL(file, fun);\\
+        \\
+"""
+
+
+def mock_impl_fun_noret(args_cnt):
+    return mock_impl_fun(args_cnt, False)
+
+
+def mock_impl_fun_ret(args_cnt):
+    return mock_impl_fun(args_cnt, True)
+
+
+def mock_impl_fun(args_cnt, is_ret):
+    retval = "        "
+
+    is_ret_or_args_used = False
+
+    if is_ret is True:
+        retval += "ret_type"
+        is_ret_or_args_used = True
+    else:
+        retval += "void"
+
+        if args_cnt > 0:
+            is_ret_or_args_used = True
+
+    retval += """ fun("""
+    retval += arg_list(args_cnt)
+
+    retval += ")\\\n        {\\\n"
+
+    if is_ret is True:
+        retval += "            "
+        retval += "ret_type retval;\\\n"
+
+
+
+    retval += """            mocklib_expdata_t expdata = NULL;\\
             MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt++;\\
             switch (MOCKLIB_STRUCT_PARAMS(file, fun).mode)\\
             {\\
             case MOCKLIB_MODE_BASIC:\\
-                break;\\
+"""
+
+    if is_ret is True:
+        retval += "                "
+        retval += "retval = MOCKLIB_STRUCT_PARAMS(file, fun).ret;\\\n"
+
+    retval += """                break;\\
             case MOCKLIB_MODE_TRACE:\\
                 expdata = mocklib_exp_get();\\
                 mocklib_common_funtype_check(expdata, MOCKLIB_FUNTYPE(file, fun));\\
 """
 
-    if args_cnt is not 0:
-        retval += "            internal = mocklib_common_internal_get_and_check(expdata);\\\n"
+    if is_ret_or_args_used is True:
+        retval += "                internal = mocklib_common_internal_get_and_check(expdata);\\\n"
 
         for i in range(args_cnt):
             retval += "                UTLIB_ASSERT_EQUAL(internal->arg{0}, arg{0});\\\n".format(i + 1)
 
+        if is_ret is True:
+            retval += "                retval = internal->ret;\\\n"
+
     retval += """                break;\\
             case MOCKLIB_MODE_CALLBACK:\\
-                MOCKLIB_STRUCT_PARAMS(file, fun).cb("""
+"""
+
+    retval += "                "
+
+    if is_ret is True:
+        retval += "retval = "
+
+    retval += "MOCKLIB_STRUCT_PARAMS(file, fun).cb("
 
     if args_cnt is not 0:
         for i in range(args_cnt):
@@ -332,15 +599,28 @@ def mock_impl_noret(args_cnt):
             default:\\
                 break;\\
             }\\
-        }
-
 """
+
+    if is_ret is True:
+        retval += "            return retval;\\\n"
+
+    retval += "        }\n\n"
 
     return retval
 
 
-def generate_ret_macros(args_cnt):
-    retval = """"""
+def arg_list(args_cnt):
+    retval = ""
+
+    if args_cnt is 0:
+        retval += "void"
+    else:
+        for i in range(args_cnt):
+            if i is not 0:
+                retval += ", "
+
+            retval += "arg{0}_type arg{0}".format(i + 1)
+
     return retval
 
 
