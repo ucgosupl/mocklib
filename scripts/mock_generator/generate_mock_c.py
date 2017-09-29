@@ -79,10 +79,8 @@ def struct_internal_generate(file_name, fun_name, ret_type, arg_type_list):
         if "void" != ret_type:
             retval += "\n"
 
-        i = 1;
-        for arg_type in arg_type_list:
-            retval += "    {0} arg{1};\n".format(arg_type, i)
-            i += 1
+        for i in range(len(arg_type_list)):
+            retval += "    {0} arg{1};\n".format(arg_type_list[i], i + 1)
 
     retval += "};\n\n"
     return retval
@@ -148,10 +146,8 @@ def expect_fun_generate(file_name, fun_name, ret_type, arg_type_list):
         args += 1
 
     if "void" != arg_type_list[0]:
-        i = 1
-        for arg_type in arg_type_list:
-            retval += "{0} arg{1}, ".format(arg_type, i)
-            i += 1
+        for i in range(len(arg_type_list)):
+            retval += "{0} arg{1}, ".format(arg_type_list[i], i + 1)
             args += 1
 
     if 0 == args:
@@ -178,10 +174,8 @@ def expect_fun_generate(file_name, fun_name, ret_type, arg_type_list):
             retval += "    internal->ret = ret;\n"
 
         if "void" != arg_type_list[0]:
-            i = 1
-            for arg_type in arg_type_list:
-                retval += "    internal->arg{0} = arg{0};\n".format(i)
-                i += 1
+            for i in range(len(arg_type_list)):
+                retval += "    internal->arg{0} = arg{0};\n".format(i + 1)
 
         retval += "    mocklib_expdata_internal_set(expdata, internal);\n"
 
@@ -207,10 +201,8 @@ def mock_fun_generate(file_name, fun_name, ret_type, arg_type_list):
     if "void" == arg_type_list[0]:
         retval += "void"
     else:
-        i = 1
-        for arg_type in arg_type_list:
-            retval += "{0} arg{1}, ".format(arg_type, i)
-            i += 1
+        for i in range(len(arg_type_list)):
+            retval += "{0} arg{1}, ".format(arg_type_list[i], i + 1)
 
         retval = retval[:-2]
 

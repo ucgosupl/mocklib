@@ -54,13 +54,11 @@ def callback_generate(file_name, fun_name, ret_type, arg_type_list):
     if "void" == arg_type_list[0]:
         retval += "void"
     else:
-        i = 1
-        for arg_type in arg_type_list:
-            if (i > 1):
+        for i in range(len(arg_type_list)):
+            if (i > 0):
                 retval += ", "
 
-            retval += "{0} arg{1}".format(arg_type, i)
-            i += 1
+            retval += "{0} arg{1}".format(arg_type_list[i], i + 1)
 
     retval += ");\n"
 
@@ -98,10 +96,8 @@ def expect_fun_generate(file_name, fun_name, ret_type, arg_type_list):
         args += 1
 
     if "void" != arg_type_list[0]:
-        i = 1
-        for arg_type in arg_type_list:
-            retval += "{0} arg{1}, ".format(arg_type, i)
-            i += 1
+        for i in range(len(arg_type_list)):
+            retval += "{0} arg{1}, ".format(arg_type_list[i], i + 1)
             args += 1
 
     if 0 == args:
