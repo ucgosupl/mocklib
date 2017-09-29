@@ -2,21 +2,28 @@ import time
 
 
 def generate_define_h(max_args):
-    define_h = generate_top()
-    define_h += generate_static_part()
+    define_h = top_generate()
+    define_h += static_part_generate()
 
     for i in range(max_args):
-        define_h += generate_noret_macros(i)
+        define_h += mock_header_noret(i)
+        define_h += mock_impl_noret(i)
 
     for i in range(max_args):
         define_h += generate_ret_macros(i)
 
-    define_h += generate_bottom()
+    define_h += bottom_guard()
 
     return define_h
 
+def top_generate():
+    retval = top_comment()
+    retval += top_guard()
 
-def generate_top():
+    return retval
+
+
+def top_comment():
     retval = """/*
  * File:    mocklib_define.h
  * Author:  File generated automatically by mocklib
@@ -25,36 +32,77 @@ def generate_top():
  * Date:    {0}
  */
 
-#ifndef _MOCKLIB_DEFINE_H_
-#define _MOCKLIB_DEFINE_H_
-
 """.format(time.strftime("%d.%m.%Y"))
 
     return retval
 
 
-def generate_bottom():
+def top_guard():
+    retval = """#ifndef _MOCKLIB_DEFINE_H_
+#define _MOCKLIB_DEFINE_H_
+
+"""
+    return retval
+
+
+def bottom_guard():
     retval = """#endif /* _DEP_MODULE1_MOCK_H_ */"""
 
     return retval
 
 
-def generate_static_part():
+def static_part_generate():
+    retval = funtype()
+    retval += struct_params()
+    retval += struct_internal()
+    retval += params_common_fields()
+    retval += params_noret()
+    retval += params_ret()
+    retval += fun_mode_set_impl()
+    retval += fun_cb_cfg_impl()
+    retval += fun_cnt_impl()
+    retval += fun_trace_expect_common()
+    retval += mock_init()
+
+    return retval
+
+
+def funtype():
     retval = """/** Name of mocked function id in funtype enum. */
 #define MOCKLIB_FUNTYPE(file, fun)		    MOCK_FUNTYPE_ ## file ## _ ## fun
 
-/** Name of mock params structure. */
+"""
+    return retval
+
+
+def struct_params():
+    retval = """/** Name of mock params structure. */
 #define MOCKLIB_STRUCT_PARAMS(file, fun)    file ## _ ## fun ## _params
 
-/** Name of mock internal data structure. */
+"""
+    return retval
+
+
+def struct_internal():
+    retval = """/** Name of mock internal data structure. */
 #define MOCKLIB_STRUCT_INTERNAL(file, fun)  file ## _ ## fun ## _expdata_internal
 
-/** Fields in mock params structure common to all mock types. */
+"""
+    return retval
+
+
+def params_common_fields():
+    retval = """/** Fields in mock params structure common to all mock types. */
 #define MOCKLIB_PARAMS_COMMON_FIELDS \\
         mocklib_mode_t mode;\\
         int32_t call_cnt;
 
-/** Mock params structure definition for mocked functions with no return value. */
+"""
+    return retval
+
+
+def params_noret():
+    retval = """/** Mock params structure definition for mocked functions with no return value. */
 #define MOCKLIB_PARAMS_NORET(file, fun) \\
         struct MOCKLIB_STRUCT_PARAMS(file, fun)\\
         {\\
@@ -62,7 +110,12 @@ def generate_static_part():
             MOCKLIB_CB(file, fun) cb;\\
         };
 
-/** Mock params structure definition for mocked functions with return value. */
+"""
+    return retval
+
+
+def params_ret():
+    retval = """/** Mock params structure definition for mocked functions with return value. */
 #define MOCKLIB_PARAMS_RET(file, fun, ret_type)\\
         struct MOCKLIB_STRUCT_PARAMS(file, fun)\\
         {\\
@@ -71,14 +124,24 @@ def generate_static_part():
             MOCKLIB_CB(file, fun) cb;\\
         };
 
-/** Implementation of mock cmode set function common to all mock types */
+"""
+    return retval
+
+
+def fun_mode_set_impl():
+    retval = """/** Implementation of mock cmode set function common to all mock types */
 #define MOCKLIB_FUN_MODE_SET_IMPL(file, fun) \\
         void MOCKLIB_FUN_MODE_SET(file, fun)(mocklib_mode_t mode)\\
         {\\
             MOCKLIB_STRUCT_PARAMS(file, fun).mode = mode;\\
         }
 
-/** Implementation of mock callback config function common to all mock types */
+"""
+    return retval
+
+
+def fun_cb_cfg_impl():
+    retval = """/** Implementation of mock callback config function common to all mock types */
 #define MOCKLIB_FUN_CB_CFG_IMPL(file, fun) \\
         void MOCKLIB_FUN_CB_CFG(file, fun)(MOCKLIB_CB(file, fun) cb)\\
         {\\
@@ -87,29 +150,42 @@ def generate_static_part():
                 MOCKLIB_STRUCT_PARAMS(file, fun).cb = cb;\\
         }
 
-/** Implementation of mock cnt get function common to all mock types. */
+"""
+    return retval
+
+
+def fun_cnt_impl():
+    retval = """/** Implementation of mock cnt get function common to all mock types. */
 #define MOCKLIB_FUN_CNT_IMPL(file, fun) \\
         int32_t MOCKLIB_FUN_CNT(file, fun)(void)\\
         {\\
         return MOCKLIB_STRUCT_PARAMS(file, fun).call_cnt;\\
         }
 
-/** Fragment of mock trace expect function common to all mock types. */
+"""
+    return retval
+
+
+def fun_trace_expect_common():
+    retval = """/** Fragment of mock trace expect function common to all mock types. */
 #define MOCKLIB_FUN_TRACE_EXPECT_COMMON(file, fun) \\
         mocklib_common_err_if_mode_not_trace(MOCKLIB_STRUCT_PARAMS(file, fun).mode);\\
         expdata = mocklib_common_expdata_create_and_check();\\
         mocklib_expdata_funtype_set(expdata, MOCKLIB_FUNTYPE(file, fun));
 
-/** Initialization procedure for a specific mock. */
-#define MOCKLIB_MOCK_INIT(file, fun) \\
-        memset(&MOCKLIB_STRUCT_PARAMS(file, fun), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(file, fun)));
-
 """
-
     return retval
 
 
-def generate_noret_macros(args_cnt):
+def mock_init():
+    retval = """#define MOCKLIB_MOCK_INIT(file, fun) \\
+        memset(&MOCKLIB_STRUCT_PARAMS(file, fun), 0, sizeof(struct MOCKLIB_STRUCT_PARAMS(file, fun)));
+
+"""
+    return retval
+
+
+def mock_header_noret(args_cnt):
     retval = """/** Mock interface declaration for mocked function with no return value and no arguments. */
 #define MOCKLIB_MOCK_HEADER_NORET_ARGS{0}(file, fun""".format(args_cnt)
 
@@ -118,7 +194,7 @@ def generate_noret_macros(args_cnt):
             retval += ", arg{0}_type".format(i + 1)
 
     retval += """) \\
-        typedef void (*MOCKLIB_CB(file, fun))("""
+            typedef void (*MOCKLIB_CB(file, fun))("""
 
     if args_cnt is 0:
         retval += "void"
@@ -132,9 +208,9 @@ def generate_noret_macros(args_cnt):
     retval += ");\\\n"
 
     retval += """        void MOCKLIB_FUN_MODE_SET(file, fun)(mocklib_mode_t mode);\\
-        void MOCKLIB_FUN_BASIC_CFG(file, fun)(void);\\
-        void MOCKLIB_FUN_CB_CFG(file, fun)(MOCKLIB_CB(file, fun) cb);\\
-        void MOCKLIB_FUN_TRACE_EXPECT(file, fun)("""
+            void MOCKLIB_FUN_BASIC_CFG(file, fun)(void);\\
+            void MOCKLIB_FUN_CB_CFG(file, fun)(MOCKLIB_CB(file, fun) cb);\\
+            void MOCKLIB_FUN_TRACE_EXPECT(file, fun)("""
 
     if args_cnt is 0:
         retval += "void"
@@ -146,11 +222,14 @@ def generate_noret_macros(args_cnt):
             retval += "arg{0}_type arg{0}".format(i + 1)
 
     retval += """);\\
-        int32_t MOCKLIB_FUN_CNT(file, fun)(void);
-"""
+            int32_t MOCKLIB_FUN_CNT(file, fun)(void);
 
-    retval += """
-/** Mock implementation for mocked function with no return value and no arguments. */
+"""
+    return retval
+
+
+def mock_impl_noret(args_cnt):
+    retval = """/** Mock implementation for mocked function with no return value and no arguments. */
 #define MOCKLIB_MOCK_NORET_ARGS{0}(file, fun""".format(args_cnt)
 
     if args_cnt is not 0:
