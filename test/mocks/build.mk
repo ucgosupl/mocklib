@@ -175,11 +175,15 @@ all : print_header make_out_dir $(BIN) $(LSS) $(DMP) $(HEX) print_size test_run
 	@$(ECHO) build $(TARGET_NAME)
 
 test_run : $(ELF)
+ifeq ($(RUN_TEST), 1)
 	./$(BIN) > $(REPORT)
 	@$(CAT) $(REPORT)
 	@$(ECHO) "" >> $(TEST_LOG)
 	@$(ECHO) "Tests for target: $(TARGET_NAME)" >> $(TEST_LOG)
 	@$(CAT) $(REPORT) >> $(TEST_LOG)
+else
+	@$(ECHO) "RUN_TEST flag disabled, tests not run!"
+endif
 
 # Binaries generation
 $(HEX) : $(BIN)
