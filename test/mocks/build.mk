@@ -160,6 +160,7 @@ HEX := $(OUT_DIR)bin/$(TARGET_NAME).hex
 LSS := $(OUT_DIR)bin/$(TARGET_NAME).lss
 DMP := $(OUT_DIR)bin/$(TARGET_NAME).dmp
 REPORT := $(OUT_DIR)report/$(TARGET_NAME).txt
+TEST_LOG := ../../unit_test_log.txt
 
 C_OBJS := $(addprefix $(OUT_DIR)code/, $(notdir $(C_SRCS:.$(C_EXT)=.o)))
 TEST_C_OBJS := $(addprefix $(OUT_DIR)test/, $(notdir $(TEST_C_SRCS:.$(C_EXT)=.o)))
@@ -175,7 +176,10 @@ all : print_header make_out_dir $(BIN) $(LSS) $(DMP) $(HEX) print_size test_run
 
 test_run : $(ELF)
 	./$(BIN) > $(REPORT)
-	cat $(REPORT)
+	@$(CAT) $(REPORT)
+	@$(ECHO) "" >> $(TEST_LOG)
+	@$(ECHO) "Tests for target: $(TARGET_NAME)" >> $(TEST_LOG)
+	@$(CAT) $(REPORT) >> $(TEST_LOG)
 
 # Binaries generation
 $(HEX) : $(BIN)

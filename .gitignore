@@ -13,3 +13,6 @@ bin/
 # PyCharm project files
 .idea
 __pycache__
+
+# unit test logs
+unit_test_log.txt
