@@ -12,8 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Integration with Travis-CI
 - Callback mode
 - Script for automatic generation of mocklib_define.h macros
+- Common log for all unit tests
+- Makefile checks dependency on header files
 
 ### Changed
+- Make default behaviour is compilation only, tests run with flag RUN_TEST=1
+- Travis compiles all targets first, then run tests
 
 ### Fixed
 - Macro UTLIB_ASSERT_EQUAL required one argument msg instead of two - expected and actual.
