@@ -15,3 +15,5 @@ language: generic
 
 script:
   - make && make RUN_TEST=1
+  - cat test/unit_test_log.txt
+  - if grep -q "FAIL" test/unit_test_log.txt; then exit 1; fi;
