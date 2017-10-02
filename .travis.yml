@@ -1,0 +1,19 @@
+################################################################################
+# File:     .travis.yml
+# Author:   Maciej Gajdzica
+# Brief:    Configuration file for Travis-CI continuous integration tool.
+################################################################################
+
+sudo: false
+dist: trusty
+
+# Turn off default travis email notifications
+notifications:
+  email: false
+
+language: generic
+
+script:
+  - make && make RUN_TEST=1
+  - cat test/unit_test_log.txt
+  - if grep -q "FAIL" test/unit_test_log.txt; then exit 1; fi;

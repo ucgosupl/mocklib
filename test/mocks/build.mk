@@ -86,7 +86,8 @@ CORE_FLAGS += $(GLOBAL_DEFS_F)
 # -std - C standard: c89, c99, gnu89,gnu99, iso9899:119409
 # -O0 - optimization level: -O0, -O1, -O2, -O3, -Os
 # remove unused functions and variables
-C_FLAGS := -std=gnu89 -O0 -ffunction-sections -fdata-sections $(DEBUG_C_FLAGS)
+# -MMD - print dependencies on project header files.
+C_FLAGS := -std=gnu89 -O0 -ffunction-sections -fdata-sections $(DEBUG_C_FLAGS) -MMD
 
 # Warning flags for production C files
 # -Wall - standard warnings
@@ -112,7 +113,8 @@ C_FLAGS += $(CORE_FLAGS) $(C_WARNINGS) $(INC_DIRS_F)
 # -std - C standard: c89, c99, gnu89,gnu99, iso9899:119409
 # -O0 - optimization level: -O0, -O1, -O2, -O3, -Os
 # remove unused functions and variables
-TEST_C_FLAGS := -std=gnu89 -O0 -ffunction-sections -fdata-sections $(DEBUG_C_FLAGS)
+# -MMD - print dependencies on project header files.
+TEST_C_FLAGS := -std=gnu89 -O0 -ffunction-sections -fdata-sections $(DEBUG_C_FLAGS) -MMD
 
 # Warning flags for test C files
 # -Wall - standard warnings
@@ -160,10 +162,12 @@ HEX := $(OUT_DIR)bin/$(TARGET_NAME).hex
 LSS := $(OUT_DIR)bin/$(TARGET_NAME).lss
 DMP := $(OUT_DIR)bin/$(TARGET_NAME).dmp
 REPORT := $(OUT_DIR)report/$(TARGET_NAME).txt
+TEST_LOG := ../../unit_test_log.txt
 
 C_OBJS := $(addprefix $(OUT_DIR)code/, $(notdir $(C_SRCS:.$(C_EXT)=.o)))
 TEST_C_OBJS := $(addprefix $(OUT_DIR)test/, $(notdir $(TEST_C_SRCS:.$(C_EXT)=.o)))
 OBJS := $(C_OBJS) $(TEST_C_OBJS)
+DEPS := $(OBJS:.o=.d)
 
 GENERATED := $(OBJS) $(BIN) $(HEX) $(LSS) $(DMP)
 
@@ -174,8 +178,15 @@ all : print_header make_out_dir $(BIN) $(LSS) $(DMP) $(HEX) print_size test_run
 	@$(ECHO) build $(TARGET_NAME)
 
 test_run : $(ELF)
-	./$(BIN) > $(REPORT)
-	cat $(REPORT)
+ifeq ($(RUN_TEST), 1)
+	@./$(BIN) > $(REPORT)
+	@$(CAT) $(REPORT)
+	@$(ECHO) "" >> $(TEST_LOG)
+	@$(ECHO) "Tests for target: $(TARGET_NAME)" >> $(TEST_LOG)
+	@$(CAT) $(REPORT) >> $(TEST_LOG)
+else
+	@$(ECHO) "RUN_TEST flag disabled, tests not run!"
+endif
 
 # Binaries generation
 $(HEX) : $(BIN)
@@ -221,6 +232,9 @@ print_size : $(OBJS) $(BIN)
 	@$(ECHO) "Size of target .elf file:"
 	$(SIZE) -B $(BIN)
 	@$(ECHO)
+
+# Add dependencies on header files
+-include $(DEPS)
 
 # Output build information
 print_header :

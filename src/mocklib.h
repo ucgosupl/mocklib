@@ -18,32 +18,36 @@
 #define MOCKLIB_FUN_MOCK_INIT(file)         file ## _mock_init
 
 /**
- * Macro for config function name of a given function in mock for a given header file.
+ * Macro for mode set function name of a given function in mock for a given header file.
  *
- * Config function is used to configure mock before usage. This function takes
- * mode argument according to MOCKLIB_MODE enum. If mocked function returns any
- * value it also takes value to be returned by mock in basic mode.
+ * This function sets mode for mocked function taken as argument according to MOCKLIB_MODE enum.
  *
  * Resulting function:
- * void {file}_mock_{fun}_config(mocklib_mode_t mode [, ret_type ret])
+ * void {file}_mock_{fun}_mode_set(mocklib_mode_t mode)
  */
-#define MOCKLIB_FUN_CONFIG(file, fun)       file ## _mock_ ## fun ## _config
+#define MOCKLIB_FUN_MODE_SET(file, fun)     file ## _mock_ ## fun ## _mode_set
+
+#define MOCKLIB_FUN_BASIC_CFG(file, fun)    file ## _mock_ ## fun ## _basic_cfg
+
+#define MOCKLIB_FUN_CB_CFG(file, fun)       file ## _mock_ ## fun ## _cb_cfg
+
+#define MOCKLIB_CB(file, fun)               file ## _ ## fun ## _cb
 
 /**
  * Macro for expect function name of a given function in mock for a given header file.
  *
- * Expect function is used to configure mock before usage in trace mode. This function
- * should be called for every expected call to the mocked function. It allows for
- * setting separate return value for every call. It also takes input arguments
- * expected by the mocked function. When mocked function is called, these input
- * arguments are checked against real values and test fails if they don't match.
+ * Trace expect function is used to configure mock before usage in trace mode. This
+ * function should be called for every expected call to the mocked function. It
+ * allows for setting separate return value for every call. It also takes input
+ * arguments expected by the mocked function. When mocked function is called, these
+ * input arguments are checked against real values and test fails if they don't match.
  * In trace mode also order of calling traced functions matters so even if a
  * function doesn't return any value nor takes any arguments it could be traced.
  *
  * Resulting function:
  * void {file}_mock_{fun}_expect([ret_type, ret][, arg1_type arg1 ...])
  */
-#define MOCKLIB_FUN_EXPECT(file, fun)       file ## _mock_ ## fun ## _expect
+#define MOCKLIB_FUN_TRACE_EXPECT(file, fun) file ## _mock_ ## fun ## _trace_expect
 
 /**
  * Macro for count function name of a given function in mock for a given header file.
@@ -71,6 +75,12 @@ enum
      * order.
      */
     MOCKLIB_MODE_TRACE,
+
+    /**
+     * Mock calls provided callback function, passes all arguments to it and
+     * forwards returned value back to caller.
+     */
+    MOCKLIB_MODE_CALLBACK,
 };
 
 /** Type for mocklib mode - available modes in enum. */

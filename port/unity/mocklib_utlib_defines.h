@@ -11,6 +11,6 @@
 
 #include "unity_fixture.h"
 #define UTLIB_TEST_FAIL_MSG(msg)                TEST_FAIL_MESSAGE(msg)
-#define UTLIB_ASSERT_EQUAL(actual, expected)    TEST_ASSERT_EQUAL(msg)
+#define UTLIB_ASSERT_EQUAL(actual, expected)    TEST_ASSERT_EQUAL(actual, expected)
 
 #endif /* _UTLIB_DEFINES_H_ */

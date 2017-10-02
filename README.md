@@ -3,6 +3,10 @@ Mocklib
 
 C library for creating test doubles.
 
+master: [![Build Status](https://travis-ci.org/ucgosupl/mocklib.svg?branch=master)](https://travis-ci.org/ucgosupl/mocklib)
+
+dev: [![Build Status](https://travis-ci.org/ucgosupl/mocklib.svg?branch=dev)](https://travis-ci.org/ucgosupl/mocklib)
+
 # Features
 - Basic mode:
 	* Count function calls.
@@ -55,31 +59,31 @@ Macros can be used for creating mocks fast without autogeneration scripts.
 ### Steps to create mock for a single function using macros
 
 1. Create mock .c and .h files.
-2. Create mocks_general.h file.
-3. In .c file:
-	3.1 Add includes to library headers:
-		- mocklib.h
-		- mocklib_internal.h
-		- mocklib_expfun.h
-		- mocklib_common.h
-		- mocklib_define.h
-	3.2 Add includes to mock headers:
-		- Header of mocked module.
-		- Mock .h file from step 1.
-		- Global mock header from step 2.
-	3.3 Add macros for mocking given function with proper return value and number of arguments.
-	3.4 Add init function for the whole mock containing initialization of all mocked functions.
-	3.5 Repeat steps 3.3 and 3.4 for every mocked function.
-4. In .h file:
-	4.1 Add declaration of init function from step 3.4.
-	4.2 Add macro for creating headers for mocked functions.
-	4.3 Repeat step 4.2 for every mocked function.
-5. In mocks_general.h file:
-	5.1 For every mocked function add label to the enum using macro.
-6. In test file include:
-	- Header of mocked module.
-	- Library headers: mocklib.h and mocklib_define.h
-	- Mock .h file from step 1.
+1. Create mocks_general.h file.
+1. In .c file:
+   1. Add includes to library headers:
+      - mocklib.h
+      - mocklib_internal.h
+      - mocklib_expfun.h
+      - mocklib_common.h
+      - mocklib_define.h
+   1. Add includes to mock headers:
+      - Header of mocked module.
+      - Mock .h file from step 1.
+      - Global mock header from step 2.
+   1. Add macros for mocking given function with proper return value and number of arguments.
+   1. Add init function for the whole mock containing initialization of all mocked functions.
+   1. Repeat steps 3.3 and 3.4 for every mocked function.
+1. In .h file:
+   1. Add declaration of init function from step 3.4.
+   1. Add macro for creating headers for mocked functions.
+   1. Repeat step 4.2 for every mocked function.
+1. In mocks_general.h file:
+   1. For every mocked function add label to the enum using macro.
+1. In test file include:
+   - Header of mocked module.
+   - Library headers: mocklib.h and mocklib_define.h
+   - Mock .h file from step 1.
 	
 ### Example
 

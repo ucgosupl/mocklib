@@ -66,10 +66,34 @@ void * mocklib_common_internal_get_and_check(mocklib_expdata_t expdata)
     return internal;
 }
 
+void mocklib_common_cb_check(void *cb)
+{
+    if (NULL == cb)
+    {
+        UTLIB_TEST_FAIL_MSG("Invalid callback function");
+    }
+}
+
+void mocklib_common_err_if_mode_not_basic(mocklib_mode_t mode)
+{
+    if (MOCKLIB_MODE_BASIC != mode)
+    {
+        UTLIB_TEST_FAIL_MSG("Expect function shall be called only in basic mode");
+    }
+}
+
 void mocklib_common_err_if_mode_not_trace(mocklib_mode_t mode)
 {
     if (MOCKLIB_MODE_TRACE != mode)
     {
         UTLIB_TEST_FAIL_MSG("Expect function shall be called only in trace mode");
+    }
+}
+
+void mocklib_common_err_if_mode_not_cb(mocklib_mode_t mode)
+{
+    if (MOCKLIB_MODE_CALLBACK != mode)
+    {
+        UTLIB_TEST_FAIL_MSG("Expect function shall be called only in callback mode");
     }
 }

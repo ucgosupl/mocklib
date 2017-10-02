@@ -6,6 +6,7 @@
 # Date:	    26.07.2017
 ##
 
+CAT := @cat
 ECHO := @echo
 MKDIR := @mkdir -p
 PWD := @pwd
