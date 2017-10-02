@@ -14,4 +14,4 @@ notifications:
 language: generic
 
 script:
-  - make
+  - make && make RUN_TEST=1
